@@ -16,6 +16,5 @@ RUN yarn install --check-files
 RUN yarn install
 ADD . /tubatuba
 RUN bundle exec rails assets:precompile
-RUN bundle exec rails webpacker:compile
 EXPOSE 3000
 CMD env && rake db:migrate && bundle exec puma -C config/puma.rb
