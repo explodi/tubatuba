@@ -1,6 +1,12 @@
 class SessionsController < ApplicationController
     skip_before_action :verify_authenticity_token
+    layout "sessions"
 
+    def new
+        if current_user
+            redirect_to "/admin"
+        end
+    end
     def create
         user = User.find_by_email(params[:email])
         # If the user exists AND the password entered is correct.
@@ -16,7 +22,7 @@ class SessionsController < ApplicationController
     end
 
     def destroy
-    session[:user_id] = nil
-    redirect_to '/login'
+        session[:user_id] = nil
+        redirect_to '/login'
     end
 end
