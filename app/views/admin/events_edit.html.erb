@@ -1,6 +1,9 @@
-<h1><%=@event.name%></h1>
 <form method="post" action="/admin/events/update">
-    <input type="text" name="name" value="<%=@event.name%>" placeholder="nombre"/>
+    <input type="text" name="name" value="<%=@event.name%>" placeholder="name"/>
+    <input type="date" id="start" name="start" value="<%=@event.start%>">
     <input type="hidden" name="id" value="<%=@event.id%>"/>
     <input type="submit">
 </form>
+<script>
+    $("#start").datetimepicker();
+</script>

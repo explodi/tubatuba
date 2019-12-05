@@ -30,8 +30,10 @@ class AdminController < ApplicationController
     def events_update
         @event=Event.find(params[:id])
         @event.name=params[:name]
+        puts params[:start]
+        @event.start=params[:start]
         @event.save
-        redirect_to "/admin/events/index"
+        redirect_to "/admin/events/edit/#{@event.id}"
     end
     def events_destroy
         @event=Event.find(params[:id])
