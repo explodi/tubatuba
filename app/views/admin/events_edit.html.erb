@@ -1,9 +1,30 @@
 <form method="post" action="/admin/events/update">
+    <label>name</label>
     <input type="text" name="name" value="<%=@event.name%>" placeholder="name"/>
-    <input type="date" id="start" name="start" value="<%=@event.start%>">
+    <label>starts</label>
+    <input type="date" id="start" name="start" value="<%=@event.start.in_time_zone("Santiago")%>">
+    <label>ends</label>
+    <input type="date" id="end" name="end" value="<%=@event.end.in_time_zone("Santiago")%>">
     <input type="hidden" name="id" value="<%=@event.id%>"/>
+    <input type="hidden" name="start_changed" value="false"/>
+    <input type="hidden" name="end_changed" value="false"/>
+
     <input type="submit">
 </form>
 <script>
-    $("#start").datetimepicker();
+    var start_changed=false;
+    var end_changed=false;
+    $("#start").datetimepicker({
+        onChangeDateTime:function(dp,$input){
+            $('input[name="start_changed"]').val("true");
+
+        }
+    });
+    $("#end").datetimepicker({
+        onChangeDateTime:function(dp,$input){
+            $('input[name="end_changed"]').val("true");
+
+        }
+    });
+
 </script>
