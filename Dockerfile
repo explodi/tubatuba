@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 RUN apt-get update -qq
 RUN apt-get install -y curl build-essential libpq-dev apt-transport-https ruby ruby-dev libxslt-dev libxml2-dev libgmp3-dev imagemagick libmagic-dev libmagickwand-dev ffmpeg jpegoptim optipng
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
