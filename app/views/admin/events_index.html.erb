@@ -1,11 +1,4 @@
 <h1><%=@category%> events</h1>
-<ul>
-
-    <a href="/admin/events/index?category=next"><li>next</li></a>
-    <a href="/admin/events/index?category=past"><li>past</li></a>
-    <a href="/admin/events/index?category=deleted"><li>deleted</li></a>
-
-</ul>
 <table>
 <% @events.each do |event| %>
 <tr>

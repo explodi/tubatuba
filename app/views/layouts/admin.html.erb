@@ -13,9 +13,10 @@
   <body>
     <header>
       <ul>
-        <a href="/admin/events/index"><li>events</li></a>
         <a href="/admin/events/new"><li>new event</li></a>
-
+        <a href="/admin/events/index?category=next"><li>next events</li></a>
+        <a href="/admin/events/index?category=past"><li>past events</li></a>
+        <a href="/admin/events/index?category=deleted"><li>deleted events</li></a>
       </ul>
     </header>
     <%= yield %>
