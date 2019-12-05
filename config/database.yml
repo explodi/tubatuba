@@ -1,0 +1,29 @@
+
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: tubatuba-development
+  username: porlaputa
+  password: Rubenito123
+  pool: 5
+  port: <%= ENV['POSTGRES_1_PORT_5432_TCP_PORT']||="5432" %>
+  host: <%= ENV['POSTGRES_1_PORT_5432_TCP_ADDR']||="localhost" %>
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: tubatuba-test
+  username: porlaputa
+  password: Rubenito123
+  pool: 5
+  port: <%= ENV['POSTGRES_1_PORT_5432_TCP_PORT']||="5432" %>
+  host: <%= ENV['POSTGRES_1_PORT_5432_TCP_ADDR']||="localhost" %>
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: tubatuba
+  username: postgres
+  pool: 5
+  port: <%= ENV['POSTGRES_1_PORT_5432_TCP_PORT']||="5432" %>
+  host: <%= ENV['POSTGRES_1_PORT_5432_TCP_ADDR']||="localhost" %>
