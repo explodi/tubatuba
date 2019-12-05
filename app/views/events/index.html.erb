@@ -1,1 +1,30 @@
-hi
+<div id="banner">
+<%=raw Text2svg('tubatuba', font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
+</div>
+<script>
+function findFirstDescendant(parent, tagname)
+{
+   const svg = document.getElementById(parent);
+   var descendants = parent.getElementsByTagName(tagname);
+   if ( descendants.length )
+      return descendants[0];
+   return null;
+}
+
+const svg = document.getElementById('banner').getElementsByTagName('svg')[0]
+svg.setAttribute("fill", "white")
+console.log(svg);
+const warp = new Warp(svg)
+warp.interpolate(20)
+warp.transform(([ x, y ]) => [ x, y, y ])
+
+let offset = 0
+function animate()
+{
+    warp.transform(([ x, y, oy ]) => [ x, oy + 80 * Math.sin(x / 300 + offset), oy ])
+    offset += 0.1
+    requestAnimationFrame(animate)
+}
+
+animate()
+</script>
