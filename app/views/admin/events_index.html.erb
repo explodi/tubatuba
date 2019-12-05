@@ -1,0 +1,21 @@
+<h1><%=@category%> events</h1>
+<ul>
+
+    <a href="/admin/events/index?category=next"><li>next</li></a>
+    <a href="/admin/events/index?category=past"><li>past</li></a>
+    <a href="/admin/events/index?category=deleted"><li>deleted</li></a>
+
+</ul>
+<table>
+<% @events.each do |event| %>
+<tr>
+    <td><%=event.name%></td>
+    <td><a href="/admin/events/edit/<%=event.id%>">edit</a></td>
+    <% if event.deleted %>
+    <td><a href="/admin/events/recover/<%=event.id%>">recover</a></td>
+    <% else %>
+    <td><a href="/admin/events/destroy/<%=event.id%>">destroy</a></td>
+    <% end %>
+</tr>
+<% end %>
+</table>
