@@ -45,10 +45,10 @@ class Event < ApplicationRecord
         return File.exist?(self.video_path(width,height))
     end
     def video_link(width,height)
-        return "/video/#{self.id}/#{width}_#{height}.webm"
+        return "/video/#{self.id}/#{width}_#{height}.mp4"
     end
     def video_path(width,height)
-        filename="#{width}_#{height}.webm"
+        filename="#{width}_#{height}.mp4"
         return "#{Rails.root.join("public","video","#{self.id}",filename)}"
     end
     def record_video(width,height)
@@ -78,13 +78,12 @@ class Event < ApplicationRecord
             FileUtils.mkdir_p(dirname)
         end
         capture_path="/root/Downloads/#{filename}"
+        ffmpeg_command="ffmpeg -i #{capture_path} #{self.video_path(width,height)}"
         if self.has_audio
             ffmpeg_command="ffmpeg -i #{capture_path} -i #{audio_path} -c copy -map 0:v:0 -map 1:a:0 #{self.video_path(width,height)}"
-            puts "[ffmpeg] #{ffmpeg_command}"
-            system(ffmpeg_command)
-        else
-            FileUtils.mv(capture_path,self.video_path(width,height))
         end
+        puts "[ffmpeg] #{ffmpeg_command}"
+        system(ffmpeg_command)
         return true
 
     end
