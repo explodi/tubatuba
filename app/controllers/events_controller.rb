@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
     def index
-        @event=Event.where(:deleted=>false).order("id DESC").first
+        @event=Event.where(:deleted=>false).live(:true).order("id DESC").first
     end
     def admin
         if !current_user
