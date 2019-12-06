@@ -3,7 +3,7 @@ class VideoFlyer < ApplicationRecord
         return "/video/#{self.uuid}.#{self.format_string}"
     end
     def status
-        url="http://#{ENV['TUBAFLYER_PORT_8383_TCP_ADDR']}:#{ENV['TUBAFLYER_PORT_8383_TCP_PORT']}/status"
+        url="http://tubaflyer:8383/status"
         puts url    
  
         response=RestClient.post url, {:uuid=>self.uuid}
