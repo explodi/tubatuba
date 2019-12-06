@@ -97,9 +97,8 @@ class AdminController < ApplicationController
         end
         @event.save
         CreateVideosJob.perform_later @event
-        Event.flyer_formats.each do |f|
-            @event.screenshot(f[0],f[1])
-        end
+        CreateFlyersJob.perform_later @event
+
         @event.generate_url_id unless @event.url_id
         redirect_to "/admin/events/edit/#{@event.id}"
     end
