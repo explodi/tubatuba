@@ -2,9 +2,7 @@ class AdminController < ApplicationController
     before_action :check_admin_permissions
     skip_before_action :verify_authenticity_token
     layout "admin"
-    def self.flyer_formats
-        [[600,600],[1920,1080]]
-    end
+
     def dashboard
         redirect_to "/admin/events/index"
     end

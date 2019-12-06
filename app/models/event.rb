@@ -1,6 +1,8 @@
 class Event < ApplicationRecord
     validates :url_id, uniqueness: true
-
+    def self.flyer_formats
+        [[600,600],[1920,1080]]
+    end
     def acts
         return EventAct.where({:event_id=>self.id})
     end
