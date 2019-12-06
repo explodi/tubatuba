@@ -9,7 +9,6 @@ class VideoFlyer < ApplicationRecord
         response=RestClient.post url, {:uuid=>self.uuid}
         puts response.body
         if JSON.parse(response.body)["complete"]
-            
             return "complete"
         elsif JSON.parse(response.body)["progress"].to_i>0
             return "#{JSON.parse(response.body)["progress"]}% complete"

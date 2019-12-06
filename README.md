@@ -1,24 +1,30 @@
-# README
+# Puppetcam
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Example to export chrome tab as a video
 
-Things you may want to cover:
 
-* Ruby version
+1. Exported videos are stored in Downloads folder
+2. Specify bitrate to control quality of the exported video by adjusting `videoBitsPerSecond` property in `background.js`
 
-* System dependencies
 
-* Configuration
+### Dependencies
 
-* Database creation
+1. xvfb
+2. npm modules listed in package.json
 
-* Database initialization
+### Usage
 
-* How to run the test suite
+```sh
+npm install
+node export.js http://tobiasahlin.com/spinkit/ spinner.webm
+```
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+Thanks to [@cretz](https://github.com/cretz) for helping with automatic tab selection and avoiding the permission dialog
 
-* ...
+#### Motivation
+
+Was looking for a method to export a video of user actions rendered using our custom player used in [uxlens](https://uxlens.com). Export has to happen on a server in an automated fashion and hence the usage of xvfb.
+
+#### Sample video
+[![Puppetcam](https://img.youtube.com/vi/f7Vdd0ExWiY/0.jpg)](https://www.youtube.com/watch?v=f7Vdd0ExWiY "Puppetcam")
