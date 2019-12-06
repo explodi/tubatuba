@@ -26,5 +26,5 @@ production:
   username: tubatuba
   password: c0axebctfqvplekz
   pool: 5
-  port: 6543
+  port: 5432
   host: db
