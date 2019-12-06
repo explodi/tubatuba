@@ -35,6 +35,16 @@ class Event < ApplicationRecord
             return nil
         end
     end
+    def video_exists(width,height)
+        return File.exist?(self.video_path(width,height))
+    end
+    def video_link(width,height)
+        return "/video/#{self.id}/#{width}_#{height}.webm"
+    end
+    def video_path(width,height)
+        filename="#{width}_#{height}.webm"
+        return "#{Rails.root.join("public","video","#{self.id}",filename)}"
+    end
     def record_video(width,height)
         require 'fileutils'
 
@@ -61,7 +71,7 @@ class Event < ApplicationRecord
         unless File.directory?(dirname)
             FileUtils.mkdir_p(dirname)
         end
-        FileUtils.mv("/root/Downloads/#{filename}","#{Rails.root.join("public","video","#{self.id}",filename)}")
+        FileUtils.mv("/root/Downloads/#{filename}",self.video_path(width,height))
         return true
 
     end

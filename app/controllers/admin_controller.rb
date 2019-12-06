@@ -94,6 +94,7 @@ class AdminController < ApplicationController
             @event.end=event_end
         end
         @event.save
+        CreateVideosJob.perform_later @event
         Event.flyer_formats.each do |f|
             @event.screenshot(f[0],f[1])
         end
