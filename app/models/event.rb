@@ -12,6 +12,7 @@ class Event < ApplicationRecord
         end
     end
     def screenshot(width,height)
+        puts "[screenshot] #{width}x#{height}"
         begin
             uuid=SecureRandom.uuid
             command="google-chrome --headless --enable-logging --virtual-time-budget=10000 --disable-gpu --no-sandbox --screenshot=\"#{Rails.root.join('public')}/#{uuid}.png\" \"https://tubatuba.net/evento/#{self.url_id}\""
