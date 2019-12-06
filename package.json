@@ -2,7 +2,8 @@
   "name": "tubatuba",
   "private": true,
   "dependencies": {
-    "chrome-remote-interface": "^0.28.0"
+    "chrome-remote-interface": "^0.28.0",
+    "puppeteer": "^2.0.0"
   },
   "description": "This README would normally document whatever steps are necessary to get the application up and running.",
   "version": "1.0.0",

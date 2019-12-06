@@ -17,7 +17,7 @@ class Event < ApplicationRecord
         puts "[screenshot] #{width}x#{height}"
         begin
             uuid=SecureRandom.uuid
-            command="google-chrome --headless --enable-logging --virtual-time-budget=10000 --disable-gpu --no-sandbox --screenshot=\"#{Rails.root.join('public')}/#{uuid}.png\" \"https://tubatuba.net/evento/#{self.url_id}\""
+            command="google-chrome --headless --enable-logging --virtual-time-budget=10000 --window-size=#{width}x#{height} --disable-gpu --no-sandbox --screenshot=\"#{Rails.root.join('public')}/#{uuid}.png\" \"https://tubatuba.net/evento/#{self.url_id}\""
             puts command
             system(command)
             flyer=Flyer.find_or_create_by({width:width,height:height,event_id:self.id})
@@ -34,5 +34,29 @@ class Event < ApplicationRecord
         else
             return nil
         end
+    end
+    def record_video
+        require 'rubygems'
+        require 'selenium-webdriver'
+        
+        # Input capabilities
+        caps = Selenium::WebDriver::Remote::Capabilities.new
+        caps[:browserName] = 'iPhone'
+        caps['device'] = 'iPhone 8 Plus'
+        caps['realMobile'] = 'true'
+        caps['os_version'] = '11'
+        caps['name'] = 'Bstack-[Ruby] Sample Test'
+        
+        
+        driver = Selenium::WebDriver.for(:remote,
+          :url => "http://localhost:4444/wd/hub",
+          :desired_capabilities => caps)
+        driver.navigate.to "http://www.google.com"
+        element = driver.find_element(:name, 'q')
+        element.send_keys "BrowserStack"
+        element.submit
+        puts driver.title
+        driver.quit        
+
     end
 end

@@ -1,28 +1,10 @@
-const CDP = require("chrome-remote-interface");
- 
-CDP(client => {
-  // extract domains
-  const { Network, Page } = client;
-  // setup handlers
-  Network.requestWillBeSent(params => {
-    console.log(params.request.url);
-  });
-  Page.loadEventFired(() => {
-    client.close();
-  });
-  // enable events then start!
-  Promise.all([Network.enable(), Page.enable()])
-    .then(() => {
-        Page.screencastFrame( image =>{
-            const {data, metadata} = image;
-            console.log(metadata);
-        });
-    })
-    .catch(err => {
-      console.error(err);
-      client.close();
-    });
-}).on("error", err => {
-  // cannot connect to the remote endpoint
-  console.error(err);
-});
+const puppeteer = require('puppeteer');
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto('https://example.com');
+  await page.screenshot({path: 'example.png'});
+
+  await browser.close();
+})();
