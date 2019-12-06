@@ -1,8 +1,8 @@
 const puppeteer = require('puppeteer');
 const Xvfb      = require('xvfb');
 var xvfb        = new Xvfb({silent: true});
-var width       = 600;
-var height      = 600;
+var width       = parseInt(process.argv[4]);
+var height      = parseInt(process.argv[5]);
 var options     = {
   headless: false,
   args: [
