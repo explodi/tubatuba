@@ -15,6 +15,9 @@
         width:40%;
         margin: 0 auto;
     }
+    #address {
+       padding-top:100px;
+    }
 </style>
 <div id="banner">
 <%=raw Text2svg(@event.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
@@ -23,10 +26,13 @@
 <% end %>
 <div id="banner-acts">
 <% @event.acts.each do |act| %>
-        <%=raw Text2svg(act.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
+   <%=raw Text2svg(act.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
 <% end %>
-</div>
 
+</div>
+<div id="address">
+        <%=raw Text2svg("GRAL FLORES 223, PROVIDENCIA", font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
+</div>
 </div>
 <script>
 function findFirstDescendant(parent, tagname)
