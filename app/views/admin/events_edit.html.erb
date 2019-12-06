@@ -5,12 +5,11 @@
         right:0;
         z-index:9999;
     }
+
     #banner {
         position:fixed;
         left:0;
-        right:250px;
         top:50px;
-        bottom:0;
     }
     #screenshot {
         width:50px;
@@ -18,6 +17,14 @@
     }
 </style>
 <form method="post" id="edit-form" action="/admin/events/update">
+    <select id="size-select">
+        <% Event.flyer_formats.each do |f| %>
+            <option value="<%=f[0]%>x<%=f[1]%>"><%=f[0]%>x<%=f[1]%></option>
+
+        <% end %>
+    </select>
+
+
     <label>name</label>
     <input type="text" name="name" value="<%=@event.name%>" placeholder="name"/>
     <label>starts</label>
@@ -59,9 +66,11 @@
 
 </form>
 <%=render @event%>
-
 <script>
     let acts=[];
+    function resize() {
+
+    }
     function render_acts() {
         html="<table>"
         for(let i=0;i<acts.length;i++) {
@@ -124,8 +133,45 @@
 
         }
     });
+    function change_zoom(z) {
+        zoom=z
+        resize_banner(selected_size)
+        onresize();
+
+    }
+    function resize_banner(selected_size) {
+        console.log(selected_size);
+        width=selected_size.split("x")[0]/zoom;
+        height=selected_size.split("x")[1]/zoom;
+        setTimeout(function() {
+            onresize();
+
+        },10);
+
+        $("#banner").width(width);
+        $("#banner").height(height);
+    }
+    var zoom=1
+    var selected_size="<%=Event.flyer_formats[0][0]%>x<%=Event.flyer_formats[0][1]%>"
+
     $(document).ready(function () {
         get_acts();
+
+        resize_banner(selected_size,zoom)
+         $("#size-select").change(function(){
+            selected_size = $(this).children("option:selected").val();
+            localStorage.setItem("selected_size",selected_size)
+            resize_banner(selected_size);
+
+         });
+        $("#zoom-select").change(function(){
+            zoom = parseInt($(this).children("option:selected").val());
+            localStorage.setItem("zoom",zoom)
+            resize_banner(selected_size);
+
+         });
+        
+        
     })
 
 </script>

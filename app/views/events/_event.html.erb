@@ -8,26 +8,32 @@
       -o-background-size: cover;
       background-size: cover;
    }
+   #event-name {
+         padding-bottom:160px;
+        margin: 0 auto;
+
+   }
     #banner-acts {
-        padding-top:160px;
         width:40%;
         margin: 0 auto;
+      padding-bottom:100px;
+
     }
     #address {
-       padding-top:100px;
       margin: 0 auto;
        width:30%;
 
     }
     #date {
        width:20%;
-               margin: 0 auto;
+      margin: 0 auto;
 
     }
 </style>
 <div id="banner">
+<div id="event-name">
 <%=raw Text2svg(@event.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
-
+</div>
 <div id="banner-acts">
 <% @event.acts.each do |act| %>
    <%=raw Text2svg(act.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
@@ -75,17 +81,68 @@ for(let i=1;i<svgs.length;i++) {
 
 
 let offset = 0
+let noise = 3
+let noise_up=true;
 function animate()
 {
+   noise_effect=0
+   // if(noise>5&&noise<6) noise_effect=noise 
+
+   noise_effect_y=0
+   if(noise%1==0) noise_effect_y=noise
    for(i=1;i<warps.length;i++) {
-      warps[i].transform(([ x, y, oy ]) => [ x, oy + 33*i * Math.sin(x / 6 + offset), oy ])
+      warps[i].transform(([ x, y, oy ]) => [ x, oy + 88+noise*40 * Math.sin(x /80 + offset), oy ])
       offset += 0.01*i
    }
    warps[0].transform(([ x, y, oy ]) => [ x, oy + 33*i * Math.sin(x / 6 + offset), oy ])
    offset += 0.01*i
+   if(noise_up) {
+
+      noise=noise + 0.1;
+      if(noise>3) noise_up=false
+   } else {
+      noise=noise - 0.1;
+      if(noise<0) noise_up=true
+
+   }
    requestAnimationFrame(animate)
 
 }
+function onresize() {
+   banner_height=$("#banner").height()
+   console.log("resize",banner_height);
+   banner_width=$("#banner").width()
+   console.log("resize",banner_width);
+   if(banner_width>1000) {
+      $("#event-name").css({"padding-top" : "10px"});
+      $("#event-name").css({"padding-bottom" : "0px"});
+      $("#address").css({"width" : "50%"});
+      $("#banner-acts").css({"width" : "40%"});
+      $("#banner-acts").css({"padding-top" : "10px"});
+      $("#banner-acts").css({"padding-bottom" : "10px"});
+
+   }
+   if(banner_height<650) {
+      $("#event-name").css({"width" : "90%"});
+      $("#address").css({"width" : "90%"});
+
+      $("#event-name").css({"padding-top" : "40px"});
+      $("#event-name").css({"padding-bottom" : "70px"});
+      $("#banner-acts").css({"padding-top" : "30px"});
+
+   } 
+
+}
+$(document).ready(function () {
+   onresize();
+   $( window ).resize(function() {
+      onresize();
+   });
+   $( "#banner" ).resize(function() {
+      onresize();
+
+   });
+});
 
 animate()
 </script>
