@@ -48,6 +48,7 @@ class AdminController < ApplicationController
         @event.name=params[:name]
         @event.background_url=params[:background_url]
         @event.text_color=params[:text_color]
+        @event.title_color=params[:title_color]
 
         event_start=@event.start
         event_end=@event.end
