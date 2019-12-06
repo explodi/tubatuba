@@ -11,21 +11,22 @@ class Event < ApplicationRecord
             self.update_attribute(:url_id,url_id)  
         end
     end
-    def screenshot
+    def screenshot(width_height)
         begin
             uuid=SecureRandom.uuid
             command="google-chrome --headless --enable-logging --virtual-time-budget=10000 --disable-gpu --no-sandbox --screenshot=\"#{Rails.root.join('public')}/#{uuid}.png\" \"https://tubatuba.net/evento/#{self.url_id}\""
             puts command
             system(command)
-            self.update_attribute(:screenshot_uuid,uuid)
-            puts self.screenshot_url
+            flyer=Flyer.find_or_create_by({width:width,height:height,event_id:self.id})
+            flyer.update_attribute(:uuid,uuid)
         rescue => e
             puts e.message
         end
     end
     def screenshot_url
-        if self.screenshot_uuid
-            return "https://tubatuba.net/#{self.screenshot_uuid}.png"
+        flyer=Flyer.where({:event_id=>self.id}).order("id DESC").first
+        if flyer
+            return "https://tubatuba.net/#{flyer.uuid}.png"
         else
             return nil
         end
