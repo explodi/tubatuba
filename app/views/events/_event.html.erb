@@ -40,14 +40,14 @@ function findFirstDescendant(parent, tagname)
 
 const svgs=document.getElementById('banner').getElementsByTagName('svg')
 const svg_name = svgs[0]
-svg_name.setAttribute("fill", "white")
+svg_name.setAttribute("fill", "<%=@event.text_color%>")
 var warps=[];
 warps[0] = new Warp(svg_name)
 warps[0].interpolate(200)
 warps[0].transform(([ x, y ]) => [ x, y, y ])
 for(let i=1;i<svgs.length;i++) {
    console.log(svgs[i]);
-   svgs[i].setAttribute("fill", "white")
+   svgs[i].setAttribute("fill", "<%=@event.text_color%>")
    warps[i] = new Warp(svgs[i])
    warps[i].interpolate(200)
    warps[i].transform(([ x, y ]) => [ x, y, y ])
