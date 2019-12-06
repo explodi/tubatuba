@@ -16,9 +16,18 @@
     <label>name</label>
     <input type="text" name="name" value="<%=@event.name%>" placeholder="name"/>
     <label>starts</label>
+    <% if @event.start %>
     <input type="date" id="start" name="start" value="<%=@event.start.in_time_zone("Santiago")%>">
+    <% else %>
+    <input type="date" id="start" name="start" value="">
+    <% end %>
     <label>ends</label>
+    <% if @event.end %>
     <input type="date" id="end" name="end" value="<%=@event.end.in_time_zone("Santiago")%>">
+    <% else %>
+    <input type="date" id="end" name="end" value="">
+
+    <% end %>
     <input type="hidden" name="id" value="<%=@event.id%>"/>
     <input type="hidden" name="start_changed" value="false"/>
     <input type="hidden" name="end_changed" value="false"/>
