@@ -35,6 +35,9 @@ class Event < ApplicationRecord
             return nil
         end
     end
+    def has_audio
+        return File.exist?(self.video_path(width,height))
+    end
     def video_exists(width,height)
         return File.exist?(self.video_path(width,height))
     end

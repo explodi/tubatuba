@@ -69,7 +69,9 @@ class AdminController < ApplicationController
         else
             @event.live=false
         end
-
+        if params[:mp3]
+            FileUtils.cp(params[:mp3].tempfile.path,Rails.root.join("public","audio","#{@event.id}.mp3"))
+        end
         event_start=@event.start
         event_end=@event.end
         if params[:start_changed]=="true"

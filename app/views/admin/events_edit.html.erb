@@ -16,7 +16,7 @@
         height:auto;
     }
 </style>
-<form method="post" id="edit-form" action="/admin/events/update">
+<form method="post" id="edit-form" enctype="multipart/form-data" action="/admin/events/update">
     <select id="size-select">
         <% Event.flyer_formats.each do |f| %>
             <option value="<%=f[0]%>x<%=f[1]%>"><%=f[0]%>x<%=f[1]%></option>
@@ -50,8 +50,11 @@
     <input type="text" name="text_color" value="<%=@event.text_color%>" placeholder="text_color"/>
     <label>title_color</label>
     <input type="text" name="title_color" value="<%=@event.title_color%>" placeholder="title_color"/>
-    <label>acts</label>
 
+    <label>mp3</label>
+    <input type="file" name="mp3"/>
+
+    <label>acts</label>
     <input type="button" value="+" onclick="javascript:add_act()"> 
     <div id="acts">
 
