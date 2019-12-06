@@ -40,7 +40,7 @@
 <div id="date">
 
 <% if @event.start %>
-        <%=raw Text2svg(I18n.l(@event.start, format: :short).upcase, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
+        <%=raw Text2svg(I18n.l(@event.start.in_time_zone("America/Santiago"), format: :short).upcase, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
 <% end %>
 </div>
 
