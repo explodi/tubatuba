@@ -8,21 +8,22 @@
     #banner {
         position:fixed;
         left:0;
-        right:200px;
-        top:0;
+        right:250px;
+        top:50px;
+        bottom:0;
     }
 </style>
 <form method="post" id="edit-form" action="/admin/events/update">
     <label>name</label>
     <input type="text" name="name" value="<%=@event.name%>" placeholder="name"/>
     <label>starts</label>
-    <% if @event.start %>
+    <% if @event.start && @event.start!="" %>
     <input type="date" id="start" name="start" value="<%=@event.start.in_time_zone("Santiago")%>">
     <% else %>
     <input type="date" id="start" name="start" value="">
     <% end %>
     <label>ends</label>
-    <% if @event.end %>
+    <% if @event.end && @event.end!="" %>
     <input type="date" id="end" name="end" value="<%=@event.end.in_time_zone("Santiago")%>">
     <% else %>
     <input type="date" id="end" name="end" value="">
