@@ -1,11 +1,17 @@
-
-<div id="banner">
+<style>
+    #banner {
+        position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+    }
+</style>
 <% if @event %>
    <%=render @event %>
    
 <% else %>
-
+<div id="banner">
    <%=raw Text2svg('tubatuba', font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
-
-<% end %>
 </div>
+<% end %>
