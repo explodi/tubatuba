@@ -214,5 +214,5 @@ es:
     formats:
       default: "%A, %-d de %B de %Y %H:%M:%S %z"
       long: "%-d de %B de %Y %H:%M"
-      short: "%-d %b %H:%M"
+      short: "%a.%-d.%b/%H:%M"
     pm: pm
