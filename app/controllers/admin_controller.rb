@@ -101,6 +101,13 @@ class AdminController < ApplicationController
         @event.update_attribute(:deleted,false)
         @event.save
         redirect_to "/admin/events/index?category=deleted"
-
+    end
+    def events_flyers
+        @event=Event.find(params[:id])
+        @flyers=[]
+        Event.flyer_formats.each do |f|
+            flyer=Flyer.find({:event_id=>@event.id,:width=>f[0],:height=>f[1]})
+            @flyers.push(flyer) if flyer
+        end
     end
 end

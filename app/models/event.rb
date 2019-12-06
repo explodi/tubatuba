@@ -20,6 +20,7 @@ class Event < ApplicationRecord
             system(command)
             flyer=Flyer.find_or_create_by({width:width,height:height,event_id:self.id})
             flyer.update_attribute(:uuid,uuid)
+            return flyer
         rescue => e
             puts e.message
         end

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get "/admin/events/index" => "admin#events_index"
   get "/admin/events/new" => "admin#events_new"
   post "/admin/events/create" => "admin#events_create"
+  get "/admin/events/flyers/:id" => "admin#events_flyers"
   get "/admin/events/edit/:id" => "admin#events_edit"
   get "/admin/events/destroy/:id" => "admin#events_destroy"
   get "/admin/events/recover/:id" => "admin#events_recover"
