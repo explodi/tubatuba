@@ -1,6 +1,6 @@
 class VideoFlyer < ApplicationRecord
     def url
-        return "/videos/#{self.uuid}.webm"
+        return "/video/#{self.uuid}.#{self.format_string}"
     end
     def status
         url="http://#{ENV['TUBAFLYER_PORT_8383_TCP_ADDR']}:#{ENV['TUBAFLYER_PORT_8383_TCP_PORT']}/status"

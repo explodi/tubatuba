@@ -22,9 +22,9 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: <%= ENV['POSTGRES_ENV_POSTGRES_DB'] %>
-  username: <%= ENV['POSTGRES_ENV_POSTGRES_USER'] %>
-  password: <%= ENV['POSTGRES_ENV_POSTGRES_PASSWORD'] %>
+  database: tubatuba
+  username: tubatuba
+  password: c0axebctfqvplekz
   pool: 5
-  port: <%= ENV['POSTGRES_PORT_5432_TCP_PORT']%>
-  host: <%= ENV['POSTGRES_PORT_5432_TCP_ADDR'] %>
+  port: 6543
+  host: db
