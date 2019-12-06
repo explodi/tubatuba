@@ -22,6 +22,7 @@ class AdminController < ApplicationController
     def events_create
         @event=Event.new({:name=>params[:name]})
         @event.save
+        @event.generate_url_id
         redirect_to "/admin/events/edit/#{@event.id}"
     end
     def events_edit
@@ -80,6 +81,7 @@ class AdminController < ApplicationController
         end
         @event.save
         @event.screenshot
+        @event.generate_url_id unless @event.url_id
         redirect_to "/admin/events/edit/#{@event.id}"
     end
     def events_destroy

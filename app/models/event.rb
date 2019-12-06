@@ -1,6 +1,15 @@
 class Event < ApplicationRecord
+    validates :url_id, uniqueness: true
+
     def acts
         return EventAct.where({:event_id=>self.id})
+    end
+    def generate_url_id
+        if !self.url_id
+            url_id=SecureRandom.uuid.split("-")[0]
+            url_id="#{url_id}#{rand(0..100)}" if Event.exists?({:url_id=>url_id})
+            self.update_attribute(:url_id,url_id)  
+        end
     end
     def screenshot
         begin
