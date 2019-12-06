@@ -7,6 +7,7 @@ var options     = {
   headless: false,
   args: [
     '--enable-usermedia-screen-capturing',
+    '--no-sandbox',
     '--allow-http-screen-capture',
     '--auto-select-desktop-capture-source=puppetcam',
     '--load-extension=' + __dirname,,
@@ -25,7 +26,7 @@ async function main() {
     const pages = await browser.pages()
     const page = pages[0]
     await page._client.send('Emulation.clearDeviceMetricsOverride')
-    await page.goto(url, {waitUntil: 'networkidle2'})
+    await page.goto(url, {waitUntil: 'load'})
     await page.setBypassCSP(true)
 
     // Perform any actions that have to be captured in the exported video
