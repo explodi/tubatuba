@@ -52,8 +52,8 @@
      <label>live</label>
     <input type="checkbox" name="live" value="true" <% if @event.live %>checked<% end %>>
     <% if @event.screenshot_url %>
-    <label>flyers</label>
-        <a href="/events/flyers/<%=@event.id%>" target="_blank"><img src="<%=@event.screenshot_url%>" id="screenshot"/></a>
+        <label>flyers</label>
+        <a href="/admin/events/flyers/<%=@event.id%>" target="_blank"><img src="<%=@event.screenshot_url%>" id="screenshot"/></a>
     <% end %>
     <input type="submit">
 
