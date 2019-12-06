@@ -56,7 +56,12 @@ class Event < ApplicationRecord
         command="node #{Rails.root.join("export.js")} https://tubatuba.net/evento/#{self.url_id} #{filename} #{width} #{height}"
         puts command
         system(command)
-        FileUtils.mv("/root/Downloads/#{filename}","#{Rails.root.join("public","video",filename)}")
+
+        dirname = Rails.root.join("public","video","#{self.id}")
+        unless File.directory?(dirname)
+            FileUtils.mkdir_p(dirname)
+        end
+        FileUtils.mv("/root/Downloads/#{filename}","#{Rails.root.join("public","video","#{self.id}",filename)}")
         return true
 
     end
