@@ -49,6 +49,11 @@ class AdminController < ApplicationController
         @event.background_url=params[:background_url]
         @event.text_color=params[:text_color]
         @event.title_color=params[:title_color]
+        if params[:live]=="true"
+            @event.live=true
+        else
+            @event.live=false
+        end
 
         event_start=@event.start
         event_end=@event.end

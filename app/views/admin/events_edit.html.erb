@@ -34,14 +34,19 @@
     <input type="hidden" name="end_changed" value="false"/>
     <label>background</label>
     <input type="text" name="background_url" value="<%=@event.background_url%>" placeholder="background_url"/>
+
     <label>text_color</label>
     <input type="text" name="text_color" value="<%=@event.text_color%>" placeholder="text_color"/>
     <label>title_color</label>
     <input type="text" name="title_color" value="<%=@event.title_color%>" placeholder="title_color"/>
+    <label>acts</label>
+
     <input type="button" value="+" onclick="javascript:add_act()"> 
     <div id="acts">
 
     </div>
+     <label>live</label>
+    <input type="checkbox" name="live" value="true" <% if @event.live %>checked<% end %>>
     <input type="submit">
 </form>
 <%=render @event%>
