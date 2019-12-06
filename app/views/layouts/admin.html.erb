@@ -4,6 +4,7 @@
     <title>Tubatuba</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <script src="/warp.js"></script>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -27,7 +28,8 @@
             error: <%=flash[:error]%>
           </div>
         <% end %>
+              </div>
+
         <%= yield %>
-      </div>
   </body>
 </html>

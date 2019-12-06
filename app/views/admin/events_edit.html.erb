@@ -1,4 +1,18 @@
-<form method="post" action="/admin/events/update">
+<style>
+    #edit-form {
+        width:200px;
+        position:absolute;
+        right:0;
+        z-index:9999;
+    }
+    #banner {
+        position:fixed;
+        left:0;
+        right:200px;
+        top:0;
+    }
+</style>
+<form method="post" id="edit-form" action="/admin/events/update">
     <label>name</label>
     <input type="text" name="name" value="<%=@event.name%>" placeholder="name"/>
     <label>starts</label>
@@ -8,12 +22,66 @@
     <input type="hidden" name="id" value="<%=@event.id%>"/>
     <input type="hidden" name="start_changed" value="false"/>
     <input type="hidden" name="end_changed" value="false"/>
+    <input type="button" value="+" onclick="javascript:add_act()"> 
+    <div id="acts">
 
+    </div>
     <input type="submit">
 </form>
+<%=render @event%>
+
 <script>
+    let acts=[];
+    function render_acts() {
+        html="<table>"
+        for(let i=0;i<acts.length;i++) {
+            console.log(acts[i])
+            html=html+"<tr><td>"+acts[i].name+"</td><td><button onClick='javascript:destroy_act("+acts[i].id+")'>x</button></td></tr>"
+        }
+        html=html+"</table>"
+        $("#acts").html(html);
+    }
+    function destroy_act(id) {
+        $.ajax({
+            type: "POST",
+            url: "/admin/acts/destroy",
+            data: "id="+id,
+            dataType: "json",
+            success: function(data){
+                acts=data;
+                render_acts();
+            },
+            failure: function(errMsg) {
+                alert(errMsg);
+            }
+        });
+    }
+    function add_act() {
+        var name=prompt("act name")
+        if(name!=null) {
+            $.ajax({
+                type: "POST",
+                url: "/admin/acts/create",
+                data: "name="+name+"&id=<%=@event.id%>",
+                dataType: "json",
+                success: function(data){
+                    acts=data;
+                    render_acts();
+                },
+                failure: function(errMsg) {
+                    alert(errMsg);
+                }
+            });
+        }
+    }
     var start_changed=false;
     var end_changed=false;
+    function get_acts() {
+        $.getJSON('/admin/acts/index/<%=@event.id%>', function (data) {
+            acts=data;
+            render_acts();
+        });
+    }
     $("#start").datetimepicker({
         onChangeDateTime:function(dp,$input){
             $('input[name="start_changed"]').val("true");
@@ -26,5 +94,8 @@
 
         }
     });
+    $(document).ready(function () {
+        get_acts();
+    })
 
 </script>

@@ -5,8 +5,10 @@ Rails.application.routes.draw do
   get "/admin/events/edit/:id" => "admin#events_edit"
   get "/admin/events/destroy/:id" => "admin#events_destroy"
   get "/admin/events/recover/:id" => "admin#events_recover"
-
+  get "/admin/acts/index/:id" => "admin#acts_index"
   post "/admin/events/update" => "admin#events_update"
+  post "/admin/acts/create" => "admin#acts_create"
+  post "/admin/acts/destroy" => "admin#acts_destroy"
 
   get "/admin" => "admin#dashboard"
   get "/login" => "sessions#new"

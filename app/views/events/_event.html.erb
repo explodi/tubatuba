@@ -1,0 +1,72 @@
+<style>
+   body {
+      background-image:url(https://66.media.tumblr.com/c14f3d1212cb5f36c52e6d26157c252d/tumblr_oftugqQ1AB1vart62o1_r1_540.gif);
+      background-size: cover;
+      -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+   }
+   #banner {
+       width:80%;
+       margin: 0 auto;
+   }
+    #banner-acts {
+        padding-top:160px;
+        width:40%;
+        margin: 0 auto;
+    }
+</style>
+<div id="banner">
+<%=raw Text2svg(@event.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
+<% if @event.start %>
+        <%=raw Text2svg(@event.start.to_formatted_s(:long_ordinal), font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
+<% end %>
+<div id="banner-acts">
+<% @event.acts.each do |act| %>
+        <%=raw Text2svg(act.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
+<% end %>
+</div>
+
+</div>
+<script>
+function findFirstDescendant(parent, tagname)
+{
+   const svg = document.getElementById(parent);
+   var descendants = parent.getElementsByTagName(tagname);
+   if ( descendants.length )
+      return descendants[0];
+   return null;
+}
+
+const svgs=document.getElementById('banner').getElementsByTagName('svg')
+const svg_name = svgs[0]
+svg_name.setAttribute("fill", "white")
+var warps=[];
+warps[0] = new Warp(svg_name)
+warps[0].interpolate(200)
+warps[0].transform(([ x, y ]) => [ x, y, y ])
+for(let i=1;i<svgs.length;i++) {
+   console.log(svgs[i]);
+   svgs[i].setAttribute("fill", "white")
+   warps[i] = new Warp(svgs[i])
+   warps[i].interpolate(200)
+   warps[i].transform(([ x, y ]) => [ x, y, y ])
+}
+
+
+
+
+let offset = 0
+function animate()
+{
+   for(i=0;i<warps.length;i++) {
+      warps[i].transform(([ x, y, oy ]) => [ x, oy + 33*i * Math.sin(x / 6 + offset), oy ])
+      offset += 0.01*i
+   }
+   requestAnimationFrame(animate)
+
+}
+
+animate()
+</script>

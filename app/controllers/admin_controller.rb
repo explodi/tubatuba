@@ -27,6 +27,22 @@ class AdminController < ApplicationController
     def events_edit
         @event=Event.find(params[:id])
     end
+    def acts_create
+        @event=Event.find(params[:id])
+        @act=EventAct.new(:event_id=>@event.id,:name=>params[:name])
+        @act.save
+        render :json=>@event.acts
+    end
+    def acts_index
+        @event=Event.find(params[:id])
+        render :json=>@event.acts
+    end
+    def acts_destroy
+        @act=EventAct.find(params[:id])
+        @event=Event.find(@act.event_id)
+        @act.destroy
+        render :json=>@event.acts
+    end
     def events_update
         @event=Event.find(params[:id])
         @event.name=params[:name]

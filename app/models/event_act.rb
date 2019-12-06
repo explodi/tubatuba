@@ -1,0 +1,2 @@
+class EventAct < ApplicationRecord
+end
