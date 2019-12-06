@@ -79,6 +79,7 @@ class AdminController < ApplicationController
             @event.end=event_end
         end
         @event.save
+        @event.screenshot
         redirect_to "/admin/events/edit/#{@event.id}"
     end
     def events_destroy

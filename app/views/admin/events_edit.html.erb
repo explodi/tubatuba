@@ -47,7 +47,12 @@
     </div>
      <label>live</label>
     <input type="checkbox" name="live" value="true" <% if @event.live %>checked<% end %>>
+    <% if @event.screenshot_url %>
+    <label>screenshot</label>
+    <img src="<%=@event.screenshot_url%>" id="screenshot"/>
+    <% end %>
     <input type="submit">
+
 </form>
 <%=render @event%>
 
