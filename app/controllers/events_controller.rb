@@ -11,6 +11,6 @@ class EventsController < ApplicationController
         end
     end
     def show
-        @event=Event.find(params[:id])
+        @event=Event.find_by_url_id(params[:id])
     end
 end
