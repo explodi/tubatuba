@@ -51,6 +51,32 @@ class Event < ApplicationRecord
         filename="#{width}_#{height}.mp4"
         return "#{Rails.root.join("public","video","#{self.id}",filename)}"
     end
+    def ad_video_path
+        return "#{Rails.root.join("public","video","#{self.id}","ad.mp4")}"
+    end
+    def record_ad
+        require 'fileutils'
+
+
+        filename="ad.webm"
+        command="node #{Rails.root.join("export.js")} https://tubatuba.net/ad/#{self.id} #{filename} 600 600"
+        puts command
+        system(command)
+
+        dirname = Rails.root.join("public","video","#{self.id}")
+        unless File.directory?(dirname)
+            FileUtils.mkdir_p(dirname)
+        end
+        capture_path="/root/Downloads/#{filename}"
+        ffmpeg_command="ffmpeg -i #{capture_path} -y #{self.ad_video_path}"
+        if self.has_audio
+            ffmpeg_command="ffmpeg -i #{capture_path} -i #{audio_path} -y -f mp4 -vcodec libx264 -preset fast -profile:v main -acodec aac -shortest #{self.ad_video_path}"
+        end
+        puts "[ffmpeg] #{ffmpeg_command}"
+        system(ffmpeg_command)
+        return true
+
+    end
     def record_video(width,height)
         require 'fileutils'
 
