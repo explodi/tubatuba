@@ -1,0 +1,2 @@
+class VideoFlyer < ApplicationRecord
+end

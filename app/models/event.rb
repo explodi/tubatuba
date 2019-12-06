@@ -39,7 +39,14 @@ class Event < ApplicationRecord
         url="http://#{ENV['TUBAFLYER_PORT_8383_TCP_ADDR']}:#{ENV['TUBAFLYER_PORT_8383_TCP_ADDR']}/record"
         puts url    
         response=RestClient.post url, {:url=>"https://tubatuba.net/evento/#{self.url_id}"}
-        puts response.inspect
-
+        puts response.body
+        if JSON.parse(response.body)["success"]
+            uuid=JSON.parse(response.body)["uuid"]
+            @videoflyer=VideoFlyer.find_or_create_by({:event_id=>self.id,:width=>1920,:height=>1080})
+            @videoflyer.update_attribute(:uuid,uuid)
+            return true
+        else
+            return false
+        end
     end
 end
