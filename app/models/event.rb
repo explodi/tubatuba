@@ -59,7 +59,7 @@ class Event < ApplicationRecord
 
 
         filename="ad.webm"
-        command="node #{Rails.root.join("export.js")} https://tubatuba.net/ad/#{self.id} #{filename} 600 600"
+        command="node #{Rails.root.join("export.js")} https://tubatuba.net/events/#{self.id}/ad #{filename} 600 600"
         puts command
         system(command)
 
