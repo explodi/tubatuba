@@ -7,7 +7,6 @@
       background-size: cover;
    }
    #banner {
-       width:80%;
        margin: 0 auto;
    }
     #banner-acts {
@@ -17,13 +16,19 @@
     }
     #address {
        padding-top:100px;
+      margin: 0 auto;
+       width:30%;
+
+    }
+    #date {
+       width:20%;
+               margin: 0 auto;
+
     }
 </style>
 <div id="banner">
 <%=raw Text2svg(@event.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
-<% if @event.start %>
-        <%=raw Text2svg(@event.start.to_formatted_s(:long_ordinal), font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
-<% end %>
+
 <div id="banner-acts">
 <% @event.acts.each do |act| %>
    <%=raw Text2svg(act.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
@@ -33,6 +38,13 @@
 <div id="address">
         <%=raw Text2svg("GRAL FLORES 223, PROVIDENCIA", font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
 </div>
+<div id="date">
+
+<% if @event.start %>
+        <%=raw Text2svg(I18n.l(@event.start, format: :short).upcase, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
+<% end %>
+</div>
+
 </div>
 <script>
 function findFirstDescendant(parent, tagname)
@@ -46,7 +58,7 @@ function findFirstDescendant(parent, tagname)
 
 const svgs=document.getElementById('banner').getElementsByTagName('svg')
 const svg_name = svgs[0]
-svg_name.setAttribute("fill", "<%=@event.text_color%>")
+svg_name.setAttribute("fill", "<%=@event.title_color%>")
 var warps=[];
 warps[0] = new Warp(svg_name)
 warps[0].interpolate(200)
