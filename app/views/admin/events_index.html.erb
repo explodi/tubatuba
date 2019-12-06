@@ -11,10 +11,10 @@
     <td><a href="/admin/events/destroy/<%=event.id%>">destroy</a></td>
     <% end %>
     <% if event.video_exists(600,600) %>
-    <td><a href="<%=event.video_link(600,600)%>">1</a></td>
+        <td><a href="<%=event.video_link(600,600)%>">1</a></td>
     <% end %>
     <% if event.video_exists(1920,1080) %>
-    <td><a href="<%=event.video_link(1920,180)%>">2</a></td>
+        <td><a href="<%=event.video_link(1920,1080)%>">2</a></td>
     <% end %>
 </tr>
 <% end %>
