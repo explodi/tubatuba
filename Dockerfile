@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
 	&& apt-get purge --auto-remove -y curl gnupg \
 	&& rm -rf /var/lib/apt/lists/*
 RUN apt-get update -qq
-RUN apt-get install -y curl build-essential ruby ruby-dev patch zlib1g-dev liblzma-dev libpq-dev libfreetype6 libfreetype6-dev google-chrome-beta fontconfig fonts-freefont-ttf xvfb
+RUN apt-get install -y curl build-essential ruby ruby-dev patch zlib1g-dev liblzma-dev libpq-dev libfreetype6 libfreetype6-dev google-chrome-beta fontconfig fonts-freefont-ttf xvfb ffmpeg
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN curl --silent --location https://deb.nodesource.com/setup_8.x | bash -
