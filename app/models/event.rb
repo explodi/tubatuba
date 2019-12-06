@@ -36,7 +36,7 @@ class Event < ApplicationRecord
         end
     end
     def record_video(width,height,frames,format)
-        url="http://#{ENV['TUBAFLYER_PORT_8383_TCP_ADDR']}:#{ENV['TUBAFLYER_PORT_8383_TCP_PORT']}/record"
+        url="http://tubaflyer:8383/record"
         puts url    
         frames=3000 if frames>3000
         response=RestClient.post url, {:frames=>frames,:format=>format,:width=>width,:height=>height,:url=>"https://tubatuba.net/evento/#{self.url_id}"}
