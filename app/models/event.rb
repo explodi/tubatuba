@@ -80,7 +80,7 @@ class Event < ApplicationRecord
         capture_path="/root/Downloads/#{filename}"
         ffmpeg_command="ffmpeg -i #{capture_path} -y #{self.video_path(width,height)}"
         if self.has_audio
-            ffmpeg_command="ffmpeg -i #{capture_path} -i #{audio_path} -y -codec copy -shortest #{self.video_path(width,height)}"
+            ffmpeg_command="ffmpeg -i #{capture_path} -i #{audio_path} -y -f mp4 -vcodec libx264 -preset fast -profile:v main -acodec aac -shortest #{self.video_path(width,height)}"
         end
         puts "[ffmpeg] #{ffmpeg_command}"
         system(ffmpeg_command)
