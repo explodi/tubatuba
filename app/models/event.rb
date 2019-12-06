@@ -35,15 +35,15 @@ class Event < ApplicationRecord
             return nil
         end
     end
-    def record_video(width,height,frames,format)
+    def record_video(width,height,frames,format_string)
         url="http://tubaflyer:8383/record"
         puts url
         frames=3000 if frames>3000
-        response=RestClient.post url, {:frames=>frames,:format=>format,:width=>width,:height=>height,:url=>"https://tubatuba.net/evento/#{self.url_id}"}
+        response=RestClient.post url, {:frames=>frames,:format=>format_string,:width=>width,:height=>height,:url=>"https://tubatuba.net/evento/#{self.url_id}"}
         puts response.body
         if JSON.parse(response.body)["success"]
             uuid=JSON.parse(response.body)["uuid"]
-            @videoflyer=VideoFlyer.find_or_create_by({:event_id=>self.id,:width=>width,:height=>height,:format_string=>format})
+            @videoflyer=VideoFlyer.find_or_create_by({:event_id=>self.id,:width=>width,:height=>height,:format_string=>format_string})
             @videoflyer.update_attribute(:uuid,uuid)
             return true
         else
