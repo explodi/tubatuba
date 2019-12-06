@@ -39,7 +39,7 @@ class Event < ApplicationRecord
         url="http://tubaflyer:8383/record"
         puts url
         frames=3000 if frames>3000
-        response=RestClient.post url, {:frames=>frames,:format=>format_string,:width=>width,:height=>height,:url=>"https://tubatuba.net/evento/#{self.url_id}"}
+        response=RestClient.post url, {:frames=>frames,:format_string=>format_string,:width=>width,:height=>height,:url=>"https://tubatuba.net/evento/#{self.url_id}"}
         puts response.body
         if JSON.parse(response.body)["success"]
             uuid=JSON.parse(response.body)["uuid"]
