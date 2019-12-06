@@ -36,27 +36,8 @@ class Event < ApplicationRecord
         end
     end
     def record_video
-        require 'rubygems'
-        require 'selenium-webdriver'
-        
-        # Input capabilities
-        caps = Selenium::WebDriver::Remote::Capabilities.new
-        caps[:browserName] = 'iPhone'
-        caps['device'] = 'iPhone 8 Plus'
-        caps['realMobile'] = 'true'
-        caps['os_version'] = '11'
-        caps['name'] = 'Bstack-[Ruby] Sample Test'
-        
-        
-        driver = Selenium::WebDriver.for(:remote,
-          :url => "http://localhost:4444/wd/hub",
-          :desired_capabilities => caps)
-        driver.navigate.to "http://www.google.com"
-        element = driver.find_element(:name, 'q')
-        element.send_keys "BrowserStack"
-        element.submit
-        puts driver.title
-        driver.quit        
+        url="http://#{ENV['TUBAFLYER_PORT_8383_TCP_ADDR']}:#{TUBAFLYER_PORT}/record"
+        puts url    
 
     end
 end
