@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   post "/admin/events/update" => "admin#events_update"
   post "/admin/acts/create" => "admin#acts_create"
   post "/admin/acts/destroy" => "admin#acts_destroy"
-  get "/evento/:id" => "event#show"
+  get "/evento/:id" => "events#show"
   get "/admin" => "admin#dashboard"
   get "/login" => "sessions#new"
   post "/sessions/create" => "sessions#create"
