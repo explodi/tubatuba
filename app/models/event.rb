@@ -78,9 +78,9 @@ class Event < ApplicationRecord
             FileUtils.mkdir_p(dirname)
         end
         capture_path="/root/Downloads/#{filename}"
-        ffmpeg_command="ffmpeg -i #{capture_path} #{self.video_path(width,height)}"
+        ffmpeg_command="ffmpeg -i #{capture_path} -y #{self.video_path(width,height)}"
         if self.has_audio
-            ffmpeg_command="ffmpeg -i #{capture_path} -i #{audio_path} -c copy -map 0:v:0 -map 1:a:0 #{self.video_path(width,height)}"
+            ffmpeg_command="ffmpeg -i #{capture_path} -i #{audio_path} -y -c copy -map 0:v:0 -map 1:a:0 #{self.video_path(width,height)}"
         end
         puts "[ffmpeg] #{ffmpeg_command}"
         system(ffmpeg_command)
