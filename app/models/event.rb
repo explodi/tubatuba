@@ -35,21 +35,29 @@ class Event < ApplicationRecord
             return nil
         end
     end
-    def record_video(width,height,frames,format_string)
+    def record_video(width,height)
+        require 'fileutils'
 
-        url="http://tubaflyer:8383/record"
-        puts url
-        puts "[format_string] #{format_string}"
-        frames=3000 if frames>3000
-        response=RestClient.post url, {:frames=>frames,:format_string=>format_string,:width=>width,:height=>height,:url=>"https://tubatuba.net/evento/#{self.url_id}"}
-        puts response.body
-        if JSON.parse(response.body)["success"]
-            uuid=JSON.parse(response.body)["uuid"]
-            @videoflyer=VideoFlyer.find_or_create_by({:event_id=>self.id,:width=>width,:height=>height,:format_string=>format_string})
-            @videoflyer.update_attribute(:uuid,uuid)
-            return true
-        else
-            return false
-        end
+        # url="http://tubaflyer:8383/record"
+        # puts url
+        # puts "[format_string] #{format_string}"
+        # frames=3000 if frames>3000
+        # response=RestClient.post url, {:frames=>frames,:format_string=>format_string,:width=>width,:height=>height,:url=>"https://tubatuba.net/evento/#{self.url_id}"}
+        # puts response.body
+        # if JSON.parse(response.body)["success"]
+        #     uuid=JSON.parse(response.body)["uuid"]
+        #     @videoflyer=VideoFlyer.find_or_create_by({:event_id=>self.id,:width=>width,:height=>height,:format_string=>format_string})
+        #     @videoflyer.update_attribute(:uuid,uuid)
+        #     return true
+        # else
+        #     return false
+        # end
+        filename="#{width}_#{height}.webm"
+        command="node #{Rails.root.join("export.js")} https://tubatuba.net/evento/#{self.url_id} #{filename} #{width} #{height}"
+        puts command
+        system(command)
+        FileUtils.mv("/root/Downloads/#{filename}","#{Rails.root.join("public","video",filename)}")
+        return true
+
     end
 end
