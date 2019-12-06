@@ -12,6 +12,10 @@
         top:50px;
         bottom:0;
     }
+    #screenshot {
+        width:50px;
+        height:auto;
+    }
 </style>
 <form method="post" id="edit-form" action="/admin/events/update">
     <label>name</label>
@@ -49,7 +53,7 @@
     <input type="checkbox" name="live" value="true" <% if @event.live %>checked<% end %>>
     <% if @event.screenshot_url %>
     <label>screenshot</label>
-    <img src="<%=@event.screenshot_url%>" id="screenshot"/>
+        <a href="<%=@event.screenshot_url%>"><img src="<%=@event.screenshot_url%>" id="screenshot"/></a>
     <% end %>
     <input type="submit">
 
