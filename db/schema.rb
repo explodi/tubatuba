@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_06_023826) do
+ActiveRecord::Schema.define(version: 2019_12_06_025434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(version: 2019_12_06_023826) do
     t.string "screenshot_uuid"
     t.boolean "live", default: false
     t.string "url_id"
+  end
+
+  create_table "flyers", force: :cascade do |t|
+    t.integer "width"
+    t.integer "height"
+    t.integer "event_id"
+    t.string "uuid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
