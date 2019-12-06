@@ -45,6 +45,18 @@ class AdminController < ApplicationController
         @act.destroy
         render :json=>@event.acts
     end
+    def events_videos_create
+        @event=Event.find(params[:id])
+        @width=params[:width].to_i
+        @height=params[:height].to_i
+        @frames=3000
+        render :json=>{:success=>@event.record_video(@width,@height,@frames)}
+    end
+    def events_videos_index
+        @event=Event.find(params[:id])
+        @videoflyers=VideoFlyer.where({:event_id=>@event.id})
+        render :json=>@videoflyers
+    end
     def events_update
         @event=Event.find(params[:id])
         @event.name=params[:name]

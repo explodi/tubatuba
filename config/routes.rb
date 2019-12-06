@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "/admin/events/flyers/:id" => "admin#events_flyers"
   get "/admin/events/edit/:id" => "admin#events_edit"
   get "/admin/events/destroy/:id" => "admin#events_destroy"
+  post "/admin/events/videos/create" => "admin#events_videos_create"
   get "/admin/events/recover/:id" => "admin#events_recover"
   get "/admin/acts/index/:id" => "admin#acts_index"
   post "/admin/events/update" => "admin#events_update"
