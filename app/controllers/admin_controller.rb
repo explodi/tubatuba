@@ -104,7 +104,7 @@ class AdminController < ApplicationController
         @event=Event.find(params[:id])
         @flyers=[]
         Event.flyer_formats.each do |f|
-            flyer=Flyer.find({:event_id=>@event.id,:width=>f[0],:height=>f[1]})
+            flyer=Flyer.where({:event_id=>@event.id,:width=>f[0],:height=>f[1]})
             @flyers.push(flyer) if flyer
         end
     end
