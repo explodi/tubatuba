@@ -46,6 +46,9 @@ class AdminController < ApplicationController
     def events_update
         @event=Event.find(params[:id])
         @event.name=params[:name]
+        @event.background_url=params[:background_url]
+        @event.text_color=params[:text_color]
+
         event_start=@event.start
         event_end=@event.end
         if params[:start_changed]=="true"
