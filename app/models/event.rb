@@ -43,7 +43,7 @@ class Event < ApplicationRecord
         puts response.body
         if JSON.parse(response.body)["success"]
             uuid=JSON.parse(response.body)["uuid"]
-            @videoflyer=VideoFlyer.find_or_create_by({:event_id=>self.id,:width=>width,:height=>height})
+            @videoflyer=VideoFlyer.find_or_create_by({:event_id=>self.id,:width=>width,:height=>height,:format=>format})
             @videoflyer.update_attribute(:uuid,uuid)
             return true
         else
