@@ -30,7 +30,7 @@ async function main() {
     await page.setBypassCSP(true)
 
     // Perform any actions that have to be captured in the exported video
-    await page.waitFor(8000)
+    await page.waitFor(30000)
 
     await page.evaluate(filename=>{
         window.postMessage({type: 'SET_EXPORT_PATH', filename: filename}, '*')
