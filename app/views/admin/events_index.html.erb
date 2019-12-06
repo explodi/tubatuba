@@ -1,3 +1,5 @@
+
+<div class="container">
 <table>
 <% @events.each do |event| %>
 <tr>
@@ -8,6 +10,9 @@
     <% else %>
     <td><a href="/admin/events/destroy/<%=event.id%>">destroy</a></td>
     <% end %>
+        <td><a href="/admin/events/<%=event.id%>/videos/index">videos</a></td>
+
 </tr>
 <% end %>
 </table>
+</div>

@@ -52,10 +52,11 @@ class AdminController < ApplicationController
         @frames=3000
         render :json=>{:success=>@event.record_video(@width,@height,@frames)}
     end
+    
     def events_videos_index
         @event=Event.find(params[:id])
         @videoflyers=VideoFlyer.where({:event_id=>@event.id})
-        render :json=>@videoflyers
+        
     end
     def events_update
         @event=Event.find(params[:id])

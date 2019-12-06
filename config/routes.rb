@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "/admin" => "admin#dashboard"
   get "/login" => "sessions#new"
   post "/sessions/create" => "sessions#create"
+  get "/admin/events/:id/videos/index" => "admin#events_videos_index"
   root :to => "events#index"
 
 end
