@@ -35,8 +35,11 @@ class Event < ApplicationRecord
             return nil
         end
     end
+    def audio_path
+        return Rails.root.join("public","audio","#{self.id}.mp3")
+    end
     def has_audio
-        return File.exist?(self.video_path(width,height))
+        return File.exist?(self.audio_path)
     end
     def video_exists(width,height)
         return File.exist?(self.video_path(width,height))
@@ -74,7 +77,14 @@ class Event < ApplicationRecord
         unless File.directory?(dirname)
             FileUtils.mkdir_p(dirname)
         end
-        FileUtils.mv("/root/Downloads/#{filename}",self.video_path(width,height))
+        capture_path="/root/Downloads/#{filename}"
+        if self.has_audio
+            ffmpeg_command="ffmpeg -i #{capture_path} -i #{audio_path} -c copy -map 0:v:0 -map 1:a:0 #{self.video_path(width,height)}"
+            puts "[ffmpeg] #{ffmpeg_command}"
+            system(ffmpeg_command)
+        else
+            FileUtils.mv(capture_path,self.video_path(width,height))
+        end
         return true
 
     end
