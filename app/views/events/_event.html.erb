@@ -62,6 +62,7 @@ var warps=[];
 warps[0] = new Warp(svg_name)
 warps[0].interpolate(200)
 warps[0].transform(([ x, y ]) => [ x, y, y ])
+
 for(let i=1;i<svgs.length;i++) {
    console.log(svgs[i]);
    svgs[i].setAttribute("fill", "<%=@event.text_color%>")
@@ -76,10 +77,12 @@ for(let i=1;i<svgs.length;i++) {
 let offset = 0
 function animate()
 {
-   for(i=0;i<warps.length;i++) {
+   for(i=1;i<warps.length;i++) {
       warps[i].transform(([ x, y, oy ]) => [ x, oy + 33*i * Math.sin(x / 6 + offset), oy ])
       offset += 0.01*i
    }
+   warps[0].transform(([ x, y, oy ]) => [ x, oy + 33*i * Math.sin(x / 6 + offset), oy ])
+   offset += 0.01*i
    requestAnimationFrame(animate)
 
 }
