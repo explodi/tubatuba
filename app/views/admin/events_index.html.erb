@@ -16,6 +16,9 @@
     <% if event.video_exists(1920,1080) %>
         <td><a href="<%=event.video_link(1920,1080)%>">2</a></td>
     <% end %>
+     <% if event.video_ad_exists %>
+        <td><a href="<%=event.ad_video_link%>">2</a></td>
+    <% end %>
 </tr>
 <% end %>
 </table>

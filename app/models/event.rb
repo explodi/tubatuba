@@ -44,8 +44,15 @@ class Event < ApplicationRecord
     def video_exists(width,height)
         return File.exist?(self.video_path(width,height))
     end
+    def video_ad_exists
+        return File.exist?(self.ad_video_path)
+    end
+    
     def video_link(width,height)
         return "/video/#{self.id}/#{width}_#{height}.mp4"
+    end
+    def ad_video_link
+        return "/video/#{self.id}/ad.mp4"
     end
     def video_path(width,height)
         filename="#{width}_#{height}.mp4"
