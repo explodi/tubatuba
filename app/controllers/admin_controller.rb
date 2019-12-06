@@ -2,6 +2,9 @@ class AdminController < ApplicationController
     before_action :check_admin_permissions
     skip_before_action :verify_authenticity_token
     layout "admin"
+    def self.flyer_formats
+        [[600,600],[1920,1080]]
+    end
     def dashboard
         redirect_to "/admin/events/index"
     end
@@ -80,7 +83,9 @@ class AdminController < ApplicationController
             @event.end=event_end
         end
         @event.save
-        @event.screenshot
+        Event.flyer_formats.each do |f|
+            @event.screenshot(f[0],f[1])
+        end
         @event.generate_url_id unless @event.url_id
         redirect_to "/admin/events/edit/#{@event.id}"
     end
