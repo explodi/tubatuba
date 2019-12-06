@@ -72,7 +72,7 @@ class AdminController < ApplicationController
             puts event_end
         end
 
-        if event_end<event_start
+        if event_end&&event_start&&event_end<event_start
             flash[:error]="event cannot start after it ends"
         else
             @event.start=event_start
