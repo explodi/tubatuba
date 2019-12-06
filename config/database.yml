@@ -23,7 +23,8 @@ production:
   adapter: postgresql
   encoding: unicode
   database: tubatuba
-  username: postgres
+  username: tubatuba
+  password: c0axebctfqvplekz
   pool: 5
   port: <%= ENV['POSTGRES_1_PORT_5432_TCP_PORT']||="5432" %>
   host: <%= ENV['POSTGRES_1_PORT_5432_TCP_ADDR']||="localhost" %>
