@@ -1,1 +1,3 @@
-<%=@flyers.inspect%>
+<% @flyers.each do |flyer| %>
+<img src="<%=flyer.url%>">
+<% end %>
