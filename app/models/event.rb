@@ -103,6 +103,8 @@ class Event < ApplicationRecord
         end
         puts "[ffmpeg] #{ffmpeg_command}"
         system(ffmpeg_command)
+        REDIS.del("video_queue:#{self.id}:#{f.id}")
+
         return true
 
     end
