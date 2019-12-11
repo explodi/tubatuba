@@ -6,6 +6,5 @@ class CreateVideosJob < ApplicationJob
     VideoFormat.all.each do |f|
       @event.record_video(f)
     end
-    @event.record_ad
   end
 end
