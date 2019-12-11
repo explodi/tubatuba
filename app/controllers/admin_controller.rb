@@ -74,11 +74,10 @@ class AdminController < ApplicationController
         if params[:background]
             file_name="#{SecureRandom.hex}.gif"
             @event.background_url=file_name
-            dirname = File.dirname(Rails.root.join("public","background"))
-            unless File.directory?(dirname)
-                FileUtils.mkdir_p(dirname)
+            unless File.directory?(Rails.root.join("public","image"))
+                FileUtils.mkdir_p(Rails.root.join("public","image"))
             end
-            FileUtils.cp(params[:background].tempfile.path,Rails.root.join("public","background",file_name))
+            FileUtils.cp(params[:background].tempfile.path,Rails.root.join("public","image",file_name))
         end
         event_start=@event.start
         event_end=@event.end
