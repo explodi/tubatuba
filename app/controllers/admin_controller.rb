@@ -1,7 +1,6 @@
 class AdminController < ApplicationController
     before_action :check_admin_permissions
     skip_before_action :verify_authenticity_token
-    layout "admin"
 
     def dashboard
         redirect_to "/admin/events/index"
