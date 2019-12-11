@@ -130,9 +130,6 @@ class AdminController < ApplicationController
             @event.end=event_end
         end
         @event.save
-        VideoFormat.all.each do |vf|
-            REDIS.set("video_queue:#{@event.id}:#{vf.id}","1")
-        end
         CreateVideosJob.perform_later @event
         CreateFlyersJob.perform_later @event
 
