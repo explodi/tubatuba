@@ -1,8 +1,36 @@
 <div class="container">
-<h1>new event</h1>
+    <h1>new event</h1>
 
-<form method="post" action="/admin/events/create">
-    <input type="text" name="name" placeholder="name">
-    <input type="submit">
-</form>
+    <form method="post" action="/admin/events/create">
+        <table>
+            <tr>
+                <td>
+                    name
+                </td>
+                <td>
+                    <input type="text" name="name" placeholder="name">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    start
+                </td>
+                <td>
+                    <input type="date" id="start" name="start" value="">
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    end
+                </td>
+                <td>
+                    <input type="date" id="end" name="end" value="">
+                </td>
+            </tr>
+
+        </table>
+
+        <input type="submit">
+    </form>
 </div>

@@ -25,7 +25,15 @@ class AdminController < ApplicationController
         end
     end
     def events_create
-        @event=Event.new({:name=>params[:name],:text_color=>'white',:title_color=>'white'})
+        event_start=DateTime.parse(params[:start]).in_time_zone("America/Santiago")
+        event_start_offset=(event_start.utc_offset)/60/60
+        event_start=(event_start-event_start_offset.hours).utc
+        event_end=DateTime.parse(params[:end]).in_time_zone("America/Santiago")
+        event_end_offset=(event_end.utc_offset)/60/60
+        event_end=(event_end-event_end_offset.hours).utc
+        raise "BadDate" if event_start<event_end || event_start<DateTime.now
+        @event=Event.new({:name=>params[:name],:text_color=>'white',:title_color=>'white',:start=>event_start,:end=>event_end})
+        
         @event.save
         @event.generate_url_id
         redirect_to "/admin/events/edit/#{@event.id}"
@@ -89,7 +97,6 @@ class AdminController < ApplicationController
             event_start=DateTime.parse(params[:start]).in_time_zone("America/Santiago")
             event_start_offset=(event_start.utc_offset)/60/60
             event_start=(event_start-event_start_offset.hours).utc
-
             puts event_start
         end
         if params[:end_changed]=="true"
