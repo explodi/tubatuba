@@ -17,12 +17,10 @@
         <% if REDIS.exists("video_queue:#{event.id}:#{f.id}") %>
             <td>...</td>
 
-        <% else %>
-        <% if event.video_exists(vf.name) %>
+        <% elsif event.video_exists(vf.name) %>
             <td><a href="<%=event.video_link(vf.name)%>"><%=vf.name%></a></td>
         <% end %>
     <% end %>
 </tr>
-<% end %>
 </table>
 </div>
