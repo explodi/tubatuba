@@ -13,15 +13,18 @@ class Event < ApplicationRecord
             self.update_attribute(:url_id,url_id)  
         end
     end
-    def screenshot(width,height)
-        puts "[screenshot] #{width}x#{height}"
+    def screenshot(video_format)
+        puts "[screenshot] #{video_format.width}x#{video_format.height}"
         begin
             uuid=SecureRandom.uuid
-            command="google-chrome --headless --enable-logging --virtual-time-budget=10000 --window-size=#{width}x#{height} --disable-gpu --no-sandbox --screenshot=\"#{Rails.root.join('public')}/#{uuid}.png\" \"https://tubatuba.net/evento/#{self.url_id}\""
+
+            dirname = Rails.root.join("public","image","#{self.id}")
+            unless File.directory?(dirname)
+                FileUtils.mkdir_p(dirname)
+            end
+            command="google-chrome --headless --enable-logging --virtual-time-budget=10000 --window-size=#{video_format.width}x#{video_format.height} --disable-gpu --no-sandbox --screenshot=\"#{Rails.root.join('public','image',self.id)}/#{video_format.name}.png\" \"https://tubatuba.net/evento/#{self.url_id}/#{video_format.id}\""
             puts command
             system(command)
-            flyer=Flyer.find_or_create_by({width:width,height:height,event_id:self.id})
-            flyer.update_attribute(:uuid,uuid)
             return flyer
         rescue => e
             puts e.message
