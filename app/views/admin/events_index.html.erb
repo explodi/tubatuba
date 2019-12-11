@@ -14,8 +14,8 @@
     <td><a href="/admin/events/destroy/<%=event.id%>">destroy</a></td>
     <% end %>
     <% VideoFormat.all.each do |vf| %>
-        <% if event.video_exists(vf) %>
-            <td><a href="<%=event.video_link(vf)%>"><%=vf.name%></a></td>
+        <% if event.video_exists(vf.name) %>
+            <td><a href="<%=event.video_link(vf.name)%>"><%=vf.name%></a></td>
         <% end %>
     <% end %>
 </tr>
