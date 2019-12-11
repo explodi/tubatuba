@@ -21,3 +21,10 @@ form {
     background-color: darkred;
     color: white;
 }
+
+#admin-events-list td {
+    padding: 4px 8px;
+}
+#admin-events-list th {
+    padding: 4px 8px;
+}
