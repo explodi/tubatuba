@@ -8,7 +8,7 @@
     }
 </style>
 <% if @event %>
-   <%=render @event %>
+<%=render @event, :address=>true, :line_up=>true, :title=>true, :date=>true %>
    
 <% else %>
 <div id="banner">
