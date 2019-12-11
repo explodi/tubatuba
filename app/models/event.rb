@@ -49,7 +49,7 @@ class Event < ApplicationRecord
     end
     
     def video_link(format_name)
-        return "/video/#{self.id}/#{width}_#{height}.mp4"
+        return "/video/#{self.id}/#{format_name}.mp4"
     end
     def ad_video_link
         return "/video/#{self.id}/ad.mp4"
