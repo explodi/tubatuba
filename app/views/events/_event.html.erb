@@ -12,36 +12,35 @@
       left:0;
       right:0;
       bottom:0;
+      padding:5%;
    }
-   
-   #event-name {
-         padding-bottom:160px;
-        margin: 0 auto;
+   #event-name-line-up {
 
+   }
+   #event-name {
+      width:100%;
    }
     #banner-acts {
-        width:40%;
-        margin: 0 auto;
-
+      width:40%;
     }
     #address {
-      margin: 0 auto;
-      width:30%;
+      width:60%;
 
     }
     #date {
        width:80%;
-       margin: 0 auto;
     }
     #date-address {
-       position:fixed;
+      position:fixed;
       margin: 0 auto;
-      bottom:30px;
       left:0;
       right:0;
+      bottom:0;
+      padding:5%;
     }
 </style>
 <div id="banner">
+<div id="event-name-line-up">
 <% if title %>
 <div id="event-name">
 <%=raw Text2svg(@event.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
@@ -54,8 +53,7 @@
    <%=raw Text2svg(act.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
 <% end %>
 
-
-
+</div>
 </div>
 <% end %>
 <div id="date-address">
@@ -133,28 +131,28 @@ function animate()
 
 }
 function onresize() {
-   banner_height=$("#banner").height()
-   console.log("resize",banner_height);
-   banner_width=$("#banner").width()
-   console.log("resize",banner_width);
-   if(banner_width>1000) {
-      $("#event-name").css({"padding-top" : "10px"});
-      $("#event-name").css({"padding-bottom" : "0px"});
-      $("#address").css({"width" : "50%"});
-      $("#banner-acts").css({"width" : "40%"});
-      $("#banner-acts").css({"padding-top" : "10px"});
-      $("#banner-acts").css({"padding-bottom" : "10px"});
+   // banner_height=$("#banner").height()
+   // console.log("resize",banner_height);
+   // banner_width=$("#banner").width()
+   // console.log("resize",banner_width);
+   // if(banner_width>1000) {
+   //    $("#event-name").css({"padding-top" : "10px"});
+   //    $("#event-name").css({"padding-bottom" : "0px"});
+   //    $("#address").css({"width" : "50%"});
+   //    $("#banner-acts").css({"width" : "40%"});
+   //    $("#banner-acts").css({"padding-top" : "10px"});
+   //    $("#banner-acts").css({"padding-bottom" : "10px"});
 
-   }
-   if(banner_height<650) {
-      $("#event-name").css({"width" : "90%"});
-      $("#address").css({"width" : "90%"});
+   // }
+   // if(banner_height<650) {
+   //    $("#event-name").css({"width" : "90%"});
+   //    $("#address").css({"width" : "90%"});
 
-      $("#event-name").css({"padding-top" : "20px"});
-      $("#event-name").css({"padding-bottom" : "70px"});
-      $("#banner-acts").css({"padding-top" : "30px"});
+   //    $("#event-name").css({"padding-top" : "20px"});
+   //    $("#event-name").css({"padding-bottom" : "70px"});
+   //    $("#banner-acts").css({"padding-top" : "30px"});
 
-   } 
+   // } 
 
 }
 $(document).ready(function () {
