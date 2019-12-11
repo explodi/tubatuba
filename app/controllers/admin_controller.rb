@@ -61,7 +61,6 @@ class AdminController < ApplicationController
     def events_update
         @event=Event.find(params[:id])
         @event.name=params[:name]
-        @event.background_url=params[:background_url]
         @event.text_color=params[:text_color]
         @event.title_color=params[:title_color]
         if params[:live]=="true"
@@ -71,6 +70,15 @@ class AdminController < ApplicationController
         end
         if params[:mp3]
             FileUtils.cp(params[:mp3].tempfile.path,Rails.root.join("public","audio","#{@event.id}.mp3"))
+        end
+        if params[:background]
+            file_name="#{SecureRandom.hex}.gif"
+            @event.background_url=file_name
+            dirname = File.dirname(Rails.root.join("public","background"))
+            unless File.directory?(dirname)
+                FileUtils.mkdir_p(dirname)
+            end
+            FileUtils.cp(params[:background].tempfile.path,Rails.root.join("public","background",file_name))
         end
         event_start=@event.start
         event_end=@event.end
