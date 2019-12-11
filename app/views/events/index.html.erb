@@ -8,8 +8,7 @@
     }
 </style>
 <% if @event %>
-<%=render @event, :address=>true, :line_up=>true, :title=>true, :date=>true %>
-   
+    <%=render @event, :address=>true, :line_up=>true, :title=>true, :date=>true %>
 <% else %>
 <div id="banner">
    <%=raw Text2svg('tubatuba', font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
