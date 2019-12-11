@@ -27,13 +27,8 @@ class Event < ApplicationRecord
             system(command)
         end
     end
-    def screenshot_url
-        flyer=Flyer.where({:event_id=>self.id}).order("id DESC").first
-        if flyer
-            return "https://tubatuba.net/#{flyer.uuid}.png"
-        else
-            return nil
-        end
+    def screenshot_url(video_format)
+        return "https://tubatuba.net/image/#{self.id}/#{video_format.name}.png"
     end
     def audio_path
         return Rails.root.join("public","audio","#{self.id}.mp3")
