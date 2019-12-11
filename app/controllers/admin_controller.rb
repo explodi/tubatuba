@@ -21,7 +21,7 @@ class AdminController < ApplicationController
         @events=Event.where(:deleted=>@deleted)
     end
     def events_create
-        @event=Event.new({:name=>params[:name]})
+        @event=Event.new({:name=>params[:name],:text_color=>'white',:title_color=>'white'})
         @event.save
         @event.generate_url_id
         redirect_to "/admin/events/edit/#{@event.id}"
