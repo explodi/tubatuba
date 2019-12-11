@@ -1,5 +1,12 @@
 <style>
-  
+   body {
+      overflow:hidden;
+           <% if width && height %>
+      width:<%=width%>px;
+      height:<%=height%>px;
+      
+      <% end %>
+   }
    #banner {
       margin: 0 auto;
       background:url(/image/<%=@event.background_url%>) no-repeat center center fixed; 
