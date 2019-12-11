@@ -2,24 +2,25 @@
 <div class="container">
 <table>
 <% @events.each do |event| %>
-<tr>
-    <td><%=event.name%></td>
-    <td><%=event.start%></td>
-    <td><%=event.end%></td>
+    <tr>
+        <td><%=event.name%></td>
+        <td><%=event.start%></td>
+        <td><%=event.end%></td>
 
-    <td><a href="/admin/events/edit/<%=event.id%>">edit</a></td>
-    <% if event.deleted %>
-    <td><a href="/admin/events/recover/<%=event.id%>">recover</a></td>
-    <% else %>
-    <td><a href="/admin/events/destroy/<%=event.id%>">destroy</a></td>
-    <% end %>
-    <% VideoFormat.all.each do |vf| %>
-        <% if REDIS.exists("video_queue:#{event.id}:#{vf.id}") %>
-            <td>...</td>
-        <% elsif event.video_exists(vf.name) %>
-            <td><a href="<%=event.video_link(vf.name)%>"><%=vf.name%></a></td>
+        <td><a href="/admin/events/edit/<%=event.id%>">edit</a></td>
+        <% if event.deleted %>
+        <td><a href="/admin/events/recover/<%=event.id%>">recover</a></td>
+        <% else %>
+        <td><a href="/admin/events/destroy/<%=event.id%>">destroy</a></td>
         <% end %>
-    <% end %>
-</tr>
+        <% VideoFormat.all.each do |vf| %>
+            <% if REDIS.exists("video_queue:#{event.id}:#{vf.id}") %>
+                <td>...</td>
+            <% elsif event.video_exists(vf.name) %>
+                <td><a href="<%=event.video_link(vf.name)%>"><%=vf.name%></a></td>
+            <% end %>
+        <% end %>
+    </tr>
+<% end %>
 </table>
 </div>
