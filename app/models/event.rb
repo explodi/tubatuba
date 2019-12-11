@@ -14,20 +14,17 @@ class Event < ApplicationRecord
         end
     end
     def screenshot(video_format)
-        puts "[screenshot] #{video_format.width}x#{video_format.height}"
-        begin
+        if video_format.width && video_format.height && video_format.name && self.url_id
+            puts "[screenshot] #{video_format.width}x#{video_format.height}"
             uuid=SecureRandom.uuid
 
             dirname = Rails.root.join("public","image","#{self.id}")
             unless File.directory?(dirname)
                 FileUtils.mkdir_p(dirname)
             end
-            command="google-chrome --headless --enable-logging --virtual-time-budget=10000 --window-size=#{video_format.width}x#{video_format.height} --disable-gpu --no-sandbox --screenshot=\"#{Rails.root.join('public','image',self.id)}/#{video_format.name}.png\" \"https://tubatuba.net/evento/#{self.url_id}/#{video_format.id}\""
+            command="google-chrome --headless --enable-logging --virtual-time-budget=10000 --window-size=#{video_format.width.to_s}x#{video_format.height.to_s} --disable-gpu --no-sandbox --screenshot=\"#{Rails.root.join('public','image',self.id.to_s,"#{video_format.name}.png")}\" \"https://tubatuba.net/evento/#{self.url_id}/#{video_format.id.to_s}\""
             puts command
             system(command)
-            return flyer
-        rescue => e
-            puts e.message
         end
     end
     def screenshot_url
