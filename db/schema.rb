@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_11_192107) do
+ActiveRecord::Schema.define(version: 2019_12_11_213949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2019_12_11_192107) do
     t.string "screenshot_uuid"
     t.boolean "live", default: false
     t.string "url_id"
+    t.string "eventbrite_url"
   end
 
   create_table "flyers", force: :cascade do |t|

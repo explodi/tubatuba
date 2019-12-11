@@ -61,8 +61,7 @@
 <% if date %>
    <% if @event.start %>
    <div id="date">
-            <%=raw Text2svg(I18n.l(@event.start.in_time_zone("America/Santiago"), format: :short).upcase, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
-     
+      <%=raw Text2svg(I18n.l(@event.start.in_time_zone("America/Santiago"), format: :short).upcase, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
    </div>
    <% end %>
 <% end %>
