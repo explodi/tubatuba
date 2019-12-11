@@ -14,9 +14,8 @@
     <td><a href="/admin/events/destroy/<%=event.id%>">destroy</a></td>
     <% end %>
     <% VideoFormat.all.each do |vf| %>
-        <% if REDIS.exists("video_queue:#{event.id}:#{f.id}") %>
+        <% if REDIS.exists("video_queue:#{event.id}:#{vf.id}") %>
             <td>...</td>
-
         <% elsif event.video_exists(vf.name) %>
             <td><a href="<%=event.video_link(vf.name)%>"><%=vf.name%></a></td>
         <% end %>
