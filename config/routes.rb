@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   post "/admin/events/videos/create" => "admin#events_videos_create"
   get "/admin/events/recover/:id" => "admin#events_recover"
   get "/admin/acts/index/:id" => "admin#acts_index"
+  get "/admin/video_formats/index" => "admin#video_formats_index"
+  post "/admin/video_formats/create" => "admin#video_formats_create"
+  get "/admin/video_formats/:id/destroy" => "admin#video_formats_destroy"
+
   post "/admin/events/update" => "admin#events_update"
   post "/admin/acts/create" => "admin#acts_create"
   post "/admin/acts/destroy" => "admin#acts_destroy"

@@ -24,6 +24,23 @@ class AdminController < ApplicationController
             end
         end
     end
+    def video_formats_index
+        @video_formats=VideoFormat.all
+    end
+    def video_formats_destroy
+        VideoFormat.find(params[:id]).destroy
+        redirect_to "/admin/video_formats/index"
+    end
+    def video_formats_create
+        @video_format=VideoFormat.new({:name=>params[:name],:width=>params[:width],:height=>params[:height],:title=>false,:line_up=>false,:address=>false,:date=>false})
+        puts params.inspect
+        @video_format.title=true if params[:title]=="true"
+        @video_format.line_up=true if params[:line_up]=="true"
+        @video_format.address=true if params[:address]=="true"
+        @video_format.date=true if params[:date]=="true"
+        @video_format.save
+        redirect_to "/admin/video_formats/index"
+    end
     def events_create
         event_start=DateTime.parse(params[:start]).in_time_zone("America/Santiago")
         event_start_offset=(event_start.utc_offset)/60/60
@@ -33,7 +50,6 @@ class AdminController < ApplicationController
         event_end=(event_end-event_end_offset.hours).utc
         raise "BadDate" if event_start<event_end || event_start<DateTime.now
         @event=Event.new({:name=>params[:name],:text_color=>'white',:title_color=>'white',:start=>event_start,:end=>event_end})
-        
         @event.save
         @event.generate_url_id
         redirect_to "/admin/events/edit/#{@event.id}"

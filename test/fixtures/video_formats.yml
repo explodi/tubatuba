@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  width: 1
+  height: 1
+  name: MyString
+  title: false
+  line_up: false
+  address: false
+  date: false
+
+two:
+  width: 1
+  height: 1
+  name: MyString
+  title: false
+  line_up: false
+  address: false
+  date: false
