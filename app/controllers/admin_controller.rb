@@ -13,14 +13,14 @@ class AdminController < ApplicationController
     def events_index
         @deleted=false
         @category="next"
-        @events=Event.where("'end' < ?",DateTime.now)
+        @events=Event.where("'end' > ?",DateTime.now)
 
         if params[:category]
             @category=params[:category] 
             if params[:category]=="deleted"
                 @events=Event.where(:deleted=>true)
             elsif params[:category]=="past"
-                @events=Event.where("'end' > ?",DateTime.now)
+                @events=Event.where("'end' < ?",DateTime.now)
             end
         end
     end
