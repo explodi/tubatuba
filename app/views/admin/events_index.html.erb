@@ -4,6 +4,9 @@
 <% @events.each do |event| %>
 <tr>
     <td><%=event.name%></td>
+    <td><%=event.start%></td>
+    <td><%=event.end%></td>
+
     <td><a href="/admin/events/edit/<%=event.id%>">edit</a></td>
     <% if event.deleted %>
     <td><a href="/admin/events/recover/<%=event.id%>">recover</a></td>
