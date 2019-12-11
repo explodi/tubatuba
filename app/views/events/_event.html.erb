@@ -1,12 +1,19 @@
 <style>
   
    #banner {
-       margin: 0 auto;
+      margin: 0 auto;
          background:url(/image/<%=@event.background_url%>) no-repeat center center fixed; 
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
       background-size: cover;
+      <% if width && height %>
+         width:<%=width%>px;
+         height:<%=height%>px;
+      <% else %>
+         width:100%;
+         height:100%;
+      <% end %>
    }
    #event-name {
          padding-bottom:160px;
@@ -16,7 +23,6 @@
     #banner-acts {
         width:40%;
         margin: 0 auto;
-      padding-bottom:100px;
 
     }
     #address {
@@ -25,8 +31,11 @@
 
     }
     #date {
-       width:20%;
+      width:80%;
       margin: 0 auto;
+      position: relative;
+      bottom:0;
+      height:auto;
 
     }
 </style>
@@ -53,12 +62,14 @@
 </div>
 <% end %>
 <% if date %>
-<div id="date">
-
-<% if @event.start %>
-        <%=raw Text2svg(I18n.l(@event.start.in_time_zone("America/Santiago"), format: :short).upcase, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
-<% end %>
-</div>
+   <% if @event.start %>
+   <div id="date">
+      <div id="date-date">
+            <%=raw Text2svg(I18n.l(@event.start.in_time_zone("America/Santiago"), format: :short).upcase, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
+      </div>
+     
+   </div>
+   <% end %>
 <% end %>
 
 </div>

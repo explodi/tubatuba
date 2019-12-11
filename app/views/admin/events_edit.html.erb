@@ -18,10 +18,7 @@
 </style>
 <form method="post" id="edit-form" enctype="multipart/form-data" action="/admin/events/update">
     <select id="size-select">
-        <% Event.flyer_formats.each do |f| %>
-            <option value="<%=f[0]%>x<%=f[1]%>"><%=f[0]%>x<%=f[1]%></option>
-
-        <% end %>
+ 
     </select>
 
 
@@ -66,113 +63,8 @@
     <input type="submit">
 
 </form>
-<%=render @event, :address=>true, :line_up=>true, :title=>true, :date=>true %>
-<script>
-    let acts=[];
-    function resize() {
+/evento/<%=@event.url_id%>
+<iframe src="/evento/<%=@event.url_id%>" width="600" height="600" style="width:600px;height:600px;position:fixed;top:30px;left:0;">
 
-    }
-    function render_acts() {
-        html="<table>"
-        for(let i=0;i<acts.length;i++) {
-            console.log(acts[i])
-            html=html+"<tr><td>"+acts[i].name+"</td><td><button onClick='javascript:destroy_act("+acts[i].id+")'>x</button></td></tr>"
-        }
-        html=html+"</table>"
-        $("#acts").html(html);
-    }
-    function destroy_act(id) {
-        $.ajax({
-            type: "POST",
-            url: "/admin/acts/destroy",
-            data: "id="+id,
-            dataType: "json",
-            success: function(data){
-                acts=data;
-                render_acts();
-            },
-            failure: function(errMsg) {
-                alert(errMsg);
-            }
-        });
-    }
-    function add_act() {
-        var name=prompt("act name")
-        if(name!=null) {
-            $.ajax({
-                type: "POST",
-                url: "/admin/acts/create",
-                data: "name="+name+"&id=<%=@event.id%>",
-                dataType: "json",
-                success: function(data){
-                    acts=data;
-                    render_acts();
-                },
-                failure: function(errMsg) {
-                    alert(errMsg);
-                }
-            });
-        }
-    }
-    var start_changed=false;
-    var end_changed=false;
-    function get_acts() {
-        $.getJSON('/admin/acts/index/<%=@event.id%>', function (data) {
-            acts=data;
-            render_acts();
-        });
-    }
-    $("#start").datetimepicker({
-        onChangeDateTime:function(dp,$input){
-            $('input[name="start_changed"]').val("true");
+</iframe>
 
-        }
-    });
-    $("#end").datetimepicker({
-        onChangeDateTime:function(dp,$input){
-            $('input[name="end_changed"]').val("true");
-
-        }
-    });
-    function change_zoom(z) {
-        zoom=z
-        resize_banner(selected_size)
-        onresize();
-
-    }
-    function resize_banner(selected_size) {
-        console.log(selected_size);
-        width=selected_size.split("x")[0]/zoom;
-        height=selected_size.split("x")[1]/zoom;
-        setTimeout(function() {
-            onresize();
-
-        },10);
-
-        $("#banner").width(width);
-        $("#banner").height(height);
-    }
-    var zoom=1
-    var selected_size="<%=Event.flyer_formats[0][0]%>x<%=Event.flyer_formats[0][1]%>"
-
-    $(document).ready(function () {
-        get_acts();
-
-        resize_banner(selected_size,zoom)
-         $("#size-select").change(function(){
-            selected_size = $(this).children("option:selected").val();
-            localStorage.setItem("selected_size",selected_size)
-            resize_banner(selected_size);
-
-         });
-        $("#zoom-select").change(function(){
-            zoom = parseInt($(this).children("option:selected").val());
-            localStorage.setItem("zoom",zoom)
-            resize_banner(selected_size);
-
-         });
-        
-        
-    })
-
-</script>
