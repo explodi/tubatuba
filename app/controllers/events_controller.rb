@@ -12,8 +12,9 @@ class EventsController < ApplicationController
     end
     def show
         @event=Event.find_by_url_id(params[:id])
-        @video_format=nil
+        @vf=nil
         if params[:format_id]
+            puts params[:format_id]
             @vf=VideoFormat.find_by_id(params[:format_id])
             puts @vf.inspect
         end

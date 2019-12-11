@@ -2,7 +2,7 @@
   
    #banner {
       margin: 0 auto;
-         background:url(/image/<%=@event.background_url%>) no-repeat center center fixed; 
+      background:url(/image/<%=@event.background_url%>) no-repeat center center fixed; 
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
@@ -10,9 +10,15 @@
       position:fixed;
       top:0;
       left:0;
+      padding:5%;
+      <% if width && height %>
+      width:<%=width%>px;
+      height:<%=height%>px;
+      
+      <% else %>
       right:0;
       bottom:0;
-      padding:5%;
+      <% end %>
    }
    #event-name-line-up {
 
@@ -31,7 +37,7 @@
        width:80%;
     }
     #date-address {
-      position:fixed;
+      position:absolute;
       margin: 0 auto;
       left:0;
       right:0;
