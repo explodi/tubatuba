@@ -26,16 +26,19 @@
     }
     #address {
       margin: 0 auto;
-       width:30%;
+      width:30%;
 
     }
     #date {
-      width:80%;
+       width:80%;
+       margin: 0 auto;
+    }
+    #date-address {
+       position:fixed;
       margin: 0 auto;
-      position: relative;
       bottom:0;
-      height:auto;
-
+      left:0;
+      right:0;
     }
 </style>
 <div id="banner">
@@ -55,22 +58,22 @@
 
 </div>
 <% end %>
-<% if address %>
-<div id="address">
-        <%=raw Text2svg("GRAL FLORES 223, PROVIDENCIA", font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
-</div>
-<% end %>
+<div id="date-address">
+
 <% if date %>
    <% if @event.start %>
    <div id="date">
-      <div id="date-date">
             <%=raw Text2svg(I18n.l(@event.start.in_time_zone("America/Santiago"), format: :short).upcase, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
-      </div>
      
    </div>
    <% end %>
 <% end %>
-
+<% if address %>
+<div id="address">
+   <%=raw Text2svg("GRAL FLORES 223, PROVIDENCIA", font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
+</div>
+<% end %>
+</div>
 </div>
 <script>
 function findFirstDescendant(parent, tagname)
