@@ -57,12 +57,15 @@
     </div>
      <label>live</label>
     <input type="checkbox" name="live" value="true" <% if @event.live %>checked<% end %>>
+    
     <% VideoFormat.all.each do |vf| %>
+
         <a href="/evento/<%=@event.url_id%>/<%=vf.id%>" target="_blank"><%=vf.name%></a>
     <% end %>
     <input type="submit">
 
 </form>
+
 <iframe src="/evento/<%=@event.url_id%>" width="600" height="600" style="width:600px;height:600px;position:fixed;top:30px;left:0;">
 
 </iframe>
