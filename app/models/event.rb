@@ -88,7 +88,7 @@ class Event < ApplicationRecord
         require 'fileutils'
         puts "[record video] format: #{f.name}"
         filename="#{f.name}.webm"
-        command="node #{Rails.root.join("export.js")} https://tubatuba.net/evento/#{self.url_id} #{filename} #{f.width} #{f.height}"
+        command="node #{Rails.root.join("export.js")} https://tubatuba.net/evento/#{self.url_id}/#{f.id} #{filename} #{f.width} #{f.height}"
         puts command
         system(command)
 
