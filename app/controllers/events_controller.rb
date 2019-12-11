@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
     def index
         @event=Event.where(:deleted=>false).where(:live=>true).order("id DESC").first
+        redirect_to @event.eventbrite_url if @event && @event.eventbrite_url
     end
     def admin
         if !current_user
@@ -22,5 +23,6 @@ class EventsController < ApplicationController
     end
     def ad
         @event=Event.find_by_id(params[:id])
+        
     end
 end
