@@ -37,7 +37,7 @@ chrome.runtime.onConnect.addListener(port => {
           }, stream => {
             var chunks=[];
             recorder = new MediaRecorder(stream, {
-                videoBitsPerSecond: 5000000,
+                videoBitsPerSecond: 8000000,
                 ignoreMutedMedia: true,
                 mimeType: 'video/webm'
             });
