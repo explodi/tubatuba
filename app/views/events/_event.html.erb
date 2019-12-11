@@ -31,24 +31,35 @@
     }
 </style>
 <div id="banner">
+<% if title %>
 <div id="event-name">
 <%=raw Text2svg(@event.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
 </div>
+<% end %>
+<% if line_up %>
+
 <div id="banner-acts">
 <% @event.acts.each do |act| %>
    <%=raw Text2svg(act.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
 <% end %>
 
+
+
 </div>
+<% end %>
+<% if address %>
 <div id="address">
         <%=raw Text2svg("GRAL FLORES 223, PROVIDENCIA", font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
 </div>
+<% end %>
+<% if date %>
 <div id="date">
 
 <% if @event.start %>
         <%=raw Text2svg(I18n.l(@event.start.in_time_zone("America/Santiago"), format: :short).upcase, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
 <% end %>
 </div>
+<% end %>
 
 </div>
 <script>

@@ -3,8 +3,9 @@ class CreateVideosJob < ApplicationJob
 
   def perform(*args)
     @event=args[0]
-    @event.record_video(600,600)
-    @event.record_video(1920,1080)
+    VideoFormat.all.each do |f|
+      @event.record_video(f)
+    end
     @event.record_ad
   end
 end

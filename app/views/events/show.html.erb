@@ -1,10 +1,17 @@
 <style>
+
     #banner {
         position:fixed;
         top:0;
         left:0;
-        right:0;
-        bottom:0;
+        <% if @vf %>
+            width:<%=@vf.width%>px;
+            height:<%=@vf.height%>px;
+        <% end %>
     }
 </style>
-<%=render @event%>
+<% if @vf %>
+<%=render @event, :address=>@vf.address, :line_up=>@vf.line_up, :title=>@vf.title, :date=>@vf.date %>
+<% else %>
+<%=render @event, :address=>true, :line_up=>true, :title=>true, :date=>true %>
+<% end %>

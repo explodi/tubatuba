@@ -10,14 +10,10 @@
     <% else %>
     <td><a href="/admin/events/destroy/<%=event.id%>">destroy</a></td>
     <% end %>
-    <% if event.video_exists(600,600) %>
-        <td><a href="<%=event.video_link(600,600)%>">1</a></td>
-    <% end %>
-    <% if event.video_exists(1920,1080) %>
-        <td><a href="<%=event.video_link(1920,1080)%>">2</a></td>
-    <% end %>
-     <% if event.video_ad_exists %>
-        <td><a href="<%=event.ad_video_link%>">2</a></td>
+    <% VideoFormat.all.each do |vf| %>
+        <% if event.video_exists(vf) %>
+            <td><a href="<%=event.video_link(vf)%>"><%=vf.name%></a></td>
+        <% end %>
     <% end %>
 </tr>
 <% end %>

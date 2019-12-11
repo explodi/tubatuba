@@ -41,21 +41,21 @@ class Event < ApplicationRecord
     def has_audio
         return File.exist?(self.audio_path)
     end
-    def video_exists(width,height)
-        return File.exist?(self.video_path(width,height))
+    def video_exists(format_name)
+        return File.exist?(self.video_path(format_name))
     end
     def video_ad_exists
         return File.exist?(self.ad_video_path)
     end
     
-    def video_link(width,height)
+    def video_link(format_name)
         return "/video/#{self.id}/#{width}_#{height}.mp4"
     end
     def ad_video_link
         return "/video/#{self.id}/ad.mp4"
     end
-    def video_path(width,height)
-        filename="#{width}_#{height}.mp4"
+    def video_path(format_name)
+        filename="#{format_name}.mp4"
         return "#{Rails.root.join("public","video","#{self.id}",filename)}"
     end
     def ad_video_path
@@ -84,7 +84,7 @@ class Event < ApplicationRecord
         return true
 
     end
-    def record_video(width,height)
+    def record_video(f)
         require 'fileutils'
 
         # url="http://tubaflyer:8383/record"
@@ -101,8 +101,8 @@ class Event < ApplicationRecord
         # else
         #     return false
         # end
-        filename="#{width}_#{height}.webm"
-        command="node #{Rails.root.join("export.js")} https://tubatuba.net/evento/#{self.url_id} #{filename} #{width} #{height}"
+        filename="#{f.name}.webm"
+        command="node #{Rails.root.join("export.js")} https://tubatuba.net/evento/#{self.url_id} #{filename} #{f.width} #{f.height}"
         puts command
         system(command)
 
@@ -111,9 +111,9 @@ class Event < ApplicationRecord
             FileUtils.mkdir_p(dirname)
         end
         capture_path="/root/Downloads/#{filename}"
-        ffmpeg_command="ffmpeg -i #{capture_path} -y #{self.video_path(width,height)}"
+        ffmpeg_command="ffmpeg -i #{capture_path} -y #{self.video_path(f.name)}"
         if self.has_audio
-            ffmpeg_command="ffmpeg -i #{capture_path} -i #{audio_path} -y -f mp4 -vcodec libx264 -preset fast -profile:v main -acodec aac -shortest #{self.video_path(width,height)}"
+            ffmpeg_command="ffmpeg -i #{capture_path} -i #{audio_path} -y -f mp4 -vcodec libx264 -preset fast -profile:v main -acodec aac -shortest #{self.video_path(f.name)}"
         end
         puts "[ffmpeg] #{ffmpeg_command}"
         system(ffmpeg_command)

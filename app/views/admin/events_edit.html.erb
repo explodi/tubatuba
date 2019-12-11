@@ -60,14 +60,13 @@
     </div>
      <label>live</label>
     <input type="checkbox" name="live" value="true" <% if @event.live %>checked<% end %>>
-    <% if @event.screenshot_url %>
-        <label>flyers</label>
-        <a href="/admin/events/flyers/<%=@event.id%>" target="_blank"><img src="<%=@event.screenshot_url%>" id="screenshot"/></a>
+    <% VideoFormat.all.each do |vf| %>
+        <a href="/evento/<%=@event.url_id%>/<%=vf.id%>" target="_blank"><%=vf.name%></a>
     <% end %>
     <input type="submit">
 
 </form>
-<%=render @event%>
+<%=render @event, :address=>true, :line_up=>true, :title=>true, :date=>true %>
 <script>
     let acts=[];
     function resize() {
