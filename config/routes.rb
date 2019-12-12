@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get "/admin/songs/index" => "admin#songs_index"
   post "/admin/songs/create" => "admin#songs_create"
   get "/admin/songs/:id/destroy" => "admin#songs_destroy"
+  get "/admin/songs/new" => "admin#songs_new"
 
   get "/admin/events/new" => "admin#events_new"
   post "/admin/events/create" => "admin#events_create"

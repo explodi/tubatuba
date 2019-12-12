@@ -88,6 +88,17 @@ class AdminController < ApplicationController
         @videoflyers=VideoFlyer.where({:event_id=>@event.id})
         
     end
+    def songs_upvote
+        @song=Song.find(params[:id])
+        render :json=>{:success=>@song.update_attribute(:score,2)}
+    end
+    def songs_downvote
+        @song=Song.find(params[:id])
+        render :json=>{:success=>@song.update_attribute(:score,0)}
+    end
+    def songs_new
+        
+    end
     def songs_create
         mime=MimeMagic.by_path(params[:file].tempfile.path)
         puts "[file] #{mime.type}"
