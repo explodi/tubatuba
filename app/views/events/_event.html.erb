@@ -1,11 +1,7 @@
 <style>
    body {
       overflow:hidden;
-           <% if width && height %>
-      width:<%=width%>px;
-      height:<%=height%>px;
-      
-      <% end %>
+          
    }
    #banner {
       margin: 0 auto;
@@ -17,14 +13,8 @@
       position:fixed;
       top:0;
       left:0;
-      <% if width && height %>
-      width:<%=width%>px;
-      height:<%=height%>px;
-      
-      <% else %>
       right:0;
       bottom:0;
-      <% end %>
       overflow:hidden;
    }
    #event-name-line-up {
