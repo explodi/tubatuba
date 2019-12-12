@@ -6,6 +6,7 @@ class Song < ApplicationRecord
             mp3_file = File.open(self.file_path, "rb")
             tag = ID3Tag.read(mp3_file)
             if tag
+                puts tag.inspect
                 self.update_attribute(:title,tag.title) if tag.title
                 if tag.artist
                     artist=Artist.find_or_create_by({:name=>tag.artist}) 
