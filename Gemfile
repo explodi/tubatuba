@@ -29,6 +29,7 @@ gem 'text2svg'
 gem 'rest-client'
 gem 'resque'
 gem 'ruby-mpd'
+gem 'mimemagic'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
