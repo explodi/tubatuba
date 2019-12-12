@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get "/admin/video_formats/index" => "admin#video_formats_index"
   post "/admin/video_formats/create" => "admin#video_formats_create"
   get "/admin/video_formats/:id/destroy" => "admin#video_formats_destroy"
-
+  get '/radio' => "radio#show"
   post "/admin/events/update" => "admin#events_update"
   post "/admin/acts/create" => "admin#acts_create"
   post "/admin/acts/destroy" => "admin#acts_destroy"

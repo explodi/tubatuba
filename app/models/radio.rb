@@ -2,8 +2,9 @@ class Radio
 
     def self.current_song
         MPD_CLIENT.connect if !MPD_CLIENT.connected?
-        
+    
         song=MPD_CLIENT.current_song
+        
         if song
             md5=song.file.split(".")[0]
             @song=Song.find_by_md5(md5)

@@ -2,4 +2,25 @@
 <audio controls>
   <source src="http://radio.tubatuba.net/mpd.mp3" type="audio/mpeg">
 </audio>
+<div id="artist">
 </div>
+<div id="title">
+
+</div>
+</div>
+<script>
+function getInfo() {
+  $.get( "/radio/current_song", function( data ) {
+    console.log(data);
+    if(data) {
+      $("#title").html(data.title)
+      $("#artist").html(data.artist)
+      
+    }
+  });
+}
+setInterval(getInfo,1000);
+</script>
+<style>
+  
+</style>
