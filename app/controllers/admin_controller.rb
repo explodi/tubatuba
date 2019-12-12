@@ -119,7 +119,6 @@ class AdminController < ApplicationController
         @event.name=params[:name]
         @event.text_color=params[:text_color]
         @event.eventbrite_url=params[:eventbrite_url]
-
         @event.title_color=params[:title_color]
         if params[:live]=="true"
             @event.live=true
