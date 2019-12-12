@@ -10,6 +10,13 @@ class Radio
             return nil
         end
     end
+    def self.is_in_queue(song)
+        MPD_CLIENT.queue.each do |mpd_song|
+            md5=mpd_song.file.split(".")[0]
+            return true if md5==song.md5
+        end
+        return false
+    end
     def self.fill_queue
         MPD_CLIENT.connect if !MPD_CLIENT.connected?
         MPD_CLIENT.play if MPD_CLIENT.paused?
@@ -23,7 +30,7 @@ class Radio
         end
         if queue.length<20
             Song.order("RANDOM ()").limit(20).each do |song|
-                unless queue_md5.include? song.md5
+                unless Radio.is_in_queue(song)
                     begin
                         puts "[add] #{song.md5}"
                         puts MPD_CLIENT.add("#{song.md5}.mp3").inspect
