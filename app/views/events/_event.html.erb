@@ -125,14 +125,14 @@ function animate()
    if(noise%1==0) noise_effect_y=noise
    for(i=1;i<warps.length;i++) {
       warps[i].transform(([ x, y, oy ]) => [ x, oy + 88+noise*40 * Math.sin(x /80 + offset), oy ])
-      offset += 0.01*i
+      // offset += 0.01*i
    }
    warps[0].transform(([ x, y, oy ]) => [ x, oy + 33*i * Math.sin(x / 6 + offset), oy ])
-   offset += 0.0001
+   offset += 0.05
    if(noise_up) {
 
       noise=noise + 0.001;
-      if(noise>8) noise_up=false
+      if(noise>16) noise_up=false
    } else {
       noise=noise - 0.001;
       if(noise<0) noise_up=true
