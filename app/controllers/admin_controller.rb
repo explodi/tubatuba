@@ -1,3 +1,5 @@
+require 'mimemagic'
+
 class AdminController < ApplicationController
     before_action :check_admin_permissions
     skip_before_action :verify_authenticity_token
@@ -87,6 +89,8 @@ class AdminController < ApplicationController
         
     end
     def songs_create
+        mime=MimeMagic.by_path(params[:file].tempfile.path)
+        puts "[file] #{mime.type}"
         md5=Digest::MD5.file(params[:file].tempfile.path).hexdigest
         params[:file].rewind
         unless File.directory?(Rails.root.join("radio"))
