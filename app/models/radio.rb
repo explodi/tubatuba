@@ -20,7 +20,7 @@ class Radio
     def self.fill_queue
         MPD_CLIENT.connect if !MPD_CLIENT.connected?
         MPD_CLIENT.play if MPD_CLIENT.paused?
-        MPD_CLIENT.random=false MPD_CLIENT.random?
+        MPD_CLIENT.random=false if MPD_CLIENT.random?
         MPD_CLIENT.send_command('delete',0) if MPD_CLIENT.current_song.pos>0
         queue=MPD_CLIENT.queue
         queue_md5=[]
