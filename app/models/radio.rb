@@ -21,8 +21,12 @@ class Radio
         if queue.length<20
             Song.order("RANDOM ()").limit(20).each do |song|
                 unless queue_md5.include? song.md5
-                    puts "[add] #{song.md5}"
-                    MPD_CLIENT.add("#{song.md5}.mp3")
+                    begin
+                        puts "[add] #{song.md5}"
+                        MPD_CLIENT.add("#{song.md5}.mp3")
+                    rescue => e
+                        puts e.message
+                    end
                 end
             end
         end
