@@ -10,4 +10,14 @@ class Radio
             return nil
         end
     end
+    def self.fill_queue
+        MPD_CLIENT.connect if !MPD_CLIENT.connected?
+        if MPD_CLIENT.queue.length<20
+            Song.order("RANDOM ()").limit(20).each do |song|
+                puts song.inspect
+                puts song.md5.inspect
+                MPD_CLIENT.add("#{song.md5}.mp3")
+            end
+        end
+    end
 end
