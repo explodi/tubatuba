@@ -108,7 +108,10 @@ class AdminController < ApplicationController
         @songs=Song.all
     end
     def songs_destroy
-        Song.find(params[:id]).destroy
+        @song=Song.find(params[:id])
+
+        FileUtils.rm(Rails.root.join("radio","#{@song.md5}.mp3"))
+        @song.destroy
         redirect_to "/admin/songs/index"
     end
     def events_update
