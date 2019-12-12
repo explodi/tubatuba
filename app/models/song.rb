@@ -14,8 +14,12 @@ class Song < ApplicationRecord
                 end
             end
             begin
-                ffprobe_command="ffprobe -i #{self.file_path}"
-                system(ffprobe_command)
+                ffprobe_command=`ffprobe -v quiet -print_format json -show_format -show_streams -i #{self.file_path}`
+                probe=JSON.parse(ffprobe_command)
+                if probe["streams"][0]["duration"]
+                    duration=probe["streams"][0]["duration"].to_f
+                    self.update_attribute(:duration,duration)
+                end
             rescue => e
                 puts "[ffprobe] #{e.inspect}"
             end
