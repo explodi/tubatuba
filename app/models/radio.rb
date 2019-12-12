@@ -30,5 +30,8 @@ class Radio
                 end
             end
         end
+        MPD_CLIENT.queue.each do |q|
+            puts q.title
+        end
     end
 end
