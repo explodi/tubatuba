@@ -5,7 +5,7 @@ total: <%=Time.at(Radio.total_seconds).utc.strftime("%H:%M:%S")%>
         <tr>
             <td><%=song.title%></td>
             <td><%=song.artist_name%></td>
-            <td><%=song.duration%></td>
+            <td><%=Time.at(song.duration).utc.strftime("%M:%S") if song.duration%></td>
             <td><%=song.score%></td>
 
             <td><%=song.file_exists.inspect%></td>
