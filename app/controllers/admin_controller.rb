@@ -98,7 +98,7 @@ class AdminController < ApplicationController
                 unless File.directory?(Rails.root.join("radio"))
                     FileUtils.mkdir_p(Rails.root.join("radio"))
                 end
-                ffmpeg_command="ffmpeg -i #{params[:file].tempfile.path} -c:a flac #{Rails.root.join("radio","#{md5}.flac"}"
+                ffmpeg_command="ffmpeg -i #{params[:file].tempfile.path} -c:a flac #{Rails.root.join("radio","#{md5}.flac")}"
                 system(ffmpeg_command)
                 FileUtils.cp(params[:file].tempfile.path,Rails.root.join("radio","#{md5}.mp3"))
                 FileUtils.chmod(777,Rails.root.join("radio","#{md5}.mp3"))
