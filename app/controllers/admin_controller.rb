@@ -97,7 +97,7 @@ class AdminController < ApplicationController
         render :json=>{:success=>@song.update_attribute(:score,0)}
     end
     def songs_new
-        
+
     end
     def songs_create
         mime=MimeMagic.by_path(params[:file].tempfile.path)
@@ -111,7 +111,8 @@ class AdminController < ApplicationController
                 end
                 FileUtils.cp(params[:file].tempfile.path,Rails.root.join("radio","#{md5}.mp3"))
                 FileUtils.chmod(777,Rails.root.join("radio","#{md5}.mp3"))
-                @song=Song.new({:md5=>md5}).save
+                @song=Song.new({:md5=>md5})
+                @song.save
                 @song.find_info
                 MPD_CLIENT.connect? if !MPD_CLIENT.connected?
                 MPD_CLIENT.send_command('rescan')

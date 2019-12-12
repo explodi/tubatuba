@@ -28,3 +28,11 @@ form {
 #admin-events-list th {
     padding: 4px 8px;
 }
+#player {
+    position:fixed;
+    left:0;
+    right: 0;
+    bottom:0;
+    height: 100px;
+    background-color: chartreuse;
+}
