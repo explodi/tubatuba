@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   get "/admin/events/index" => "admin#events_index"
+  get "/admin/songs/index" => "admin#songs_index"
+  post "/admin/songs/create" => "admin#songs_create"
+
   get "/admin/events/new" => "admin#events_new"
   post "/admin/events/create" => "admin#events_create"
   get "/admin/events/flyers/:id" => "admin#events_flyers"

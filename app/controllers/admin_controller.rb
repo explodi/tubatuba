@@ -86,6 +86,18 @@ class AdminController < ApplicationController
         @videoflyers=VideoFlyer.where({:event_id=>@event.id})
         
     end
+    def songs_create
+        md5=Digest::MD5.file(params[:file].tempfile.path).hexdigest
+        params[:file].rewind
+        unless File.directory?(Rails.root.join("radio"))
+            FileUtils.mkdir_p(Rails.root.join("radio"))
+        end
+        FileUtils.cp(params[:file].tempfile.path,Rails.root.join("radio","#{md5}.mp3"))
+        redirect_to "/admin/songs/index"
+    end
+    def songs_index
+
+    end
     def events_update
         @event=Event.find(params[:id])
         @event.name=params[:name]
