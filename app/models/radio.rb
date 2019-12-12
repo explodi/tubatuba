@@ -23,10 +23,9 @@ class Radio
                 unless queue_md5.include? song.md5
                     begin
                         puts "[add] #{song.md5}"
-                        MPD_CLIENT.add("#{song.md5}.mp3")
+                        puts MPD_CLIENT.add("#{song.md5}.mp3").inspect
                     rescue => e
                         puts "[add error] #{e.message}"
-                        puts e.message
                     end
                 end
             end
