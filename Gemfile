@@ -70,3 +70,4 @@ gem 'jquery-rails'
 source 'https://rails-assets.org' do
   gem 'rails-assets-datetimepicker'
 end
+gem 'id3tag', '~> 0.11.0'
