@@ -15,7 +15,8 @@
 <table>
     <% @songs.each do |song| %>
         <tr>
-            <td><%=song.md5%></td>
+            <td><%=song.title%></td>
+            <td><%=song.artist_name%></td>
             <td><a href="/admin/songs/<%=song.id%>/destroy">destroy</a></td>
         </tr>
     <% end %>

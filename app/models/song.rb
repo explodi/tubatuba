@@ -17,4 +17,11 @@ class Song < ApplicationRecord
     def file_path
         return Rails.root.join('radio',"#{md5}.mp3")
     end
+    def artist_name
+        if self.artist_id
+            return Artist.find(artist_id).name
+        else
+            return nil
+        end
+    end
 end
