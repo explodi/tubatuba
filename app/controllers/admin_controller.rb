@@ -93,14 +93,18 @@ class AdminController < ApplicationController
         puts "[file] #{mime.type}"
         if mime.type=="audio/mpeg"
             md5=Digest::MD5.file(params[:file].tempfile.path).hexdigest
-            params[:file].rewind
-            unless File.directory?(Rails.root.join("radio"))
-                FileUtils.mkdir_p(Rails.root.join("radio"))
+            if !Song.find_by_md5(params[:md5])
+                params[:file].rewind
+                unless File.directory?(Rails.root.join("radio"))
+                    FileUtils.mkdir_p(Rails.root.join("radio"))
+                end
+                FileUtils.cp(params[:file].tempfile.path,Rails.root.join("radio","#{md5}.mp3"))
+                Song.new({:md5=>md5}).save
+                MPD_CLIENT.connect? if !MPD_CLIENT.connected?
+                MPD_CLIENT.send_command('rescan')
+            else
+                puts "[file] md5 already exists: #{md5}"
             end
-            FileUtils.cp(params[:file].tempfile.path,Rails.root.join("radio","#{md5}.mp3"))
-            Song.new({:md5=>md5}).save
-            MPD_CLIENT.connect? if !MPD_CLIENT.connected?
-            MPD_CLIENT.send_command('rescan')
         end
         render :json=>{:success=>true}
     end
