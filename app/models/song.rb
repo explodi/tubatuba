@@ -13,6 +13,12 @@ class Song < ApplicationRecord
                     self.update_attribute(:artist_id,artist.id);
                 end
             end
+            begin
+                ffprobe_command="ffprobe -i #{self.file_path}"
+                system(ffprobe_command)
+            rescue => e
+                puts "[ffprobe] #{e.inspect}"
+            end
         end
     end
     def file_path
