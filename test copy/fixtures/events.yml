@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start: 2019-12-05 17:02:33
+  end: 2019-12-05 17:02:33
+  address: MyString
+  name: 
+  lat: 9.99
+  lng: 9.99
+
+two:
+  start: 2019-12-05 17:02:33
+  end: 2019-12-05 17:02:33
+  address: MyString
+  name: 
+  lat: 9.99
+  lng: 9.99

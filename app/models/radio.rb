@@ -23,6 +23,13 @@ class Radio
         end
         return false
     end
+    def self.total_seconds
+        count=0
+        Song.all.each do |song|
+            count=count+song.duration if song.duration
+        end
+        return count
+    end
     def self.fill_queue
         MPD_CLIENT.connect if !MPD_CLIENT.connected?
         MPD_CLIENT.play if MPD_CLIENT.stopped?||MPD_CLIENT.paused?
