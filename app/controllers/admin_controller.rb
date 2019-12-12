@@ -116,7 +116,8 @@ class AdminController < ApplicationController
             @event.live=false
         end
         if params[:mp3]
-            FileUtils.cp(params[:mp3].tempfile.path,Rails.root.join("public","audio","#{@event.id}.mp3"))
+            mime=MimeMagic.by_path(params[:mp3].tempfile.path)
+            FileUtils.cp(params[:mp3].tempfile.path,Rails.root.join("public","audio","#{@event.id}.mp3")) if mime.type=="audio/mpeg"
         end
         if params[:background]
             file_name="#{SecureRandom.hex}.gif"

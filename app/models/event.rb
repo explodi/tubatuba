@@ -36,6 +36,9 @@ class Event < ApplicationRecord
     def has_audio
         return File.exist?(self.audio_path)
     end
+    def audio_link
+        return "/audio/#{self.id}.mp3"
+    end
     def video_exists(format_name)
         return File.exist?(self.video_path(format_name))
     end

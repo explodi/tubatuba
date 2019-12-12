@@ -49,6 +49,11 @@
     <label>eventbrite_url</label>
     <input type="text" name="eventbrite_url" value="<%=@event.eventbrite_url%>" placeholder="eventbrite_url"/>
     <label>mp3</label>
+    <% if @event.has_audio %>
+        <audio controls>
+        <source src="<%=@event.audio_link%>" type="audio/mpeg">
+        </audio>
+    <% end %>
     <input type="file" name="mp3"/>
 
     <label>acts</label>
