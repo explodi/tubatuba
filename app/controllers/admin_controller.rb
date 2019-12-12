@@ -116,7 +116,7 @@ class AdminController < ApplicationController
     def songs_destroy
         @song=Song.find(params[:id])
 
-        FileUtils.rm(Rails.root.join("radio","#{@song.md5}.mp3"))
+        FileUtils.rm(Rails.root.join("radio","#{@song.md5}.mp3")) if @song.file_exists
         @song.destroy
         redirect_to "/admin/songs/index"
     end
