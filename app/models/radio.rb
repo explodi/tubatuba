@@ -12,11 +12,18 @@ class Radio
     end
     def self.fill_queue
         MPD_CLIENT.connect if !MPD_CLIENT.connected?
-        if MPD_CLIENT.queue.length<20
+        queue=MPD_CLIENT.queue
+        queue_md5=[]
+        queue.each do |queue_song|
+            md5=queue_song.file.split(".")[0]
+            queue_md5.push(md5)
+        end
+        if queue.length<20
             Song.order("RANDOM ()").limit(20).each do |song|
-                puts song.inspect
-                puts song.md5.inspect
-                MPD_CLIENT.add("#{song.md5}.mp3")
+                unless queue_md5.include? song.md5
+                    puts "[add] #{song.md5}"
+                    MPD_CLIENT.add("#{song.md5}.mp3")
+                end
             end
         end
     end
