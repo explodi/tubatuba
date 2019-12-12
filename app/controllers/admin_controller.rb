@@ -99,12 +99,17 @@ class AdminController < ApplicationController
             end
             FileUtils.cp(params[:file].tempfile.path,Rails.root.join("radio","#{md5}.mp3"))
             Song.new({:md5=>md5}).save
+            MPD_CLIENT.connect? if !MPD_CLIENT.connected?
             MPD_CLIENT.send_command('rescan')
         end
         redirect_to "/admin/songs/index"
     end
     def songs_index
-
+        @songs=Song.all
+    end
+    def songs_destroy
+        Song.find(params[:id]).destroy
+        redirect_to "/admin/songs/index"
     end
     def events_update
         @event=Event.find(params[:id])
