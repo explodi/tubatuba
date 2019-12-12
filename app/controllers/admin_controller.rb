@@ -5,7 +5,7 @@ class AdminController < ApplicationController
     skip_before_action :verify_authenticity_token
 
     def dashboard
-        redirect_to "/admin/events/index"
+        redirect_to "/admin/songs/index"
     end
     def check_admin_permissions
         if !current_user 
