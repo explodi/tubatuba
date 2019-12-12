@@ -6,7 +6,12 @@ class Radio
         song=MPD_CLIENT.current_song
         if song
             md5=song.file.split(".")[0]
-            return {:file=>song.file,:title=>song.title,:artist=>song.artist}
+            @song=Song.find_by_md5(md5)
+            if @song
+                return {:file=>@song.md5+".mp3",:title=>@song.title,:artist=>@song.artist_name}
+            else
+                return {:file=>song.file,:title=>song.title,:artist=>song.artist}
+            end
         else
             return nil
         end

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   post "/admin/songs/create" => "admin#songs_create"
   get "/admin/songs/:id/destroy" => "admin#songs_destroy"
   get "/admin/songs/new" => "admin#songs_new"
-
+  get '/radio/current_song' => "radio#current_song"
   get "/admin/events/new" => "admin#events_new"
   post "/admin/events/create" => "admin#events_create"
   get "/admin/events/flyers/:id" => "admin#events_flyers"
