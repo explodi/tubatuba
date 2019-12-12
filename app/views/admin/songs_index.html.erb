@@ -71,15 +71,28 @@ function uploadNextFile() {
         {
             var percentComplete = Math.ceil((e.loaded / e.total) * 100);
             console.log("[percent complete]",percentComplete); 
+                updateDropList();
+
         };
 
         xhr.onload = function() {
             console.log(this.status);
+            uploading=false;
         }
         
         xhr.send(formData);
     }
 }
-
+function updateDropList() {
+    var html="drop";
+    if(upload_queue.length>0) {
+        html="<table>";
+        for(i=0;i<upload_queue.length;i++) {
+            html=html+"<tr><td>file</td><tr>";
+        }
+        html="</table>";
+    }
+    $("#drop-area").html(html);
+}
 setInterval(uploadNextFile,300);
 </script>
