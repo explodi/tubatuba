@@ -93,6 +93,7 @@ class AdminController < ApplicationController
             FileUtils.mkdir_p(Rails.root.join("radio"))
         end
         FileUtils.cp(params[:file].tempfile.path,Rails.root.join("radio","#{md5}.mp3"))
+        MPD_CLIENT.send_command('rescan')
         redirect_to "/admin/songs/index"
     end
     def songs_index
