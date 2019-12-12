@@ -102,7 +102,7 @@ class AdminController < ApplicationController
             MPD_CLIENT.connect? if !MPD_CLIENT.connected?
             MPD_CLIENT.send_command('rescan')
         end
-        redirect_to "/admin/songs/index"
+        render :json=>{:success=>true}
     end
     def songs_index
         @songs=Song.all

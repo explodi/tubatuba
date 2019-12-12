@@ -1,4 +1,13 @@
-
+<style>
+    #drop-area {
+        width:100%;
+        height:300px;
+        background-color:rgba(255,255,255,0.2);
+    }
+</style>
+<div id="drop-area">
+    drop
+</div>
 <form method="post" enctype="multipart/form-data" action="/admin/songs/create" id="new-song-form">
     <input type="file" name="file"/>
     <input type="submit">
@@ -12,3 +21,65 @@
     <% end %>
 </table>
 <%=Radio.current_song%>
+<script>
+let dropArea = document.getElementById('drop-area')
+dropArea.addEventListener('dragenter', onEnter, false)
+dropArea.addEventListener('dragleave', onLeave, false)
+dropArea.addEventListener('dragover', onOver, false)
+dropArea.addEventListener('drop', onDrop, false)
+var upload_queue=[];
+function onDrop(e) {
+      e.preventDefault()
+  e.stopPropagation()
+  let dt = e.dataTransfer
+  let files = dt.files
+    for(let i=0;i<files.length;i++) {
+        upload_queue.push(files[i]);
+    }
+}
+var uploading=false;
+function onEnter(e) {
+      e.preventDefault()
+  e.stopPropagation()
+}
+function onLeave(e) {
+      e.preventDefault()
+  e.stopPropagation()
+}
+function onOver(e) {
+      e.preventDefault()
+  e.stopPropagation()
+}
+function uploadNextFile() {
+    if(uploading==false&&upload_queue.length>0) {
+        uploading=true;
+        var file=upload_queue.pop();
+        console.log(file)
+        formData = new FormData();
+        formData.append('file', file);
+        console.log("[upload file]",file);
+        let start = 0;
+        let end = 0;
+        let size = file.size;
+        console.log("[size]",size)
+        let loaded = 0;
+        let total = file.size;
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("POST", '/admin/songs/create', true);
+        xhr.upload.onprogress = function(e)
+        {
+            var percentComplete = Math.ceil((e.loaded / e.total) * 100);
+            console.log("[percent complete]",percentComplete); 
+        };
+
+        xhr.onload = function() {
+            console.log(this.status);
+        }
+        
+        xhr.send(formData);
+    }
+}
+
+setInterval(uploadNextFile,300);
+</script>
