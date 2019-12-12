@@ -28,6 +28,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'text2svg'
 gem 'rest-client'
 gem 'resque'
+gem 'ruby-mpd'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
