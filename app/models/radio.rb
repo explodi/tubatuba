@@ -25,6 +25,7 @@ class Radio
                         puts "[add] #{song.md5}"
                         MPD_CLIENT.add("#{song.md5}.mp3")
                     rescue => e
+                        puts "[add error] #{e.message}"
                         puts e.message
                     end
                 end
