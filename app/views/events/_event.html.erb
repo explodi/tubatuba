@@ -99,14 +99,14 @@ const svg_name = svgs[0]
 svg_name.setAttribute("fill", "<%=@event.title_color%>")
 var warps=[];
 warps[0] = new Warp(svg_name)
-warps[0].interpolate(200)
+// warps[0].interpolate(400)
 warps[0].transform(([ x, y ]) => [ x, y, y ])
 
 for(let i=1;i<svgs.length;i++) {
    console.log(svgs[i]);
    svgs[i].setAttribute("fill", "<%=@event.text_color%>")
    warps[i] = new Warp(svgs[i])
-   warps[i].interpolate(200)
+   // warps[i].interpolate(100)
    warps[i].transform(([ x, y ]) => [ x, y, y ])
 }
 
@@ -128,13 +128,13 @@ function animate()
       offset += 0.01*i
    }
    warps[0].transform(([ x, y, oy ]) => [ x, oy + 33*i * Math.sin(x / 6 + offset), oy ])
-   offset += 0.01*i
+   offset += 0.0001
    if(noise_up) {
 
-      noise=noise + 0.1;
-      if(noise>3) noise_up=false
+      noise=noise + 0.001;
+      if(noise>8) noise_up=false
    } else {
-      noise=noise - 0.1;
+      noise=noise - 0.001;
       if(noise<0) noise_up=true
 
    }
