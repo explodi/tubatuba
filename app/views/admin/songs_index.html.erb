@@ -1,9 +1,13 @@
 total: <%=Time.at(Radio.total_seconds).utc.strftime("%H:%M:%S")%>
 <table>
     <% @songs.each do |song| %>
+        <% song.find_info if !song.duration %>
         <tr>
             <td><%=song.title%></td>
             <td><%=song.artist_name%></td>
+            <td><%=song.duration%></td>
+            <td><%=song.score%></td>
+
             <td><%=song.file_exists.inspect%></td>
             <td><a href="/admin/songs/<%=song.id%>/destroy">destroy</a></td>
         </tr>
