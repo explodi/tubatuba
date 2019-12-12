@@ -98,8 +98,6 @@ class AdminController < ApplicationController
                 unless File.directory?(Rails.root.join("radio"))
                     FileUtils.mkdir_p(Rails.root.join("radio"))
                 end
-                ffmpeg_command="ffmpeg -i #{params[:file].tempfile.path} -c:a flac #{Rails.root.join("radio","#{md5}.flac")}"
-                system(ffmpeg_command)
                 FileUtils.cp(params[:file].tempfile.path,Rails.root.join("radio","#{md5}.mp3"))
                 FileUtils.chmod(777,Rails.root.join("radio","#{md5}.mp3"))
                 @song=Song.new({:md5=>md5}).save
@@ -118,7 +116,7 @@ class AdminController < ApplicationController
     def songs_destroy
         @song=Song.find(params[:id])
 
-        FileUtils.rm(Rails.root.join("radio","#{@song.md5}.mp3")) if @song.file_exists
+        FileUtils.rm(Rails.root.join("radio","#{@song.md5}.mp3"))
         @song.destroy
         redirect_to "/admin/songs/index"
     end
