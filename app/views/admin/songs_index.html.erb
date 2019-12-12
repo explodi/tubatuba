@@ -17,6 +17,7 @@
         <tr>
             <td><%=song.title%></td>
             <td><%=song.artist_name%></td>
+            <td><%=song.file_exists.inspect%></td>
             <td><a href="/admin/songs/<%=song.id%>/destroy">destroy</a></td>
         </tr>
     <% end %>
