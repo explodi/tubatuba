@@ -44,7 +44,7 @@ class Radio
             queue_md5.push(md5)
         end
         if queue.length<20
-            Song.order("RANDOM ()").limit(20).each do |song|
+            Song.order("RANDOM ()").limit(200).each do |song|
                 unless Radio.is_in_queue(song)
                     begin
                         puts "[add] #{song.md5}"
