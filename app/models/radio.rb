@@ -23,6 +23,7 @@ class Radio
         MPD_CLIENT.play if MPD_CLIENT.stopped?||MPD_CLIENT.paused?
         MPD_CLIENT.random=false if MPD_CLIENT.random?
         MPD_CLIENT.send_command('delete',0) if MPD_CLIENT.current_song && MPD_CLIENT.current_song.pos>0
+        MPD_CLIENT.crossfade=true
         queue=MPD_CLIENT.queue
         queue_md5=[]
         queue.each do |queue_song|
