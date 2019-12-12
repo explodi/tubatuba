@@ -91,13 +91,16 @@ class AdminController < ApplicationController
     def songs_create
         mime=MimeMagic.by_path(params[:file].tempfile.path)
         puts "[file] #{mime.type}"
-        md5=Digest::MD5.file(params[:file].tempfile.path).hexdigest
-        params[:file].rewind
-        unless File.directory?(Rails.root.join("radio"))
-            FileUtils.mkdir_p(Rails.root.join("radio"))
+        if mime.type=="audio/mpeg"
+            md5=Digest::MD5.file(params[:file].tempfile.path).hexdigest
+            params[:file].rewind
+            unless File.directory?(Rails.root.join("radio"))
+                FileUtils.mkdir_p(Rails.root.join("radio"))
+            end
+            FileUtils.cp(params[:file].tempfile.path,Rails.root.join("radio","#{md5}.mp3"))
+            Song.new({:md5=>md5}).save
+            MPD_CLIENT.send_command('rescan')
         end
-        FileUtils.cp(params[:file].tempfile.path,Rails.root.join("radio","#{md5}.mp3"))
-        MPD_CLIENT.send_command('rescan')
         redirect_to "/admin/songs/index"
     end
     def songs_index
