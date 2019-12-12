@@ -99,7 +99,8 @@ class AdminController < ApplicationController
                     FileUtils.mkdir_p(Rails.root.join("radio"))
                 end
                 FileUtils.cp(params[:file].tempfile.path,Rails.root.join("radio","#{md5}.mp3"))
-                Song.new({:md5=>md5}).save
+                @song=Song.new({:md5=>md5}).save
+                @song.find_info
                 MPD_CLIENT.connect? if !MPD_CLIENT.connected?
                 MPD_CLIENT.send_command('rescan')
             else
