@@ -85,13 +85,11 @@ function uploadNextFile() {
 }
 function updateDropList() {
     var html="drop";
-    if(upload_queue.length>0) {
-        html="<table>";
-        for(i=0;i<upload_queue.length;i++) {
-            html=html+"<tr><td>file</td><tr>";
-        }
-        html="</table>";
+    if(upload_queue.length>0||uploading) {
+        files_left=upload_queue.length+1;
+        html="uploading... "+files_left+" files left";
     }
+    console.log(html);
     $("#drop-area").html(html);
 }
 setInterval(uploadNextFile,300);
