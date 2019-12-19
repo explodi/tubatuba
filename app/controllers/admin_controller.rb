@@ -15,7 +15,7 @@ class AdminController < ApplicationController
     def events_index
         @deleted=false
         @category="next"
-        @events=Event.where("'end' > ?",DateTime.now).where(:deleted=>false)
+        @events=Event.next_events
 
         if params[:category]
             @category=params[:category] 
@@ -41,6 +41,10 @@ class AdminController < ApplicationController
         @video_format.address=true if params[:address]=="true"
         @video_format.date=true if params[:date]=="true"
         @video_format.save
+        Event.next_events.each do |event|
+            CreateFlyersJob.perform_later event
+            CreateVideosJob.perform_later event
+        end
         redirect_to "/admin/video_formats/index"
     end
     def events_create
