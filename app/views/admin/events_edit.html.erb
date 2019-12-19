@@ -113,7 +113,7 @@
             
                     type: 'POST',
                 url: '/admin/acts/create/',
-                data: 'name='+act_name+'&id=<%=@event.id%>',
+                data: 'name='+encodeURI(act_name)+'&id=<%=@event.id%>',
                 dataType:'json',
                 success: function(data){
                     location.reload();
