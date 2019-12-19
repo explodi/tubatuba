@@ -15,4 +15,4 @@
 //= require jquery
 //= require datetimepicker
 //= require_self
-var datetime_format="d-m-y h:m"
+var datetime_format="y-m-d h:m -0300"
