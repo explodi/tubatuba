@@ -59,6 +59,7 @@
     <input type="file" name="mp3"/>
 
     <label>acts</label>
+
     <input type="button" value="+" onclick="javascript:add_act()"> 
     <div id="acts">
 
@@ -79,10 +80,64 @@
 </iframe>
 
 <script>
-  $('#start').datetimepicker({
-      format:datetime_format
-  });
-    $('#end').datetimepicker({
+    var acts=[];
+    function draw_acts() {
+        let html=''
+        for(i=0;i<acts.length;i++) {
+            act=acts[i];
+            console.log(act)
+            html=html+"<li>"+act.name+"<button onClick='javascript:destroyAct("+act.id+")'>x</button></li>"
+        }
+        $("#acts").html(html);
+    }
+    function get_acts() {
+        $.ajax({
+            type:'GET',
+            url:'/admin/acts/index/<%=@event.id%>',
+            success: function(data) {
+                acts=data;
+                draw_acts();
+            }
+        })
+    }
+    $('#start').datetimepicker({
         format:datetime_format
-  });
+    });
+        $('#end').datetimepicker({
+            format:datetime_format
+    });
+    function add_act() {
+        act_name=prompt();
+        if(act_name) {
+            $.ajax({
+            
+                    type: 'POST',
+                url: '/admin/acts/create/',
+                data: 'name='+act_name+'&id=<%=@event.id%>',
+                dataType:'json',
+                success: function(data){
+                    location.reload();
+
+                }
+            })
+        }
+    }
+    function destroyAct(id) {
+   
+            $.ajax({
+            
+                    type: 'POST',
+                url: '/admin/acts/destroy/',
+                data: 'id='+id,
+                dataType:'json',
+                success: function(data){
+                    location.reload();
+                }
+            })
+        
+    }
+    
+    $( document ).ready(function() {
+        get_acts();
+});
   </script>
