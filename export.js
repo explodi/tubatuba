@@ -39,6 +39,8 @@ async function main() {
 
     // Wait for download of webm to complete
     await page.waitForSelector('html.downloadComplete', {timeout: 0})
+    await page.screenshot({path: 'screeen.png'});
+
     await browser.close()
     xvfb.stopSync()
 }
