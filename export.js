@@ -26,8 +26,7 @@ async function main() {
     const pages = await browser.pages()
     const page = pages[0]
     await page._client.send('Emulation.clearDeviceMetricsOverride')
-    await page.goto(url, {waitUntil: 'load'})
-    await page.timeout(1000);
+    await page.goto(url, {waitUntil: 'load', timeout: 1000})
     await page.setBypassCSP(true)
 
     // Perform any actions that have to be captured in the exported video
