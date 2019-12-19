@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
     validates :url_id, uniqueness: true
     def self.next_event
-        events=Event.where(:deleted=>false).where(:live=>true).where("'end' < ?",DateTime.now).order("end ASC")
+        events=Event.where(:deleted=>false).where(:live=>true).where("'end' < ?",DateTime.now).order("'end' ASC")
         return events.first if events.length>0
         return nil
     end
