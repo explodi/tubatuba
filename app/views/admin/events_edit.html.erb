@@ -23,18 +23,18 @@
 
 
     <label>name</label>
-    <input type="text" name="name" value="<%=@event.name%>" placeholder="name"/>
+    <input type="text" autocomplete="off"  name="name" value="<%=@event.name%>" placeholder="name"/>
     <label>starts</label>
     <% if @event.start && @event.start!="" %>
-    <input type="text" id="start" name="start" value="<%=@event.start.in_time_zone("Santiago")%>">
+    <input type="text" autocomplete="off"  id="start" name="start" value="<%=@event.start.in_time_zone("Santiago")%>">
     <% else %>
-    <input type="text" id="start" name="start" value="">
+    <input type="text" autocomplete="off"  id="start" name="start" value="">
     <% end %>
     <label>ends</label>
     <% if @event.end && @event.end!="" %>
-    <input type="text" id="end" name="end" value="<%=@event.end.in_time_zone("Santiago")%>">
+    <input type="text" autocomplete="off"  id="end" name="end" value="<%=@event.end.in_time_zone("Santiago")%>">
     <% else %>
-    <input type="text" id="end" name="end" value="">
+    <input type="text" autocomplete="off"  id="end" name="end" value="">
     <% end %>
     <input type="hidden" name="id" value="<%=@event.id%>"/>
     <input type="hidden" name="start_changed" value="false"/>
@@ -43,11 +43,11 @@
     <input type="file" name="background"/>
 
     <label>text_color</label>
-    <input type="text" name="text_color" value="<%=@event.text_color%>" placeholder="text_color"/>
+    <input type="text" autocomplete="off"  name="text_color" value="<%=@event.text_color%>" placeholder="text_color"/>
     <label>title_color</label>
-    <input type="text" name="title_color" value="<%=@event.title_color%>" placeholder="title_color"/>
+    <input type="text" autocomplete="off"  name="title_color" value="<%=@event.title_color%>" placeholder="title_color"/>
     <label>eventbrite_url</label>
-    <input type="text" name="eventbrite_url" value="<%=@event.eventbrite_url%>" placeholder="eventbrite_url"/>
+    <input type="text" autocomplete="off"  name="eventbrite_url" value="<%=@event.eventbrite_url%>" placeholder="eventbrite_url"/>
     <label>mp3</label>
     <% if @event.has_audio %>
         <audio controls>

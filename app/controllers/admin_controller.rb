@@ -51,12 +51,18 @@ class AdminController < ApplicationController
         event_end=DateTime.parse(params[:end]).in_time_zone("America/Santiago")
         event_end_offset=(event_end.utc_offset)/60/60
         event_end=(event_end-event_end_offset.hours).utc
-        puts event_end.inspect
-        raise "BadDate" if event_start>event_end || event_start>DateTime.now
-        @event=Event.new({:name=>params[:name],:text_color=>'white',:title_color=>'white',:start=>event_start,:end=>event_end})
-        @event.save
-        @event.generate_url_id
-        redirect_to "/admin/events/edit/#{@event.id}"
+        puts event_end.inspect 
+        if event_start>event_end
+            flash[:error] = "Event start> Event End"
+            redirect_to "/admin/events/new"
+        else
+
+            raise "BadDate" event_start<DateTime.now
+            @event=Event.new({:name=>params[:name],:text_color=>'white',:title_color=>'white',:start=>event_start,:end=>event_end})
+            @event.save
+            @event.generate_url_id
+            redirect_to "/admin/events/edit/#{@event.id}"
+        end
     end
     def events_edit
         @event=Event.find(params[:id])
