@@ -14,4 +14,5 @@
 //= require activestorage
 //= require jquery
 //= require datetimepicker
-//= require_tree .
+//= require_self
+var datetime_format="d-m-y h:m"
