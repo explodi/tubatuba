@@ -1,3 +1,5 @@
+<%= render 'layouts/admin_menu' %>
+
 total: <%=Time.at(Radio.total_seconds).utc.strftime("%H:%M:%S")%>
 <table>
     <% @songs.each do |song| %>
