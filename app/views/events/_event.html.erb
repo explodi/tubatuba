@@ -62,6 +62,7 @@
 
 <div id="banner-acts">
 <% @event.acts.each do |act| %>
+<% puts act.name %>
    <%=raw Text2svg(act.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
 <% end %>
 

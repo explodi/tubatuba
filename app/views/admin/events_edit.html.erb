@@ -111,9 +111,9 @@
         if(act_name) {
             $.ajax({
             
-                    type: 'POST',
+                type: 'POST',
                 url: '/admin/acts/create/',
-                data: 'name='+encodeURI(act_name)+'&id=<%=@event.id%>',
+                data: 'name='+encodeURIComponent(act_name)+'&id=<%=@event.id%>',
                 dataType:'json',
                 success: function(data){
                     location.reload();
