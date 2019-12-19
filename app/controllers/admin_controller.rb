@@ -48,13 +48,15 @@ class AdminController < ApplicationController
             flash[:error] = "Invalid Dates"
             redirect_to "/admin/events/new"
         else
-            event_start=DateTime.parse(params[:start]).in_time_zone("America/Santiago")
-            event_start_offset=(event_start.utc_offset)/60/60
-            event_start=(event_start-event_start_offset.hours).utc
+            event_start=DateTime.parse(params[:start])
+            # event_start=DateTime.parse(params[:start]).in_time_zone("America/Santiago")
+            # event_start_offset=(event_start.utc_offset)/60/60
+            # event_start=(event_start-event_start_offset.hours).utc
             puts event_start.inspect
-            event_end=DateTime.parse(params[:end]).in_time_zone("America/Santiago")
-            event_end_offset=(event_end.utc_offset)/60/60
-            event_end=(event_end-event_end_offset.hours).utc
+            event_end=DateTime.parse(params[:end])
+            # event_end=DateTime.parse(params[:end]).in_time_zone("America/Santiago")
+            # event_end_offset=(event_end.utc_offset)/60/60
+            # event_end=(event_end-event_end_offset.hours).utc
             puts event_end.inspect
             
             if event_start>event_end
@@ -180,19 +182,22 @@ class AdminController < ApplicationController
         end
         event_start=@event.start
         event_end=@event.end
-        if params[:start_changed]=="true"
-            event_start=DateTime.parse(params[:start]).in_time_zone("America/Santiago")
-            event_start_offset=(event_start.utc_offset)/60/60
-            event_start=(event_start-event_start_offset.hours).utc
+        # if params[:start_changed]=="true"
+            # event_start=DateTime.parse(params[:start]).in_time_zone("America/Santiago")
+            # event_start_offset=(event_start.utc_offset)/60/60
+            # event_start=(event_start-event_start_offset.hours).utc
+            event_start=DateTime.parse(params[:start])
+
             puts event_start
-        end
-        if params[:end_changed]=="true"
-            event_end=DateTime.parse(params[:end]).in_time_zone("America/Santiago")
-            event_end_offset=(event_end.utc_offset)/60/60
-            event_end=(event_end-event_end_offset.hours).utc
+        # end
+        # if params[:end_changed]=="true"
+        #     event_end=DateTime.parse(params[:end]).in_time_zone("America/Santiago")
+        #     event_end_offset=(event_end.utc_offset)/60/60
+        #     event_end=(event_end-event_end_offset.hours).utc
+            event_end=DateTime.parse(params[:end])
 
             puts event_end
-        end
+        # end
 
         if event_end&&event_start&&event_end<event_start
             flash[:error]="event cannot start after it ends"
