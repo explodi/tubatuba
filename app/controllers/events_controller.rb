@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
     def index
-        @event=Event.where(:deleted=>false).where(:live=>true).order("id DESC").first
+        @event=Event.where(:deleted=>false).where(:live=>true).where("end_date < ?",DateTime.now).order("id DESC").first
         redirect_to @event.eventbrite_url if @event && @event.eventbrite_url
     end
     def admin
