@@ -26,10 +26,17 @@
 
       max-width:1024px;
    }
-    #banner-acts {
+    .act-name {
       width:40%;
-            padding:2%;
+      margin-bottom:-10px;
 
+    }
+    #act-names {
+
+      padding:2%;
+    }
+    #act-name-1 {
+       width:60%;
     }
     #address {
       width:60%;
@@ -61,9 +68,14 @@
 <% if line_up %>
 
 <div id="banner-acts">
+<% i=0 %>
 <% @event.acts.each do |act| %>
-<% puts act.name %>
+   <% i=i+1 %>
+
+<div class="act-name" id="act-name-<%=i%>">
+
    <%=raw Text2svg(act.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
+</div>
 <% end %>
 
 </div>
