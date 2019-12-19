@@ -92,7 +92,7 @@ class Event < ApplicationRecord
     end
     def record_video(f)
         require 'fileutils'
-        puts "[record video] format: #{f.name}"
+        puts "[record video] format: #{f.name} start"
         filename="#{f.name}.webm"
         command="node #{Rails.root.join("export.js")} https://tubatuba.net/evento/#{self.url_id}/#{f.id} #{filename} #{f.width} #{f.height}"
         puts command
@@ -110,6 +110,7 @@ class Event < ApplicationRecord
         puts "[ffmpeg] #{ffmpeg_command}"
         system(ffmpeg_command)
         REDIS.del("video_queue:#{self.id}:#{f.id}")
+        puts "[record video] format: #{f.name} ended"
 
         return true
 
