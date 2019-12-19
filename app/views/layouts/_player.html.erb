@@ -7,17 +7,36 @@
 <div id="title">
 
 </div>
+<div id="score" >
+
+</div>
+<% if current_user %>
+<button>up</button>
+
+<button>down</button>
+<style>
+#score {
+  display:inline;
+}
+</style>
+<% end %>
 </div>
 <script>
 function getInfo() {
   $.get( "/radio/current_song", function( data ) {
-    console.log(data);
     if(data) {
       $("#title").html(data.title)
       $("#artist").html(data.artist)
-      
+            $("#score").html(data.score)
+
     }
   });
+  upvote() {
+
+  }
+  downvote() {
+
+  }
 }
 setInterval(getInfo,1000);
 </script>

@@ -5,6 +5,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <script src="/warp.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -28,6 +29,8 @@ td {
         <a href="/admin/events/index?category=past"><li>past events</li></a>
         <a href="/admin/events/index?category=deleted"><li>deleted events</li></a>
         <a href="/admin/video_formats/index"><li>video formats</li></a>
+                <a href="/admin/users/index"><li>users</li></a>
+
       </ul>
       </div>
     </header>

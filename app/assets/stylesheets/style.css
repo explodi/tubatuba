@@ -37,3 +37,7 @@ form {
     background-color: chartreuse;
     color:black;
 }
+#score {
+    display:none;
+}
+tr:nth-child(even) {background:rgba(255,255,255,0.1)}

@@ -9,9 +9,9 @@ class Radio
             md5=song.file.split(".")[0]
             @song=Song.find_by_md5(md5)
             if @song
-                return {:file=>@song.md5+".mp3",:title=>@song.title,:artist=>@song.artist_name}
+                return {:file=>@song.md5+".mp3",:title=>@song.title,:artist=>@song.artist_name,:score=>@song.score,:key=>nil}
             else
-                return {:file=>song.file,:title=>song.title,:artist=>song.artist}
+                return {:file=>song.file,:title=>song.title,:artist=>song.artist,:score=>@song.score,:key=>nil}
             end
         else
             return nil
@@ -55,8 +55,6 @@ class Radio
                 end
             end
         end
-        MPD_CLIENT.queue.each do |q|
-            puts q.title
-        end
+      
     end
 end

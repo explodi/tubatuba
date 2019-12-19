@@ -2,6 +2,7 @@ class Song < ApplicationRecord
     def find_info
         puts self.md5
         require "id3tag"
+        self.update_attribute(:uuid,SecureRandom.uuid) if !self.uuid
         if File.file?(self.file_path)
             mp3_file = File.open(self.file_path, "rb")
             tag = ID3Tag.read(mp3_file)

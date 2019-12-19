@@ -125,6 +125,14 @@ class AdminController < ApplicationController
     def songs_index
         @songs=Song.all
     end
+    def users_index
+        @users=User.all
+    end
+    def users_create
+        @user=User.new({:email=>params[:email],:password=>params[:password],:password_confirmation=>params[:password]})
+        @user.save
+        redirect_to "/admin/users/index"
+    end
     def songs_destroy
         @song=Song.find(params[:id])
 

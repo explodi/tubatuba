@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   post "/admin/songs/create" => "admin#songs_create"
   get "/admin/songs/:id/destroy" => "admin#songs_destroy"
   get "/admin/songs/new" => "admin#songs_new"
+  get "/admin/songs/:id/upvote" => "admin#songs_upvote"
+  get "/admin/songs/:id/downvote" => "admin#songs_downvote"
   get '/radio/current_song' => "radio#current_song"
   get "/admin/events/new" => "admin#events_new"
   post "/admin/events/create" => "admin#events_create"
@@ -26,6 +28,10 @@ Rails.application.routes.draw do
   get "/login" => "sessions#new"
   post "/sessions/create" => "sessions#create"
   get "/admin/events/:id/videos/index" => "admin#events_videos_index"
+  post "/admin/users/create" => "admin#users_create"
+  get "/admin/users/new" => "admin#users_new"
+  get "/admin/users/index" => "admin#users_index"
   root :to => "events#index"
+  match '*any', to: 'pages#not_found', via: [:get, :post]
 
 end
