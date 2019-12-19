@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_12_214549) do
+ActiveRecord::Schema.define(version: 2019_12_19_225531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2019_12_12_214549) do
     t.boolean "live", default: false
     t.string "url_id"
     t.string "eventbrite_url"
+    t.string "image_hash"
   end
 
   create_table "flyers", force: :cascade do |t|
@@ -96,6 +97,7 @@ ActiveRecord::Schema.define(version: 2019_12_12_214549) do
     t.boolean "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "video_enabled", default: true
   end
 
 end
