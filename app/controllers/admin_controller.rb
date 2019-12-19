@@ -55,7 +55,7 @@ class AdminController < ApplicationController
         if event_start>event_end
             flash[:error] = "Event start> Event End"
             redirect_to "/admin/events/new"
-        if event_start<DateTime.now
+        elsif event_start<DateTime.now
             flash[:error] = "Event start < now"
             redirect_to "/admin/events/new"
         else
