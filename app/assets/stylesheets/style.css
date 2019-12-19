@@ -6,6 +6,14 @@ body {
 a {
     color: chartreuse;
 }
+input {
+    width:100%;
+}
+input[type=submit] {
+    height:44px;
+    background-color: chartreuse;
+    color: black;
+}
 #admin-header li {
     display: inline;
 }

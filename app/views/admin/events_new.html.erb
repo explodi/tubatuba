@@ -18,7 +18,7 @@
                     start
                 </td>
                 <td>
-                    <input type="date" id="start" name="start" value="">
+                    <input type="text" id="start" name="start" value="">
 
                 </td>
             </tr>
@@ -27,12 +27,21 @@
                     end
                 </td>
                 <td>
-                    <input type="date" id="end" name="end" value="">
+                    <input type="text" id="end" name="end" value="">
                 </td>
             </tr>
 
         </table>
 
-        <input type="submit">
+        <input type="submit" value="new event"/>
     </form>
 </div>
+<script>
+    var datetime_format="d-m-y h:m"
+  $('#start').datetimepicker({
+      format:datetime_format
+  });
+    $('#end').datetimepicker({
+        format:datetime_format
+  });
+  </script>
