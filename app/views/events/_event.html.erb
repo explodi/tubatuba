@@ -29,7 +29,7 @@
     .act-name {
       width:40%;
       margin-bottom:-10px;
-
+      padding-left:2%;
     }
     #act-names {
 
@@ -62,7 +62,7 @@
 <div id="event-name-line-up">
 <% if title %>
 <div id="event-name">
-<%=raw Text2svg(@event.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true,char_size:"0,0,2000,3000")%>
+<%=raw Text2svg(@event.name.upcase, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true,char_size:"0,0,2000,3000")%>
 </div>
 <% end %>
 <% if line_up %>
@@ -74,7 +74,7 @@
 
 <div class="act-name" id="act-name-<%=i%>">
 
-   <%=raw Text2svg(act.name, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
+   <%=raw Text2svg(act.name.upcase, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
 </div>
 <% end %>
 
