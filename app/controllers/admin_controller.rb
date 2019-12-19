@@ -55,9 +55,10 @@ class AdminController < ApplicationController
         if event_start>event_end
             flash[:error] = "Event start> Event End"
             redirect_to "/admin/events/new"
+        if event_start<DateTime.now
+            flash[:error] = "Event start < now"
+            redirect_to "/admin/events/new"
         else
-
-            raise "BadDate" event_start<DateTime.now
             @event=Event.new({:name=>params[:name],:text_color=>'white',:title_color=>'white',:start=>event_start,:end=>event_end})
             @event.save
             @event.generate_url_id
