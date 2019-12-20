@@ -114,7 +114,7 @@ class Event < ApplicationRecord
         REDIS.del("video_queue:#{self.id}:#{f.id}")
         end_time=DateTime.now
 
-        puts "[record video] format: #{f.name} took: #{end_time.to_i-start_time.to_i}" ended"
+        puts "[record video] format: #{f.name} took: #{end_time.to_i-start_time.to_i}"
 
         return true
 
