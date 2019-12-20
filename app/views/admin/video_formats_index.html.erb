@@ -12,44 +12,58 @@
         <td>
             width
         </td>
-    <td>
-        <input type="number" name="width">
-    </td></tr>
+        <td>
+            <input type="number" name="width">
+        </td>
+    </tr>
     <tr>
         <td>
             height
         </td>
-    <td>
-        <input type="number" name="height">
-    </td></tr>
+        <td>
+            <input type="number" name="height">
+        </td>
+    </tr>
     <tr>
         <td>
             title
         </td>
-    <td>
-        <input type="checkbox" value="true" name="title">
-    </td></tr>
+        <td>
+            <input type="checkbox" value="true" name="title">
+        </td>
+    </tr>
     <tr>
         <td>
             line_up
         </td>
-    <td>
-        <input type="checkbox" value="true" name="line_up">
-    </td></tr>
+        <td>
+            <input type="checkbox" value="true" name="line_up">
+        </td>
+    </tr>
     <tr>
         <td>
             address
         </td>
-    <td>
-        <input type="checkbox" value="true" name="address">
-    </td></tr>
+        <td>
+            <input type="checkbox" value="true" name="address">
+        </td>
+    </tr>
     <tr>
         <td>
             date
         </td>
-    <td>
-        <input type="checkbox" value="true" name="date">
-    </td></tr>
+        <td>
+            <input type="checkbox" value="true" name="date">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            video_enabled
+        </td>
+        <td>
+            <input type="checkbox" value="true" name="video_enabled">
+        </td>
+    </tr>
     <tr>
         <td>
     
@@ -85,6 +99,9 @@
            <td>
         <%=vf.date.inspect%>
         </td>
+          <td>
+        <%=vf.video_enabled.inspect%>
+    </td>
     <td>
         <a href="/admin/video_formats/<%=vf.id%>/destroy">destroy</a>
     </td>

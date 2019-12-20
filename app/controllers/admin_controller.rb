@@ -40,6 +40,7 @@ class AdminController < ApplicationController
         @video_format.line_up=true if params[:line_up]=="true"
         @video_format.address=true if params[:address]=="true"
         @video_format.date=true if params[:date]=="true"
+        @video_format.video_enabled=true if params[:video_enabled]=="true"
         @video_format.save
         Event.next_events.each do |event|
             CreateFlyersJob.perform_later event
