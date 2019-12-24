@@ -98,8 +98,8 @@ class Event < ApplicationRecord
 
         filename="#{f.name}.webm"
         capture_path="/root/Downloads/#{filename}"
-        FileUtils.rm(self.video_path(f.name))
-        FileUtils.rm(capture_path)
+        FileUtils.rm_rf(self.video_path(f.name))
+        FileUtils.rm_rf(capture_path)
 
         command="node #{Rails.root.join("export.js")} https://tubatuba.net/evento/#{self.url_id}/#{f.id} #{filename} #{f.width} #{f.height}"
         puts command
