@@ -27,6 +27,10 @@ async function main() {
     const page = pages[0]
     await page._client.send('Emulation.clearDeviceMetricsOverride')
     await page.goto(url, {waitUntil: 'load'})
+    await page.setViewport({
+      width: parseInt(process.argv[4]),
+      height: parseInt(process.argv[5]),
+    });
     await page.setBypassCSP(true)
 
     // Perform any actions that have to be captured in the exported video
