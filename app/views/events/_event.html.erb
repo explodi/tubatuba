@@ -36,7 +36,7 @@
       padding:2%;
     }
     #act-name-1 {
-       width:60%;
+       width:40%;
     }
     #address {
       width:60%;
@@ -62,7 +62,7 @@
 <div id="event-name-line-up">
 <% if title %>
 <div id="event-name">
-<%=raw Text2svg(@event.name.upcase, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true,char_size:"0,0,2000,3000")%>
+<%=render 'layouts/htp_logo' %>
 </div>
 <% end %>
 <% if line_up %>
@@ -73,8 +73,10 @@
    <% i=i+1 %>
 
 <div class="act-name" id="act-name-<%=i%>">
+   <% char_size="0,0,2000,2000" %>
+   <% char_size="0,0,2000,1000" if act.name.size<10 %>
 
-   <%=raw Text2svg(act.name.upcase, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true)%>
+   <%=raw Text2svg(act.name.upcase, font: "#{Rails.root.join('public')}/arialnarrow.ttf", text_align: :left, bold: true,char_size:char_size)%>
 </div>
 <% end %>
 
@@ -140,7 +142,7 @@ function animate()
       warps[i].transform(([ x, y, oy ]) => [ x, oy + 88+noise*40 * Math.sin(x /80 + offset), oy ])
       // offset += 0.01*i
    }
-   warps[0].transform(([ x, y, oy ]) => [ x, oy + 33*i * Math.sin(x / 6 + offset), oy ])
+   warps[0].transform(([ x, y, oy ]) => [ x, oy + 2 * Math.sin(x / 6 + offset), oy ])
    offset += 0.05
    if(noise_up) {
 
