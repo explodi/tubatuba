@@ -19,7 +19,8 @@ class EventsController < ApplicationController
             @vf=VideoFormat.find_by_id(params[:format_id])
             puts @vf.inspect
         end
-        
+        render :layout => false
+
     end
     def ad
         @event=Event.find_by_id(params[:id])
