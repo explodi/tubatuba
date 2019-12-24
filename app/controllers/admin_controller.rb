@@ -81,6 +81,9 @@ class AdminController < ApplicationController
     end
     def events_edit
         @event=Event.find(params[:id])
+        @video_format=VideoFormat.all.first
+        @video_format=VideoFormat.find(params[:vf]) if params[:vf]
+        puts @video_format.inspect
     end
     def acts_create
         @event=Event.find(params[:id])
