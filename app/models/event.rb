@@ -97,6 +97,10 @@ class Event < ApplicationRecord
         start_time=DateTime.now
 
         filename="#{f.name}.webm"
+        capture_path="/root/Downloads/#{filename}"
+        FileUtils.rm(self.video_path(f.name))
+        FileUtils.rm(capture_path)
+
         command="node #{Rails.root.join("export.js")} https://tubatuba.net/evento/#{self.url_id}/#{f.id} #{filename} #{f.width} #{f.height}"
         puts command
         system(command)
@@ -105,7 +109,6 @@ class Event < ApplicationRecord
         unless File.directory?(dirname)
             FileUtils.mkdir_p(dirname)
         end
-        capture_path="/root/Downloads/#{filename}"
         ffmpeg_command="ffmpeg -i #{capture_path} -y #{self.video_path(f.name)}"
         if self.has_audio
             ffmpeg_command="ffmpeg -i #{capture_path} -sseof -15 -i #{audio_path} -y -f mp4 -vcodec libx264 -preset veryslow -crf 23 -maxrate 8M -bufsize 12M -profile:v main -acodec aac -shortest -hide_banner -loglevel panic #{self.video_path(f.name)}"
