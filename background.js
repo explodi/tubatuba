@@ -30,7 +30,7 @@ chrome.runtime.onConnect.addListener(port => {
                 minWidth: 600,
                 maxWidth: 1920,
                 minHeight: 600,
-                maxHeight: 1080,
+                maxHeight: 1920,
                 minFrameRate: 60,
               }
             }
