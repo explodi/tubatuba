@@ -61,7 +61,7 @@ class Event < ApplicationRecord
         return "/video/#{self.id}/ad.mp4"
     end
     def video_path(format_name)
-        filename="#{format_name}.mp4"
+        filename="#{format_name}_#{self.version}.mp4"
         return "#{Rails.root.join("public","video","#{self.id}",filename)}"
     end
     def ad_video_path

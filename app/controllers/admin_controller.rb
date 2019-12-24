@@ -71,7 +71,7 @@ class AdminController < ApplicationController
                 flash[:error] = "Event start < now"
                 redirect_to "/admin/events/new"
             else
-                @event=Event.new({:name=>params[:name],:text_color=>'white',:title_color=>'white',:start=>event_start,:end=>event_end})
+                @event=Event.new({:name=>params[:name],:text_color=>'white',:title_color=>'white',:start=>event_start,:end=>event_end,:version=>SecureRandom.hex})
                 @event.image_hash=SecureRandom.hex
                 @event.save
                 @event.generate_url_id
@@ -173,6 +173,7 @@ class AdminController < ApplicationController
         @event.eventbrite_url=params[:eventbrite_url]
         @event.title_color=params[:title_color]
         @event.image_hash=SecureRandom.hex
+        @event.version=SecureRandom.hex
 
         if params[:live]=="true"
             @event.live=true
