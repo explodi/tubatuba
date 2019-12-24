@@ -30,7 +30,7 @@ class Event < ApplicationRecord
             unless File.directory?(dirname)
                 FileUtils.mkdir_p(dirname)
             end
-            command="google-chrome --headless --enable-logging --virtual-time-budget=10000 --window-size=#{video_format.width.to_s}x#{video_format.height.to_s} --disable-gpu --virtual-time-budget=10000 --no-sandbox --screenshot=\"#{Rails.root.join('public','image',self.id.to_s,"#{video_format.name}.png")}\" \"https://tubatuba.net/evento/#{self.url_id}/#{video_format.id.to_s}\""
+            command="google-chrome --headless --enable-logging --window-size=#{video_format.width.to_s}x#{video_format.height.to_s} --disable-gpu --virtual-time-budget=10000 --no-sandbox --screenshot=\"#{Rails.root.join('public','image',self.id.to_s,"#{video_format.name}.png")}\" \"https://tubatuba.net/evento/#{self.url_id}/#{video_format.id.to_s}\""
             puts command
             system(command)
         end

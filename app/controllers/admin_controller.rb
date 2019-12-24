@@ -218,7 +218,7 @@ class AdminController < ApplicationController
             @event.end=event_end
         end
         @event.save
-        CreateFlyersJob.perform_later @event
+        # CreateFlyersJob.perform_later @event
         CreateVideosJob.perform_later @event
 
         @event.generate_url_id unless @event.url_id
