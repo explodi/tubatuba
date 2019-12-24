@@ -25,10 +25,7 @@ async function main() {
     const browser = await puppeteer.launch(options)
     const pages = await browser.pages()
     const page = pages[0]
-    await page.setViewport({
-      width: parseInt(process.argv[4]),
-      height: parseInt(process.argv[5])
-    })
+    await page._client.send('Emulation.clearDeviceMetricsOverride')
     await page.goto(url, {waitUntil: 'load'})
     await page.setBypassCSP(true)
 
