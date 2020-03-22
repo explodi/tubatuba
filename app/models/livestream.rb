@@ -1,0 +1,2 @@
+class Livestream < ApplicationRecord
+end

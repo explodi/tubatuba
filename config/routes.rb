@@ -32,6 +32,9 @@ Rails.application.routes.draw do
   get "/admin/users/new" => "admin#users_new"
   get "/admin/users/index" => "admin#users_index"
   get "/jpegs"=>"pages#jpegs"
+  post "/livestreams/create"=>"livestreams#create"
+  post "/livestreams/destroy"=>"livestreams#destroy"
+  
   root :to => "events#index"
   match '*any', to: 'pages#not_found', via: [:get, :post]
 
