@@ -17,8 +17,8 @@ class LivestreamsController < ApplicationController
         @livestream=Livestream.find_or_create_by({:started=>false,:ended=>false})
         if !@livestream.uuid
             @livestream.uuid=SecureRandom.uuid
-            @livestream.save
         end
+        @livestream.save
         puts "[livestream url key] #{@livestream.uuid}"
         response.set_header('Location', "hack-the-planet")
    
