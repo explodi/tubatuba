@@ -1,0 +1,248 @@
+
+
+
+<html>
+    <head>
+        <script src="/warp.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+
+
+        <style>
+            body {
+                color: black;
+                overflow: hidden;
+            }
+            #svg-container {
+                position:fixed;
+                top:0;
+                left:0;
+                right:0;
+                bottom:0;
+                text-align: center;
+                z-index: 99996;
+                display:none;
+            }
+            .live {
+                height: 200px;
+                width:200px;
+                right:auto;
+                text-align: left;;
+            }
+            #svg-element {
+                width: 100%;
+                height: auto;
+                max-width: 80%;
+                max-height: 80%;
+            }
+            #player {
+                position: fixed;
+                bottom:0;
+                text-align: center;
+                left:0;
+                right:0;
+                padding-bottom: 20px;
+                height: 100px;
+                z-index: 99995;
+            }
+            #video-container {
+                position: fixed;
+                left: 0;
+                top:0;
+                right: 0;
+                bottom: 0;
+                z-index: 99993;
+
+            }
+            #video {
+                position: fixed;
+                left: 0;
+                top:0;
+                z-index: 99994;
+                min-width: 100%;
+                min-height: 100%;
+                background-size: 100% 100%;
+                object-position: 50% 50%; 
+                object-fit: cover; 
+                width: auto;
+                height: auto;
+            }
+            #cam {
+                position: fixed;
+                height:100%;
+                width: 100%;
+                object-fit: cover; 
+                object-position: 50% 50%; 
+                opacity: 0.1;
+                z-index: 99990;
+                display: none;
+            }
+        </style>
+       
+    </head>
+    <body>
+        <img id="cam"/>
+        <div id="svg-container">
+       <%=render 'layouts/htp_logo'%>
+       </div>
+        <div id="player">
+            <audio controls src="http://159.89.142.141:8008/hack-the-planet.mp3" type="audio/mpeg"></audio>
+        
+        </div>
+        <script>
+            const svg = document.getElementById('svg-element')
+            const warp = new Warp(svg)
+        
+            warp.interpolate(1000)
+            warp.transform(([ x, y ]) => [ x, y, y ])
+        
+            let offset = 0
+            function animate()
+            {
+                warp.transform(([ x, y, oy ]) => [ x, oy + 4 * Math.sin(x / 8 + offset), oy ])
+                offset += 0.02
+                window.requestAnimationFrame(animate)
+            }
+        
+            animate()
+        </script>
+        <style>
+            body {
+                background-color: black;
+                position: fixed;
+                top:0;
+                left: 0;
+                right:0;
+                bottom: 0;
+                margin:0;
+                padding:0;
+
+    -webkit-animation: fadein 8s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 8s; /* Firefox < 16 */
+     -ms-animation: fadein 8s; /* Internet Explorer */
+      -o-animation: fadein 8s; /* Opera < 12.1 */
+         animation: fadein 8s;
+            }
+          
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+        </style>
+        <div id="video-container">
+
+
+        </div>
+
+        <script>
+            var jpegs=[]
+            var seconds=0
+            var current_jpeg;
+            var image_ticks=0;
+            var cam = document.getElementById('cam');
+            var img_loading=false;
+            var live_video=null;
+            var busy=false;
+            var logo_shown=false;
+    
+           
+            cam.onload = function () {
+                img_loading=false;	
+            };
+            function get_live() {
+                if(busy==false) {
+                    busy=true;
+                    $.getJSON("/live?time="+Math.random()*1000, function(new_live_state, status){
+                        busy=false;
+                        if(new_live_state!=live_video) {
+                            live_video=new_live_state;
+                            console.log("[live]",live_video);
+         
+                            if(live_video==true) {
+                                $("#cam").hide();
+                                $("#svg-container").addClass('live');
+                                $("#video-container").html(' <video id="video" src="http://159.89.142.141:8080/hack-the-planet/index.m3u8" autoplay muted></video>');
+                                
+                            
+                            } else {
+                                console.log("video hide");
+                                $("#cam").show();
+                                $("#svg-container").removeClass('live');
+
+                                $("#video-container").html('');
+    
+                            }
+                            if(logo_shown==false) {
+                                logo_shown=true;
+                                $("#svg-container").fadeIn();
+                            }
+                        }
+           
+    
+    
+                    });
+                }
+
+            }
+            function get_jpegs() {
+                $.get("/jpegs", function(data, status){
+                    jpegs=data;
+                });
+            }
+            // setInterval(function(){get_jpegs()},10000)
+            get_jpegs();
+            function refresh_jpeg() {
+                seconds=seconds+1;
+
+                if(jpegs.length>0&&live_video==false) {
+    
+                    image_ticks=image_ticks+1;
+                    if(seconds%100==0||current_jpeg==null) {
+                        random_jpeg=jpegs[Math.floor(Math.random()*jpegs.length)]
+                        current_jpeg=random_jpeg;
+                        img_loading=true;
+                        cam.src=current_jpeg
+                    } else {
+
+                        if(img_loading==false) {
+                            img_loading=true;
+                            cam.src=current_jpeg+"?uniq="+Math.random()*10000
+                        }
+                    }
+                    
+    
+                }
+            }
+            setInterval(function(){get_live()},10000)
+
+            setInterval(function(){refresh_jpeg()},1000)
+            refresh_jpeg();
+            get_live();
+        </script>
+    </body>
+</html>
