@@ -9,9 +9,38 @@
 
 
         <style>
+        @font-face {
+                font-family: 'DINMedium';
+                src: url('/fonts/din-medium-webfont.eot');
+                src: url('/fonts/din-medium-webfont.eot?iefix') format('eot'),
+                    url('/fonts/din-medium-webfont.woff') format('woff'),
+                    url('/fonts/din-medium-webfont.ttf') format('truetype'),
+                    url('/fonts/din-medium-webfont.svg#webfonteq6wpgx5') format('svg');
+                font-weight: normal;
+                font-style: normal;
+            }
+
+            @font-face {
+                font-family: 'DINRegular';
+                src: url('/fonts/din-regular-webfont.eot');
+                src: url('/fonts/din-regular-webfont.eot?#iefix') format('embedded-opentype'),
+                    url('/fonts/din-regular-webfont.woff') format('woff'),
+                    url('/fonts/din-regular-webfont.ttf') format('truetype'),
+                    url('/fonts/din-regular-webfont.svg#DINRegular') format('svg');
+                font-weight: normal;
+                font-style: normal;
+            }
+
             body {
                 color: black;
                 overflow: hidden;
+                font-family:'DINRegular', Arial, sans-serif;
+
+            }
+            h1, h2, h3, h4, h5 {
+                font-family:'DINMedium', Arial, sans-serif;
+                font-weight: 800;
+
             }
             #svg-container {
                 position:fixed;
@@ -86,7 +115,7 @@
        <%=render 'layouts/htp_logo'%>
        </div>
         <div id="player">
-            <audio controls src="http://159.89.142.141:8008/hack-the-planet.mp3" type="audio/mpeg"></audio>
+            <audio controls src="https://stream.tubatuba.net/hack-the-planet.mp3" type="audio/mpeg"></audio>
         
         </div>
         <script>
