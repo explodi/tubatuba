@@ -2,7 +2,8 @@ class LivestreamsController < ApplicationController
     skip_before_action :verify_authenticity_token
     def show
         if Rails.env.development?
-            render :json=>true
+            require 'open-uri'
+            render :plain=>open("http://tubatuba.net/live").read
         else
             if Livestream.exists?({:started=>true,:ended=>false})
                 render :json=>true

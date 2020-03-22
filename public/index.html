@@ -37,18 +37,26 @@
                 right:0;
                 padding-bottom: 20px;
                 height: 100px;
+                z-index: 99995;
+            }
+            #video-container {
+                position: fixed;
+                left: 0;
+                top:0;
+                right: 0;
+                bottom: 0;
                 z-index: 99993;
+
             }
             #video {
                 position: fixed;
                 left: 0;
                 top:0;
-                z-index: 99991;
+                z-index: 99994;
                 min-width: 100%;
                 min-height: 100%;
                 background-size: 100% 100%;
                 object-position: 50% 50%; 
-                display: none;
                 object-fit: cover; 
                 width: auto;
                 height: auto;
@@ -196,7 +204,10 @@
     to   { opacity: 1; }
 }
         </style>
-        <video id="video" src="http://159.89.142.141:8080/hack-the-planet/index.m3u8" autoplay muted></video>
+        <div id="video-container">
+
+
+        </div>
 
         <script>
             var jpegs=[]
@@ -206,44 +217,40 @@
             var cam = document.getElementById('cam');
             var img_loading=false;
             var live_video=null;
-            var video = document.getElementById('video');
-            var video_playing=false;
-            
-            video.addEventListener("playing", function() {
-                console.log("[video]","play")
-                video_playing=true;
-            });
-       
-            video.addEventListener("pause", function() { 
-                video_playing=false;
-                console.log("[video]","pause")
-
-            });
+            var busy=false;
+          
     
            
             cam.onload = function () {
                 img_loading=false;	
             };
             function get_live() {
-                $.get("/live", function(data, status){
-                    live_video=data;
-                    if(live_video) {
-                        $("#cam").hide();
-                        $("#video").show();
-                        if(video_playing==false) {
-                            try {
-                                video.play();
-
-                            } catch(e) {
-                                console.log(e);
+                if(busy==false) {
+                    busy=true;
+                    $.getJSON("/live?time="+Math.random()*1000, function(new_live_state, status){
+                        busy=false;
+                        if(new_live_state!=live_video) {
+                            live_video=new_live_state;
+                            console.log("[live]",live_video);
+         
+                            if(live_video==true) {
+                                $("#cam").hide();
+                                $("#video-container").html(' <video id="video" src="http://159.89.142.141:8080/hack-the-planet/index.m3u8" autoplay muted></video>');
+                                
+                            
+                            } else {
+                                console.log("video hide");
+                                $("#cam").show();
+                                $("#video-container").html('');
+    
                             }
                         }
-                    } else {
-                        $("#cam").show();
-                        $("#video").hide();
+           
+    
+    
+                    });
+                }
 
-                    }
-                });
             }
             function get_jpegs() {
                 $.get("/jpegs", function(data, status){
