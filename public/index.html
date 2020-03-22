@@ -230,7 +230,13 @@
                     if(live_video) {
                         $("#cam").hide();
                         $("#video").show();
-                        if(video_playing==false) video.play();
+                        if(video_playing==false) {
+                            try {
+                                video.play();
+
+                            } catch(e) {
+                                console.log(e);
+                            }
                     } else {
                         $("#cam").show();
                         $("#video").hide();
