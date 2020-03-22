@@ -1,4 +1,6 @@
 class LivestreamsController < ApplicationController
+    skip_before_action :verify_authenticity_token
+
     def create
         puts params.inspect
         puts "[livestream url key] #{@uuid}"
