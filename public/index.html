@@ -95,7 +95,7 @@
             const svg = document.getElementById('svg-element')
             const warp = new Warp(svg)
         
-            warp.interpolate(100)
+            warp.interpolate(1000)
             warp.transform(([ x, y ]) => [ x, y, y ])
         
             let offset = 0
@@ -103,7 +103,7 @@
             {
                 warp.transform(([ x, y, oy ]) => [ x, oy + 4 * Math.sin(x / 8 + offset), oy ])
                 offset += 0.02
-                requestAnimationFrame(animate)
+                window.requestAnimationFrame(animate)
             }
         
             animate()
