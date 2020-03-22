@@ -3,6 +3,7 @@ class LivestreamsController < ApplicationController
 
     def create
         puts params.inspect
+        rails "BadKey" if params[:name]!="911ChicoTerry"
         @livestream=Livestream.find_or_create_by({:started=>false,:ended=>false})
         if !@livestream.uuid
             @livestream.uuid=SecureRandom.uuid
