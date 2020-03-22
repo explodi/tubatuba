@@ -1,6 +1,16 @@
 class LivestreamsController < ApplicationController
     skip_before_action :verify_authenticity_token
-
+    def show
+        if Rails.env.development?
+            return :json=>true
+        else
+            if Livestream.exists?({:started=>true,:ended=>false})
+                return :json=>true
+            else
+                return :json=>false
+            end
+        end
+    end
     def create
         puts params.inspect
         rails "BadKey" if params[:name]!="911ChicoTerry"
