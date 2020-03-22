@@ -15,9 +15,7 @@ class LivestreamsController < ApplicationController
         puts params.inspect
         rails "BadKey" if params[:name]!="911ChicoTerry"
         @livestream=Livestream.find_or_create_by({:started=>true,:ended=>false})
-        if !@livestream.uuid
-            @livestream.uuid=SecureRandom.uuid
-        end
+        @livestream.uuid=SecureRandom.uuid if !@livestream.uuid
         @livestream.save
         puts "[livestream url key] #{@livestream.uuid}"
         response.set_header('Location', "hack-the-planet")
