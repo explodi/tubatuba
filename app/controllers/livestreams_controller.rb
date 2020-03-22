@@ -23,7 +23,6 @@ class LivestreamsController < ApplicationController
         response.set_header('Location', "hack-the-planet")
    
         render :plain => "", :status => 304
-        render :json=>{:success=>true}
     end
     def destroy
         puts params.inspect
