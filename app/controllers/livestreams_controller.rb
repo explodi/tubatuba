@@ -2,12 +2,12 @@ class LivestreamsController < ApplicationController
     skip_before_action :verify_authenticity_token
     def show
         if Rails.env.development?
-            return :json=>true
+            render :json=>true
         else
             if Livestream.exists?({:started=>true,:ended=>false})
-                return :json=>true
+                render :json=>true
             else
-                return :json=>false
+                render :json=>false
             end
         end
     end
@@ -23,12 +23,12 @@ class LivestreamsController < ApplicationController
         response.set_header('Location', "hack-the-planet")
    
         render :plain => "", :status => 304
-        return :json=>{:success=>true}
+        render :json=>{:success=>true}
     end
     def destroy
         puts params.inspect
         @livestream=Livestream.find_or_create_by({:started=>true,:ended=>false})
         @livestream.update_attribute(:ended,true)
-        return :json=>{:success=>true}
+        render :json=>{:success=>true}
     end
 end
