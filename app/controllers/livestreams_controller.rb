@@ -5,7 +5,14 @@ class LivestreamsController < ApplicationController
             require 'open-uri'
             render :plain=>open("http://tubatuba.net/live").read
         else
-            if Livestream.exists?({:started=>true,:ended=>false})
+            if REDIS.exists("live_buffering")
+                puts "[live] buffering"
+                render :json=>false
+            elsif REDIS.exists("live_online")
+                render :json=>true
+            elsif Livestream.exists?({:started=>true,:ended=>false})
+                REDIS.set("live_online","1")
+                REDIS.expire("live_online",300)
                 render :json=>true
             else
                 render :json=>false
@@ -20,13 +27,16 @@ class LivestreamsController < ApplicationController
         @livestream.save
         puts "[livestream url key] #{@livestream.uuid}"
         response.set_header('Location', "hack-the-planet")
-   
+        REDIS.set("live_buffering","1")
+        REDIS.expire("live_buffering",120)
         render :plain => "", :status => 304
     end
     def destroy
         puts params.inspect
         @livestream=Livestream.find_or_create_by({:started=>true,:ended=>false})
         @livestream.update_attribute(:ended,true)
+        REDIS.del("live_buffering")
+        REDIS.del("live_online")
         render :json=>{:success=>true}
     end
 end
