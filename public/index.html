@@ -11,6 +11,7 @@
         <style>
             body {
                 color: black;
+                overflow: hidden;
             }
             #svg-container {
                 position:fixed;
@@ -19,6 +20,8 @@
                 right:0;
                 bottom:0;
                 text-align: center;
+                z-index: 99992;
+
             }
             #svg-element {
                 width: 100%;
@@ -34,9 +37,32 @@
                 right:0;
                 padding-bottom: 20px;
                 height: 100px;
+                z-index: 99993;
             }
-        
-        
+            #video {
+                position: fixed;
+                left: 0;
+                top:0;
+                z-index: 99991;
+                min-width: 100%;
+                min-height: 100%;
+                background-size: 100% 100%;
+                object-position: 50% 50%; 
+
+                object-fit: cover; 
+                width: auto;
+                height: auto;
+            }
+            #cam {
+                position: fixed;
+                height:100%;
+                width: 100%;
+                object-fit: cover; 
+                object-position: 50% 50%; 
+                opacity: 0.1;
+                z-index: 99990;
+
+            }
         </style>
        
     </head>
@@ -139,15 +165,7 @@
       -o-animation: fadein 8s; /* Opera < 12.1 */
          animation: fadein 8s;
             }
-            #cam {
-                position: fixed;
-                height:100%;
-                width: 100%;
-                object-fit: cover; 
-                object-position: 50% 50%; 
-                opacity: 0.1;
-
-            }
+          
 
 @keyframes fadein {
     from { opacity: 0; }
@@ -219,5 +237,6 @@
             setInterval(function(){refresh_jpeg()},1000)
             refresh_jpeg();
         </script>
+        <video id="video" src="http://elemurro:8080/83c643fb-751a-4ef5-bf21-806bf1f670c2/index.m3u8" autoplay muted></video>
     </body>
 </html>

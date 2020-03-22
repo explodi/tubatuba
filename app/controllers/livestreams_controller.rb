@@ -9,7 +9,7 @@ class LivestreamsController < ApplicationController
             @livestream.save
         end
         puts "[livestream url key] #{@livestream.uuid}"
-        response.set_header('Location', @livestream.uuid)
+        response.set_header('Location', "hack-the-planet")
    
         render :plain => "", :status => 304
         return :json=>{:success=>true}
