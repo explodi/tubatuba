@@ -3,15 +3,21 @@ class LivestreamsController < ApplicationController
 
     def create
         puts params.inspect
-        puts "[livestream url key] #{@uuid}"
-        @uuid=SecureRandom.uuid
-        response.set_header('Location', @uuid)
+        @livestream=Livestream.find_or_create_by({:started=>false,:ended=>false})
+        if !@livestream.uuid
+            @livestream.uuid=SecureRandom.uuid
+            @livestream.save
+        end
+        puts "[livestream url key] #{@livestream.uuid}"
+        response.set_header('Location', @livestream.uuid)
    
         render :plain => "", :status => 304
         return :json=>{:success=>true}
     end
     def destroy
         puts params.inspect
+        @livestream=Livestream.find_or_create_by({:started=>true,:ended=>false})
+        @livestream.update_attribute(:ended,true)
         return :json=>{:success=>true}
     end
 end
