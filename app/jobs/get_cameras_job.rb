@@ -7,7 +7,7 @@ class GetCamerasJob < ApplicationJob
     url="https://api.shodan.io/shodan/host/search?key=IOtrenXXJVQEkyy7adH6ztXzxn5gQ4Cv&query=#{URI::escape('webcamxp')}"
     matches=JSON.parse(open(url).read)["matches"]
     matches.each do |match|
-      if @camera.where({:ip_str=>match["ip_str"]}).count==0
+      if SecurityCamera.where({:ip_str=>match["ip_str"]}).count==0
 
       
         @camera=SecurityCamera.new({
