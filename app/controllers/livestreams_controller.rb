@@ -9,7 +9,7 @@ class LivestreamsController < ApplicationController
         ping_key="ping:stream:timer"
         if REDIS.exists(ping_key)==false
             REDIS.set(ping_key,"1")
-            REDIS.expire(ping_key,10)
+            REDIS.expire(ping_key,60)
             if Rails.env.development?
                 PingLivestreamJob.perform_now
             else
