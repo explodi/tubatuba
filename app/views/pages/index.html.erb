@@ -190,14 +190,14 @@
             let offset = 0
             function animate()
             {
-                if (typeof(live_video) !== 'undefined') {
+                // if (typeof(live_video) !== 'undefined') {
 
                     if(live_video!=true) {
                         warp.transform(([ x, y, oy ]) => [ x, oy + 4 * Math.sin(x / 8 + offset), oy ])
                         offset += 0.02
                         window.requestAnimationFrame(animate)
                     }
-                }
+                // }
         
             }
         
