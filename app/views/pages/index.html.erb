@@ -198,8 +198,30 @@
             var live_video=null;
             var busy=false;
             var logo_shown=false;
-    
-           
+            var hls = new Hls();
+
+            var video = document.getElementById('video');
+            if(Hls.isSupported()) {
+
+                hls.attachMedia(video);
+            }
+            hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+                console.log("MEDIA_ATTACHED");
+
+            });
+            hls.on(Hls.Events.MANIFEST_PARSED,function() {
+                console.log('MANIFEST_PARSED')
+                video.play();
+            });
+            video.addEventListener('loadedmetadata',function() {
+                console.log('loadedmetadata')
+                if(Hls.isSupported()) {
+                    
+                } else {
+                    video.play();
+
+                }
+            });
             cam.onload = function () {
                 img_loading=false;	
             };
@@ -216,32 +238,22 @@
                             if(live_video==true) {
                                 $("#cam").hide();
                                 $("#svg-container").addClass('live');
-                                 $("#video-container").fadeIn();
-                                if(isSafari()) {
-                                    $("#video-container").html(' <video id="video" src="https://video.tubatuba.net/hack-the-planet/index.m3u8" autoplay muted></video>');
+                                $("#video-container").fadeIn();
+                               
 
-                                } else {
-                                    var video = document.getElementById('video');
+                                if(Hls.isSupported()) {
 
-                                    if(Hls.isSupported()) {
+                                    hls.loadSource('https://video.tubatuba.net/hack-the-planet/index.m3u8');
 
-                                        var hls = new Hls();
-                                        hls.loadSource('https://video.tubatuba.net/hack-the-planet/index.m3u8');
-                                        hls.attachMedia(video);
-                                        hls.on(Hls.Events.MANIFEST_PARSED,function() {
-                                            video.play();
-                                        });
-                                    
-                                    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                                    
-                                        video.src = 'https://video.tubatuba.net/hack-the-planet/index.m3u8';
-                                            video.addEventListener('loadedmetadata',function() {
-                                            video.play();
-                                        });
-                                    
-                                    
-                                    }
+                                
+                                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                                
+                                    video.src = 'https://video.tubatuba.net/hack-the-planet/index.m3u8';
+                                
+                                
+                                
                                 }
+                                
                                 
                             
                             } else {
@@ -249,15 +261,9 @@
                                 $("#cam").show();
                                 $("#svg-container").removeClass('live');
                                 $("#video-container").fadeOut();
-                                if(isSafari()) {
-                                    $("#video-container").html('');
-                                } else {
-                                                                        var video = document.getElementById('video');
+                                
+                                video.pause();
 
-                                    video.pause();
-
-                                }
-    
                             }
                             if(logo_shown==false) {
                                 logo_shown=true;
