@@ -6,7 +6,21 @@ class LivestreamsController < ApplicationController
         @user_ip=request.ip if request.ip
         @user_ip=request.env['HTTP_X_FORWARDED_FOR'] if request.env['HTTP_X_FORWARDED_FOR'] 
         @user_ip=request.env['HTTP_CF_CONNECTING_IP'] if request.env['HTTP_CF_CONNECTING_IP'] 
-        puts @user_ip if @user_ip
+        if @user_ip
+            puts @user_ip
+            REDIS.sadd("listener_ips",@user_ip)
+            @total_listeners=REDIS.scard("listener_ips")
+            REDIS.expire("listener_ips",600)
+            @listener_ip_cache_key="listener:ping:#{@user_ip}"
+            REDIS.set(@listener_ip_cache_key,"1")
+            REDIS.expire(@listener_ip_cache_key,60)
+            @current_listener_count=0;
+            REDIS.smembers("listener_ips").each do |ip|
+                @current_listener_count=@current_listener_count+1 if REDIS.exists("listener:ping:#{ip}")
+            end
+            puts "[listeners] total: #{@total_listeners} current: #{@current_listener_count}"
+
+        end
         if Rails.env.development?
             require 'open-uri'
             render :plain=>open("http://tubatuba.net/live").read
