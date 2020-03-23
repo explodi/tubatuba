@@ -229,6 +229,7 @@
                 if(busy==false) {
                     busy=true;
                     $.ajax({url:"/live?time="+Math.random()*1000}).done(function(new_live_state){
+
                         if(new_live_state!=live_video) {
                             live_video=new_live_state;
                             console.log("[live]",live_video);
@@ -270,10 +271,11 @@
                                 $("#svg-container").fadeIn();
                             }
                         }
-           
+                        busy=false;
+
     
     
-                    }).always(function() {
+                    }).fail(function() {
                         busy=false;
                     });
                  
