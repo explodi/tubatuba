@@ -184,7 +184,7 @@
 }
         </style>
         <div id="video-container">
-<video id="video" autoplay muted></video>
+    <video id="video" autoplay muted></video>
 
         </div>
 
@@ -237,10 +237,10 @@
                                             $("#video-container").html(' <video id="video" src="https://video.tubatuba.net/hack-the-planet/index.m3u8" autoplay muted></video>');
 
                                     } else {
-                                                video.src = 'https://video.tubatuba.net/hack-the-planet/index.m3u8';
-                                                    video.addEventListener('loadedmetadata',function() {
-                                                    video.play();
-                                                });
+                                        video.src = 'https://video.tubatuba.net/hack-the-planet/index.m3u8';
+                                            video.addEventListener('loadedmetadata',function() {
+                                            video.play();
+                                        });
                                     }
                                   
                                 }
@@ -254,7 +254,7 @@
                                 if(isSafari()) {
                                     $("#video-container").html('');
                                 } else {
-                                                                    video.pause();
+                                    video.pause();
 
                                 }
     
