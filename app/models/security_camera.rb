@@ -56,7 +56,7 @@ class SecurityCamera < ApplicationRecord
             #     file.puts f.read
             # end
             # }
-            wget_command="wget #{self.image_url} -O #{tmp_path}"
+            wget_command="wget #{self.image_url} --tries=1 --timeout=5 -O #{tmp_path}"
             puts wget_command
             if system(wget_command)&&File.file?(tmp_path)
 
