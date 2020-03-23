@@ -13,6 +13,7 @@ class SecurityCamera < ApplicationRecord
         puts self.camera_image_dir
         image_files= Dir.entries(self.camera_image_dir)
         image_files.each do |file|
+            puts file.inspect
             timestamp=file.split(".").first.to_i
             if timestamp!=0 && timestamp>last_timestamp
                 last_timestamp=timestamp
