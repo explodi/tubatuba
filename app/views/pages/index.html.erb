@@ -233,14 +233,16 @@
                             live_video=new_live_state;
                             console.log("[live]",live_video);
 
-                            if(live_video==true) {
+                            if(new_live_state) {
+                                 console.log("video show");
+
                                 $("#cam").hide();
                                 $("#svg-container").addClass('live');
                                 $("#video-container").fadeIn();
                                
 
                                 if(Hls.isSupported()) {
-
+                                    console.log("load source");
                                     hls.loadSource('https://video.tubatuba.net/hack-the-planet/index.m3u8');
 
                                 
