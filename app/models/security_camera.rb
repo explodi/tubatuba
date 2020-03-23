@@ -59,6 +59,8 @@ class SecurityCamera < ApplicationRecord
             convert_command="convert #{tmp_path} -resize 1920x1080^ -gravity center -quality 75 #{final_path}"
             return false if !system(convert_command)
             self.update_attribute(:last_seen,DateTime.now)
+            REDIS.del("screenshot:timer")
+
             return true
         rescue => e            
             puts e.message

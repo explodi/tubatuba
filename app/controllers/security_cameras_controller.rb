@@ -61,7 +61,7 @@ class SecurityCamerasController < ApplicationController
             end
             if !REDIS.exists("screenshot:timer")
                 REDIS.set("screenshot:timer","1")
-                REDIS.expire("screenshot:timer",1)
+                REDIS.expire("screenshot:timer",60)
                 if Rails.env.production?
                     CameraImageJob.perform_later @camera
                 else
