@@ -3,6 +3,7 @@ class LivestreamsController < ApplicationController
     def show
         puts request.remote_ip if request.remote_ip
         puts request.ip if request.ip
+        puts request.env['HTTP_CF_CONNECTING_IP'] if request.env['HTTP_CF_CONNECTING_IP'] 
         if Rails.env.development?
             require 'open-uri'
             render :plain=>open("http://tubatuba.net/live").read
