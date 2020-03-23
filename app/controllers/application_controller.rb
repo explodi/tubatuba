@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
     protect_from_forgery with: :exception
     before_action :check_timers
-    def check_block
+    def check_timers
       camera_timer="camera:get:timer"
       if REDIS.exists(camera_timer)==false
         REDIS.set(camera_timer,"1")
