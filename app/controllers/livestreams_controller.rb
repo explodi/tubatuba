@@ -73,8 +73,8 @@ class LivestreamsController < ApplicationController
     end
     def destroy
         puts params.inspect
-        @livestream=Livestream.find_or_create_by({:started=>true,:ended=>false})
-        @livestream.update_attribute(:ended,true)
+        # @livestream=Livestream.find_or_create_by({:started=>true,:ended=>false})
+        # @livestream.update_attribute(:ended,true)
         REDIS.del("live_buffering")
         REDIS.del("live_online")
         render :json=>{:success=>true}
