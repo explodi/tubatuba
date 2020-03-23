@@ -313,6 +313,7 @@
             });
             cam.onload = function () {
                 img_loading=false;	
+                console.log("cam load")
             };
             function get_live() {
                 
@@ -387,30 +388,32 @@
 
             }
             function get_jpegs() {
-                $.get("/jpegs", function(data, status){
-                    jpegs=data;
-                });
+                // $.get("/jpegs", function(data, status){
+                //     jpegs=data;
+                // });
             }
             // setInterval(function(){get_jpegs()},10000)
             get_jpegs();
             function refresh_jpeg() {
                 seconds=seconds+1;
 
-                if(jpegs.length>0&&live_video==false) {
+                if(live_video==false&&img_loading==false) {
+                    img_loading=true;
     
-                    image_ticks=image_ticks+1;
-                    if(seconds%100==0||current_jpeg==null) {
-                        random_jpeg=jpegs[Math.floor(Math.random()*jpegs.length)]
-                        current_jpeg=random_jpeg;
-                        img_loading=true;
-                        cam.src=current_jpeg
-                    } else {
+                    // image_ticks=image_ticks+1;
+                    // if(seconds%100==0||current_jpeg==null) {
+                    //     random_jpeg=jpegs[Math.floor(Math.random()*jpegs.length)]
+                    //     current_jpeg=random_jpeg;
+                    //     img_loading=true;
+                    //     cam.src=current_jpeg
+                    // } else {
 
-                        if(img_loading==false) {
-                            img_loading=true;
-                            cam.src=current_jpeg+"?uniq="+Math.random()*10000
-                        }
-                    }
+                    //     if(img_loading==false) {
+                    //         img_loading=true;
+                    //         cam.src=current_jpeg+"?uniq="+Math.random()*10000
+                    //     }
+                    // }
+                    cam.src="/security_cameras/feed?u="+Math.random()*10000;
                     
     
                 }

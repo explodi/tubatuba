@@ -68,7 +68,12 @@ class SecurityCamerasController < ApplicationController
             end
             redirect_to @camera.last_camera_image_url
         else
-            FindNewCurrentCameraJob.perform_later 
+            if Rails.env.production?
+                FindNewCurrentCameraJob.perform_later 
+            else
+                FindNewCurrentCameraJob.perform_now 
+
+            end
             render :plain => "WAIT"
 
         end
