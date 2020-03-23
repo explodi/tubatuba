@@ -10,10 +10,10 @@ class SecurityCamera < ApplicationRecord
     def last_camera_image
         last_timestamp=0
         first_timestamp=DateTime.now.to_i
-        puts self.camera_image_dir
+        # puts self.camera_image_dir
         image_files= Dir.entries(self.camera_image_dir)
         image_files.each do |file|
-            puts file.inspect
+            # puts file.inspect
             timestamp=file.split(".").first.to_i
             if timestamp!=0 && timestamp>last_timestamp
                 last_timestamp=timestamp
@@ -22,7 +22,7 @@ class SecurityCamera < ApplicationRecord
                 first_timestamp=timestamp
             end
         end
-        puts "[total files] #{image_files.count}"
+        # puts "[total files] #{image_files.count}"
         if image_files.count>1000
             old_file_path="#{self.camera_image_dir}/#{first_timestamp}.jpg"
             puts "[delete old image] #{old_file_path}"
