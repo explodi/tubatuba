@@ -16,7 +16,7 @@ class PingLivestreamJob < ApplicationJob
       rescue => e
         puts "#{e.message}"
       end
-      seconds_ago=DateTime.now.to_i-livestream.last_ping.to_i
+      seconds_ago=DateTime.now.to_i-@livestream.last_ping.to_i
       puts seconds_ago.inspect
       if(seconds_ago>60)
         @livestream.update_attribute(:ended,true) 
