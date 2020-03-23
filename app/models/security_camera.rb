@@ -42,6 +42,7 @@ class SecurityCamera < ApplicationRecord
         return dir
     end
     def save_image
+        puts "[save image] #{self.ip_str}"
         tmp_dir=Rails.root.join("tmp")
         if(File.directory?(tmp_dir)==false)
             FileUtils.mkdir_p(tmp_dir)
@@ -61,9 +62,11 @@ class SecurityCamera < ApplicationRecord
             self.update_attribute(:last_seen,DateTime.now)
             FileUtils.rm(tmp_path)
             REDIS.del("screenshot:timer")
+            self.update_attribute(:error_count,0)  
 
             return true
-        rescue => e            
+        rescue => e          
+            self.update_attribute(:error_count,self.error_count+1)  
             puts e.message
             return false
         end
