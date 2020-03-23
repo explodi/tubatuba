@@ -3,6 +3,8 @@
 
 <html>
     <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
         <script src="/warp.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -57,6 +59,8 @@
                 width:200px;
                 right:auto;
                 text-align: left;;
+                top:-10px !important;
+                left:-40px !important;
             }
             #svg-element {
                 width: 100%;
@@ -95,6 +99,55 @@
                 object-fit: cover; 
                 width: auto;
                 height: auto;
+            }
+            @keyframes flickerAnimation {
+  0%   { opacity:0.2; }
+  40% { opacity:1; }
+  60% { opacity:1; }
+  
+  100% { opacity:0.2; }
+}
+@-o-keyframes flickerAnimation{
+  0%   { opacity:0.2; }
+  40% { opacity:1; }
+  60% { opacity:1; }
+  
+  100% { opacity:0.2; }
+}
+@-moz-keyframes flickerAnimation{
+  0%   { opacity:0.2; }
+  40% { opacity:1; }
+  60% { opacity:1; }
+  
+  100% { opacity:0.2; }
+}
+
+.animate-flicker {
+   -webkit-animation: flickerAnimation 1s infinite;
+   -moz-animation: flickerAnimation 1s infinite;
+   -o-animation: flickerAnimation 1s infinite;
+    animation: flickerAnimation 1s infinite;
+}
+            #live-indicator {
+                display:none;
+                position:fixed;
+                right:30px;
+                top:40px;
+                z-index:99999;
+                font-size:30px;
+                background-color:rgba(255,0,0,0.8);
+                color:white;
+                font-weight:800;
+
+  transition-timing-function: ease;
+  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+                   -webkit-animation: flickerAnimation 8s infinite;
+   -moz-animation: flickerAnimation 2s infinite;
+   -o-animation: flickerAnimation 2s infinite;
+    animation: flickerAnimation 2s infinite;
+
+                padding: 10px 8px;
             }
             #cam {
                 position: fixed;
@@ -187,7 +240,9 @@
     <video id="video" autoplay muted></video>
 
         </div>
-
+        <div id="live-indicator">
+            EN VIVO
+        </div>
         <script>
             var jpegs=[]
             var seconds=0
@@ -238,7 +293,7 @@
 
                             if(new_live_state) {
                                  console.log("video show");
-
+                                $("#live-indicator").fadeIn();
                                 $("#cam").hide();
                                 $("#svg-container").addClass('live');
                                 $("#video-container").fadeIn();
@@ -260,6 +315,8 @@
                                 
                             
                             } else {
+                                                                $("#live-indicator").fadeOut();
+
                                 console.log("video hide");
                                 $("#cam").show();
                                 $("#svg-container").removeClass('live');
