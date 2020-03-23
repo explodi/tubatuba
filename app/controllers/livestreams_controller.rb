@@ -6,6 +6,12 @@ class LivestreamsController < ApplicationController
         @user_ip=request.ip if request.ip
         @user_ip=request.env['HTTP_X_FORWARDED_FOR'] if request.env['HTTP_X_FORWARDED_FOR'] 
         @user_ip=request.env['HTTP_CF_CONNECTING_IP'] if request.env['HTTP_CF_CONNECTING_IP'] 
+        ping_key="ping:stream:timer"
+        if REDIS.exists(ping_key)==false
+            REDIS.set(ping_key,"1")
+            REDIS.expire(ping_key,60)
+            PingLivestreamJob.perform_later
+        end
         if @user_ip
             # puts @user_ip
             REDIS.sadd("listener_ips",@user_ip)
