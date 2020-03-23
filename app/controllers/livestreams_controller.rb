@@ -3,10 +3,10 @@ class LivestreamsController < ApplicationController
     def update
         puts params.inspect
 
-        @livestream=Livestream.find_or_create_by({:started=>true,:ended=>false})
-        @livestream.uuid=SecureRandom.uuid if !@livestream.uuid
-        @livestream.last_ping=DateTime.now
-        @livestream.save
+        # @livestream=Livestream.find_or_create_by({:started=>true,:ended=>false})
+        # @livestream.uuid=SecureRandom.uuid if !@livestream.uuid
+        # @livestream.last_ping=DateTime.now
+        # @livestream.save
 
         render :json=>true
 
