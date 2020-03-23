@@ -9,7 +9,7 @@ class FindNewCurrentCameraJob < ApplicationJob
       puts "[found camera] #{@random_camera.id}"
       REDIS.set("current:camera",@random_camera.id) 
       REDIS.set("camera:timer","1")
-      REDIS.expire("camera:timer",60)
+      REDIS.expire("camera:timer",600)
       
     end
   end
