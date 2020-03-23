@@ -57,28 +57,27 @@ class SecurityCamera < ApplicationRecord
             #     file.puts f.read
             # end
             # }
-            wget_command="wget #{self.image_url} --tries=1 --timeout=10 -O #{tmp_path}"
+            final_path="#{self.camera_image_dir}/#{DateTime.now.to_i.to_s}.jpg"
+
+            wget_command="wget #{self.image_url} --tries=1 --timeout=10 -O #{final_path}"
             puts wget_command
-            if system(wget_command)&&File.file?(tmp_path)
+            if system(wget_command)&&File.file?(final_path)
 
-                final_path="#{self.camera_image_dir}/#{DateTime.now.to_i.to_s}.jpg"
-                convert_command="convert #{tmp_path} -resize 1920x1080^ -gravity center -quality 75 #{final_path}"
-                puts "[convert] #{convert_command}"
-                if system(convert_command)&&File.file?(final_path)
-                    puts "[convert] ok"
-                    self.update_attribute(:last_seen,DateTime.now)
-                    FileUtils.rm(tmp_path)
-                    REDIS.del("screenshot:timer")
-                    self.update_attribute(:error_count,0)  
-                    return true
-                else
-                    self.update_attribute(:error_count,self.error_count+1)  
-                    puts "[convert] command failed"
-                    return false 
-
-                end
+                # convert_command="convert #{tmp_path} -resize 1920x1080^ -gravity center -quality 75 #{final_path}"
+                # puts "[convert] #{convert_command}"
+                # if system(convert_command)&&File.file?(final_path)
+                #     puts "[convert] ok"
+                self.update_attribute(:last_seen,DateTime.now)
+                # FileUtils.rm(tmp_path)
+                REDIS.del("screenshot:timer")
+                self.update_attribute(:error_count,0)  
+                return true
+            
             else
                 puts "[wget] fails"
+                self.update_attribute(:error_count,self.error_count+1)  
+                puts "[convert] command failed"
+                return false 
             end
         rescue => e          
             self.update_attribute(:error_count,self.error_count+1)  
