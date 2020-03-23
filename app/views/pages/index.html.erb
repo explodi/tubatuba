@@ -79,11 +79,12 @@
                 z-index: 99999;
             }
             #video-container {
-                position: fixed;
-                left: 0;
-                top:0;
-                right: 0;
-                bottom: 0;
+    position: absolute;
+        
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
                 z-index: 99993;
 
             }
@@ -99,6 +100,14 @@
                 object-fit: cover; 
                 width: auto;
                 height: auto;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                margin: auto;
+                min-height: 50%;
+                min-width: 50%;
             }
             @keyframes flickerAnimation {
   0%   { opacity:0.2; }

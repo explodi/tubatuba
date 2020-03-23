@@ -7,7 +7,7 @@ class LivestreamsController < ApplicationController
         @user_ip=request.env['HTTP_X_FORWARDED_FOR'] if request.env['HTTP_X_FORWARDED_FOR'] 
         @user_ip=request.env['HTTP_CF_CONNECTING_IP'] if request.env['HTTP_CF_CONNECTING_IP'] 
         if @user_ip
-            puts @user_ip
+            # puts @user_ip
             REDIS.sadd("listener_ips",@user_ip)
             @total_listeners=REDIS.scard("listener_ips")
             REDIS.expire("listener_ips",600)
