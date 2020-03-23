@@ -190,9 +190,12 @@
             let offset = 0
             function animate()
             {
-                warp.transform(([ x, y, oy ]) => [ x, oy + 4 * Math.sin(x / 8 + offset), oy ])
-                offset += 0.02
-                window.requestAnimationFrame(animate)
+                if(!live_video) {
+                    warp.transform(([ x, y, oy ]) => [ x, oy + 4 * Math.sin(x / 8 + offset), oy ])
+                    offset += 0.02
+                    window.requestAnimationFrame(animate)
+                }
+        
             }
         
             animate()
