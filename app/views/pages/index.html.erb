@@ -315,6 +315,10 @@
                 img_loading=false;	
                 console.log("cam load")
             };
+            cam.onerror = function () {
+                img_loading=false;	
+                console.log("cam load error")
+            };
             function get_live() {
                 
                 if(busy==false) {
