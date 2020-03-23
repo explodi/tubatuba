@@ -59,7 +59,7 @@ class SecurityCamera < ApplicationRecord
             # }
             final_path="#{self.camera_image_dir}/#{DateTime.now.to_i.to_s}.jpg"
 
-            wget_command="wget #{self.image_url} --tries=1 --timeout=10 -O #{final_path}"
+            wget_command="wget #{self.image_url} --tries=1 --timeout=20 -O #{final_path}"
             # puts wget_command
             if system(wget_command)&&File.file?(final_path)
 
