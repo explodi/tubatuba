@@ -50,6 +50,7 @@ class SecurityCamera < ApplicationRecord
         tmp_path="#{tmp_dir}/#{SecureRandom.hex}.jpg"
         puts tmp_path
         begin
+            puts "[open] #{self.image_url}"
             open(self.image_url) {|f|
             File.open(tmp_path,"wb") do |file|
                 file.puts f.read
@@ -58,13 +59,19 @@ class SecurityCamera < ApplicationRecord
 
             final_path="#{self.camera_image_dir}/#{DateTime.now.to_i.to_s}.jpg"
             convert_command="convert #{tmp_path} -resize 1920x1080^ -gravity center -quality 75 #{final_path}"
-            return false if !system(convert_command)
-            self.update_attribute(:last_seen,DateTime.now)
-            FileUtils.rm(tmp_path)
-            REDIS.del("screenshot:timer")
-            self.update_attribute(:error_count,0)  
-
-            return true
+            puts "[convert] #{convert_command}"
+            if system(convert_command)
+                return false 
+                self.update_attribute(:last_seen,DateTime.now)
+                FileUtils.rm(tmp_path)
+                REDIS.del("screenshot:timer")
+                self.update_attribute(:error_count,0)  
+    
+                return true
+            else
+                self.update_attribute(:error_count,self.error_count+1)  
+                puts "[convert] command failed"
+            end
         rescue => e          
             self.update_attribute(:error_count,self.error_count+1)  
             puts e.message
