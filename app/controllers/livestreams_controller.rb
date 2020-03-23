@@ -29,7 +29,7 @@ class LivestreamsController < ApplicationController
         response.set_header('Location', "hack-the-planet")
         REDIS.set("live_buffering","1")
         REDIS.del("live_online")
-        REDIS.expire("live_buffering",60)
+        REDIS.expire("live_buffering",30)
         render :plain => "", :status => 304
     end
     def destroy
