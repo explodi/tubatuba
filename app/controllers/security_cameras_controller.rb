@@ -66,7 +66,7 @@ class SecurityCamerasController < ApplicationController
                     CameraImageJob.perform_later @camera
                 else
                     CameraImageJob.perform_now @camera
-                endr
+                end
             end
             redirect_to @camera.last_camera_image_url
         else
