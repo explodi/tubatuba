@@ -49,7 +49,7 @@ class SecurityCamera < ApplicationRecord
             FileUtils.mkdir_p(tmp_dir)
         end
         tmp_path="#{tmp_dir}/#{SecureRandom.hex}.jpg"
-        puts tmp_path
+        # puts tmp_path
         begin
             puts "[open] #{self.image_url}"
             # open(self.image_url) {|f|
@@ -60,7 +60,7 @@ class SecurityCamera < ApplicationRecord
             final_path="#{self.camera_image_dir}/#{DateTime.now.to_i.to_s}.jpg"
 
             wget_command="wget #{self.image_url} --tries=1 --timeout=10 -O #{final_path}"
-            puts wget_command
+            # puts wget_command
             if system(wget_command)&&File.file?(final_path)
 
                 # convert_command="convert #{tmp_path} -resize 1920x1080^ -gravity center -quality 75 #{final_path}"
