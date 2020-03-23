@@ -7,7 +7,11 @@ class PingLivestreamJob < ApplicationJob
     require 'open-uri'
     @livestream=Livestream.where({:started=>true,:ended=>false}).each do |livestream|
       seconds_ago=DateTime.now.to_i-livestream.last_ping.to_i
-      @livestream.update_attribute(:ended,true) if(seconds_ago>60)
+      if(seconds_ago>60)
+        @livestream.update_attribute(:ended,true) 
+        REDIS.del("live_buffering")
+        REDIS.del("live_online")
+      end
     end
    
     puts "[PingLivestreamJob] stop"

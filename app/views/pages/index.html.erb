@@ -269,6 +269,7 @@
             var busy=false;
             var logo_shown=false;
             var hls = new Hls();
+            var player_play=false;
 
             var video = document.getElementById('video');
             if(Hls.isSupported()) {
@@ -294,6 +295,20 @@
                     video.play();
 
                 }
+            });
+            video.addEventListener('play', function() {
+                console.log('play')
+                player_play=true;
+            });
+            video.addEventListener('pause', function() {
+                console.log('pause')
+                player_play=false;
+            });
+            video.addEventListener('waiting', function() {
+                console.log('waiting')
+            });
+            video.addEventListener('stalled', function() {
+                console.log('stalled')
             });
             cam.onload = function () {
                 img_loading=false;	
@@ -340,7 +355,7 @@
                                 $("#svg-container").removeClass('live');
                                 $("#video-container").fadeOut();
                                 
-                                video.pause();
+                               // video.pause();
 
                             }
                             if(logo_shown==false) {
