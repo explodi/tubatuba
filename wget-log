@@ -1,0 +1,10 @@
+--2020-03-23 16:41:01--  http://96.66.143.131:9000/cam_1.jpg
+Connecting to 96.66.143.131:9000... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 165826 (162K) [image/jpeg]
+Saving to: ‘/Users/cristian/tubatuba/public/cameras/7335b9c6-a999-4f3c-8ae4-6fb29e60a426/1584992461.jpg’
+
+                            /Users/cristian/tubatuba/public/cameras/  78%[================================================================================================================================>                                    ] 126.91K  69.2KB/s               /Users/cristian/tubatuba/public/cameras/7335b9c6-a999-4f3c-8ae4-6fb2 100%[====================================================================================================================================================================>] 161.94K  85.9KB/s    in 1.9s    
+
+2020-03-23 16:41:03 (85.9 KB/s) - ‘/Users/cristian/tubatuba/public/cameras/7335b9c6-a999-4f3c-8ae4-6fb29e60a426/1584992461.jpg’ saved [165826/165826]
+
