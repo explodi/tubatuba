@@ -30,4 +30,5 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /public/audio/*.mp3
-/radio/*mp3
+/radio/*
+public/cameras

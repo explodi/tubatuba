@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_23_034045) do
+ActiveRecord::Schema.define(version: 2020_03_23_091043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,14 @@ ActiveRecord::Schema.define(version: 2020_03_23_034045) do
     t.boolean "started"
     t.boolean "ended"
     t.datetime "last_ping"
+  end
+
+  create_table "security_cameras", force: :cascade do |t|
+    t.string "ip_str"
+    t.integer "port"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "uuid"
   end
 
   create_table "songs", force: :cascade do |t|

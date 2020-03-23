@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   post "/livestreams/create"=>"livestreams#create"
   post "/livestreams/destroy"=>"livestreams#destroy"
   post "/livestreams/update"=>"livestreams#update"
-
+  get "/security_cameras/feed" => "security_cameras#feed"
   get "/live"=>"livestreams#show"
   root :to => "pages#index"
   match '*any', to: 'pages#not_found', via: [:get, :post]
