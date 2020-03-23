@@ -18,22 +18,26 @@ class SecurityCamerasController < ApplicationController
             @last_seen_camera=SecurityCamera.order("last_seen DESC").first
             if @last_seen_camera 
                 puts @last_seen_camera.inspect
-                if @last_seen_camera.save_image
-                    REDIS.set(current_camera_key,@last_seen_camera.id)
-                    @camera=@last_seen_camera
-                else
-                    REDIS.del(current_camera_key)
-                end
+                # if @last_seen_camera.save_image
+                #     REDIS.set(current_camera_key,@last_seen_camera.id)
+                @camera=@last_seen_camera
+                # else
+                #     REDIS.del(current_camera_key)
+                # end
+                FindNewCurrentCameraJob.perform_later 
+
             end
         end
         if !@camera
             offset = rand(SecurityCamera.count) 
             @random_camera=SecurityCamera.offset(offset).first
-            puts @random_camera.inspect
-            if @random_camera.save_image
+            # puts @random_camera.inspect
+            # if @random_camera.save_image
                 @camera=@random_camera
-                REDIS.set(current_camera_key,@random_camera.id)
-            end
+                # REDIS.set(current_camera_key,@random_camera.id)
+            # end
+            FindNewCurrentCameraJob.perform_later 
+
         end
         if !REDIS.exists(camera_cycle_timer)
             if Rails.env.production?
