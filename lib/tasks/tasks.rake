@@ -9,13 +9,13 @@ task :import_old_cameras => :environment do
   old_cameras=JSON.parse(open(Rails.root.join("public","import_cameras.json")).read)
   old_cameras.each do |url|
       uri=URI(url)
-      @cam=SecurityCamera.find_or_create_by({:ip_str=>uri.host,:port=>uri.port})
-      if !@cam.uuid
-        @cam.uuid=SecureRandom.uuid 
+      if SecurityCamera.where({:ip_str=>match[uri.host]}).count==0
+
+        @cam=SecurityCamera.new({:ip_str=>uri.host,:port=>uri.port,:uuid=>SecureRandom.uuid})
         @cam.save
+        CameraImageJob.perform_later @cam
+        puts @cam.inspect
       end
-      CameraImageJob.perform_later @cam
-      puts @cam.inspect
   end
 end
 task :refresh_all_cameras => :environment do
