@@ -283,6 +283,9 @@
                 console.log('MANIFEST_PARSED')
                 video.play();
             });
+              hls.on(Hls.Events.LEVEL_SWITCHED,function() {
+                console.log('LEVEL_SWITCHED')
+            });
             video.addEventListener('loadedmetadata',function() {
                 console.log('loadedmetadata')
                 if(Hls.isSupported()) {
