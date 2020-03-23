@@ -206,7 +206,8 @@
             function get_live() {
                 if(busy==false) {
                     busy=true;
-                    $.getJSON("/live?time="+Math.random()*1000, function(new_live_state, status){
+                    try {
+                                            $.getJSON("/live?time="+Math.random()*1000, function(new_live_state, status){
                         busy=false;
                         if(new_live_state!=live_video) {
                             live_video=new_live_state;
@@ -266,7 +267,12 @@
            
     
     
-                    }).error(function() { busy=false })
+                    })
+                    } catch(e) {
+                        console.log(e);
+                        busy=false;
+                    }
+
                 }
 
             }
