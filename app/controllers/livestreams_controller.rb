@@ -1,6 +1,8 @@
 class LivestreamsController < ApplicationController
     skip_before_action :verify_authenticity_token
     def update
+        puts params.inspect
+
         @livestream=Livestream.find_or_create_by({:started=>true,:ended=>false})
         @livestream.uuid=SecureRandom.uuid if !@livestream.uuid
         @livestream.last_ping=DateTime.now
