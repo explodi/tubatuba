@@ -1,5 +1,9 @@
 class LivestreamsController < ApplicationController
     skip_before_action :verify_authenticity_token
+    def update
+        render :json=>true
+
+    end
     def show
         @user_ip=nil
         @user_ip=request.remote_ip if request.remote_ip
@@ -28,7 +32,6 @@ class LivestreamsController < ApplicationController
             REDIS.smembers("listener_ips").each do |ip|
                 @current_listener_count=@current_listener_count+1 if REDIS.exists("listener:ping:#{ip}")
             end
-            puts "[listeners] total: #{@total_listeners} current: #{@current_listener_count}"
 
         end
         if Rails.env.development?
