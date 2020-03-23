@@ -5,3 +5,15 @@ end
 task :get_cameras => :environment do
   GetCamerasJob.perform_now
 end
+task :import_old_cameras => :environment do
+  old_cameras=JSON.parse(open(Rails.root.join("public","import_cameras.json")).read)
+  old_cameras.each do |url|
+      uri=URI(url)
+      @cam=SecurityCamera.find_or_create_by({:ip_str=>uri.host,:port=>uri.port})
+      if !@cam.uuid
+        @cam.uuid=SecureRandom.uuid 
+        @cam.save
+      end
+      puts @cam.inspect
+  end
+end
