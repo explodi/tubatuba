@@ -1,9 +1,12 @@
 class LivestreamsController < ApplicationController
     skip_before_action :verify_authenticity_token
     def show
-        puts request.remote_ip if request.remote_ip
-        puts request.ip if request.ip
-        puts request.env['HTTP_CF_CONNECTING_IP'] if request.env['HTTP_CF_CONNECTING_IP'] 
+        @user_ip=nil
+        @user_ip=request.remote_ip if request.remote_ip
+        @user_ip=request.ip if request.ip
+        @user_ip=request.env['HTTP_X_FORWARDED_FOR'] if request.env['HTTP_X_FORWARDED_FOR'] 
+        @user_ip=request.env['HTTP_CF_CONNECTING_IP'] if request.env['HTTP_CF_CONNECTING_IP'] 
+        puts @user_ip if @user_ip
         if Rails.env.development?
             require 'open-uri'
             render :plain=>open("http://tubatuba.net/live").read
