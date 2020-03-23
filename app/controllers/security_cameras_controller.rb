@@ -66,10 +66,9 @@ class SecurityCamerasController < ApplicationController
                     CameraImageJob.perform_later @camera
                 else
                     CameraImageJob.perform_now @camera
-                end
+                endr
             end
-            render :layout => false
-
+            redirect_to @camera.last_camera_image_url
         else
             render :plain => "WAIT"
 
