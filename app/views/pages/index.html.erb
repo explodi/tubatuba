@@ -216,7 +216,7 @@
             video.addEventListener('loadedmetadata',function() {
                 console.log('loadedmetadata')
                 if(Hls.isSupported()) {
-                    
+
                 } else {
                     video.play();
 
@@ -228,9 +228,7 @@
             function get_live() {
                 if(busy==false) {
                     busy=true;
-                    try {
-                                            $.getJSON("/live?time="+Math.random()*1000, function(new_live_state, status){
-                        busy=false;
+                    $.ajax({url:"/live?time="+Math.random()*1000}).done(function(new_live_state){
                         if(new_live_state!=live_video) {
                             live_video=new_live_state;
                             console.log("[live]",live_video);
@@ -273,11 +271,10 @@
            
     
     
-                    })
-                    } catch(e) {
-                        console.log(e);
+                    }).always(function() {
                         busy=false;
-                    }
+                    });
+                 
 
                 }
 
