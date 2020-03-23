@@ -9,8 +9,12 @@ class LivestreamsController < ApplicationController
         ping_key="ping:stream:timer"
         if REDIS.exists(ping_key)==false
             REDIS.set(ping_key,"1")
-            REDIS.expire(ping_key,60)
-            PingLivestreamJob.perform_later
+            REDIS.expire(ping_key,10)
+            if Rails.env.development?
+                PingLivestreamJob.perform_now
+            else
+                PingLivestreamJob.perform_later
+            end
         end
         if @user_ip
             # puts @user_ip
@@ -50,6 +54,7 @@ class LivestreamsController < ApplicationController
         rails "BadKey" if params[:name]!="911ChicoTerry"
         @livestream=Livestream.find_or_create_by({:started=>true,:ended=>false})
         @livestream.uuid=SecureRandom.uuid if !@livestream.uuid
+        @livestream.last_ping=DateTime.now if !@livestream.last_ping
         @livestream.save
         puts "[livestream url key] #{@livestream.uuid}"
         response.set_header('Location', "hack-the-planet")
