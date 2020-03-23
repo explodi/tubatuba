@@ -10,7 +10,7 @@ class PingLivestreamJob < ApplicationJob
       begin 
         video_playlist=open("https://video.tubatuba.net/hack-the-planet/index.m3u8").read
         puts video_playlist.inspect
-        @livestream.update_attribute({:last_ping=>DateTime.now})
+        @livestream.update_attribute(:last_ping,DateTime.now)
         puts @livestream.inspect
       rescue => e
         puts "#{e.message}"
