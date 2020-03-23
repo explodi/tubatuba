@@ -18,3 +18,9 @@ task :import_old_cameras => :environment do
       puts @cam.inspect
   end
 end
+task :refresh_all_cameras => :environment do
+  SecurityCamera.all.each do |cam|
+    CameraImageJob.perform_later cam
+
+  end
+end
