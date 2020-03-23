@@ -14,6 +14,7 @@ task :import_old_cameras => :environment do
         @cam.uuid=SecureRandom.uuid 
         @cam.save
       end
+      CameraImageJob.perform_later @cam
       puts @cam.inspect
   end
 end
