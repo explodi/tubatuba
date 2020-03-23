@@ -50,7 +50,7 @@ class SecurityCamerasController < ApplicationController
             #     end
             # end
             if !REDIS.exists(camera_cycle_timer)
-                REDIS.set(camera_cycle_timer.1)
+                REDIS.set(camera_cycle_timer,1)
                 REDIS.expire(camera_cycle_timer,300)
                 if Rails.env.production?
                     FindNewCurrentCameraJob.perform_later 
