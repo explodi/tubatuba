@@ -12,7 +12,7 @@ class LivestreamsController < ApplicationController
                 render :json=>true
             elsif Livestream.exists?({:started=>true,:ended=>false})
                 REDIS.set("live_online","1")
-                REDIS.expire("live_online",100)
+                REDIS.expire("live_online",60)
                 render :json=>true
             else
                 render :json=>false
