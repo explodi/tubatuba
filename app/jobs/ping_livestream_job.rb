@@ -8,7 +8,7 @@ class PingLivestreamJob < ApplicationJob
     @livestream=Livestream.where({:started=>true,:ended=>false}).first
     if @livestream
       begin 
-        video_playlist=open("https://video.tubatuba.net/hack-the-planet/index.m3u8").read
+        video_playlist=open("https://hls.tubatuba.net/hack-the-planet/index.m3u8").read
         puts video_playlist.inspect
         @livestream.last_ping=DateTime.now
         @livestream.save
