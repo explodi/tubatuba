@@ -14,7 +14,6 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'mini_racer', platforms: :ruby
 gem 'bcrypt', '~> 3.1.7'
 gem 'rails_12factor', group: :production
-gem 'selenium-webdriver'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -30,6 +29,8 @@ gem 'rest-client'
 gem 'resque'
 gem 'ruby-mpd'
 gem 'mimemagic'
+gem 'webpacker'
+gem 'react-rails'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

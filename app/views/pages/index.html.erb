@@ -158,19 +158,20 @@
 
                 padding: 10px 8px;
             }
-            #cam {
+            .cam {
                 position: fixed;
-                height:120%;
-                width: 120%;
+                height:140%;
+                width: 140%;
                 margin-top:-20%;
-                margin-left:-20%
-                object-fit: contain; 
+                margin-left:-20%;
+                object-fit: cover;
                 object-position: 50% 50%; 
-                opacity: 0.1;
+                opacity: 0;
                 z-index: 99990;
-                display: none;
-                  -webkit-animation: hue 60s infinite;
+                  -webkit-animation: hue 600s infinite;
  -webkit-filter: saturate(10);
+ 	animation: zoominoutsinglefeatured 200s forwards;
+
 
             }
             @-webkit-keyframes hue {
@@ -178,12 +179,24 @@
   50% { -webkit-filter: hue-rotate(180deg); }
 }
 
-
+@keyframes zoominoutsinglefeatured {
+    0% {
+        transform: scale(1,1);
+    }
+    50% {
+        transform: scale(1.2,1.2);
+    }
+    100% {
+        transform: scale(1,1);
+    }
+}
         </style>
        
     </head>
     <body>
-        <img id="cam"/>
+        <img id="cam_a" class="cam"/>
+        <img id="cam_b" class="cam"/>
+
         <div id="svg-container">
        <%=render 'layouts/htp_logo'%>
        </div>
@@ -275,7 +288,8 @@
             var seconds=0
             var current_jpeg;
             var image_ticks=0;
-            var cam = document.getElementById('cam');
+           
+           
             var img_loading=false;
             var live_video=null;
             var busy=false;
@@ -322,14 +336,7 @@
             video.addEventListener('stalled', function() {
                 console.log('stalled')
             });
-            cam.onload = function () {
-                img_loading=false;	
-                console.log("cam load")
-            };
-            cam.onerror = function () {
-                img_loading=false;	
-                console.log("cam load error")
-            };
+        
             function get_live() {
                 
                 if(busy==false) {
@@ -366,7 +373,7 @@
                                 
                             
                             } else {
-                                                                $("#live-indicator").fadeOut();
+                                $("#live-indicator").fadeOut();
 
                                 console.log("video hide");
                                 $("#cam").show();
@@ -409,35 +416,13 @@
             }
             // setInterval(function(){get_jpegs()},10000)
             get_jpegs();
-            function refresh_jpeg() {
-                seconds=seconds+1;
-
-                if(live_video==false&&img_loading==false) {
-                    img_loading=true;
-    
-                    // image_ticks=image_ticks+1;
-                    // if(seconds%100==0||current_jpeg==null) {
-                    //     random_jpeg=jpegs[Math.floor(Math.random()*jpegs.length)]
-                    //     current_jpeg=random_jpeg;
-                    //     img_loading=true;
-                    //     cam.src=current_jpeg
-                    // } else {
-
-                    //     if(img_loading==false) {
-                    //         img_loading=true;
-                    //         cam.src=current_jpeg+"?uniq="+Math.random()*10000
-                    //     }
-                    // }
-                    cam.src="/security_cameras/feed?u="+Math.random()*10000;
-                    
-    
-                }
-            }
+           
             setInterval(function(){get_live()},1000)
 
             setInterval(function(){refresh_jpeg()},1000)
-            refresh_jpeg();
             get_live();
         </script>
+            <%= javascript_include_tag 'cameras', 'data-turbolinks-track': 'reload' %>
+
     </body>
 </html>
