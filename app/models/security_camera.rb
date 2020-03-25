@@ -64,7 +64,7 @@ class SecurityCamera < ApplicationRecord
             # puts wget_command
             if File.file?(tmp_path)
 
-                convert_command="convert #{tmp_path} -resize 1080x1080^ -gravity center -crop  -quality 75 #{final_path}"
+                convert_command="convert #{tmp_path} -strip -interlace Plane -gaussian-blur 0.05 -resize 1080x1080^ -gravity center -extent 1080x1080 -quality 75 #{final_path}"
                 puts "[convert] #{convert_command}"
                 if system(convert_command)&&File.file?(final_path)
                     puts "[convert] ok"
