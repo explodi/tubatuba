@@ -59,19 +59,24 @@ class SecurityCamera < ApplicationRecord
             # }
             final_path="#{self.camera_image_dir}/#{DateTime.now.to_i.to_s}.jpg"
 
-            wget_command="wget #{self.image_url} --tries=1 --timeout=20 -O #{final_path}"
+            # wget_command="wget #{self.image_url} --tries=1 --timeout=20 -O #{final_path}"
+            Down.download(self.image_url,destination:tmp_path)
             # puts wget_command
-            if system(wget_command)&&File.file?(final_path)
+            if File.file?(tmp_path)
 
-                # convert_command="convert #{tmp_path} -resize 1920x1080^ -gravity center -quality 75 #{final_path}"
-                # puts "[convert] #{convert_command}"
-                # if system(convert_command)&&File.file?(final_path)
-                #     puts "[convert] ok"
-                self.update_attribute(:last_seen,DateTime.now)
-                # FileUtils.rm(tmp_path)
-                REDIS.del("screenshot:timer")
-                self.update_attribute(:error_count,0)  
-                return true
+                convert_command="convert #{tmp_path} -resize 1080x1080^ -gravity center -crop  -quality 75 #{final_path}"
+                puts "[convert] #{convert_command}"
+                if system(convert_command)&&File.file?(final_path)
+                    puts "[convert] ok"
+                    self.update_attribute(:last_seen,DateTime.now)
+                    # FileUtils.rm(tmp_path)
+                    REDIS.del("screenshot:timer")
+                    self.update_attribute(:error_count,0)  
+                    return true
+                else
+                    puts "[convert] fail"
+                    return false
+                end
             
             else
                 puts "[wget] fails"

@@ -31,6 +31,7 @@ gem 'ruby-mpd'
 gem 'mimemagic'
 gem 'webpacker'
 gem 'react-rails'
+gem "down", "~> 5.0"
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
