@@ -34,7 +34,7 @@ ADD Gemfile /tubatuba/Gemfile
 ADD Gemfile.lock /tubatuba/Gemfile.lock
 RUN bundle install
 ADD package.json /tubatuba/package.json
-ADD package-lock.json /tubatuba/package-lock.json
+ADD yarn.lock /tubatuba/yarn.lock
 RUN yarn install --check-files
 RUN yarn install
 ADD . /tubatuba
