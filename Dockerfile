@@ -34,9 +34,9 @@ ADD Gemfile /tubatuba/Gemfile
 ADD Gemfile.lock /tubatuba/Gemfile.lock
 RUN bundle install
 ADD package.json /tubatuba/package.json
+ADD . /tubatuba
 RUN yarn install --check-files
 RUN yarn install
-ADD . /tubatuba
 RUN bundle exec rails assets:precompile
 RUN rm -rf /tubatuba/public/index.html
 EXPOSE 3000
