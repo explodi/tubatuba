@@ -11,36 +11,8 @@ class LivestreamsController < ApplicationController
         render :json=>true
 
     end
-    def show
-        @user_ip=nil
-        @user_ip=request.remote_ip if request.remote_ip
-        @user_ip=request.ip if request.ip
-        @user_ip=request.env['HTTP_X_FORWARDED_FOR'] if request.env['HTTP_X_FORWARDED_FOR'] 
-        @user_ip=request.env['HTTP_CF_CONNECTING_IP'] if request.env['HTTP_CF_CONNECTING_IP'] 
-        ping_key="ping:stream:timer"
-        if REDIS.exists(ping_key)==false
-            REDIS.set(ping_key,"1")
-            REDIS.expire(ping_key,60)
-            if Rails.env.development?
-                PingLivestreamJob.perform_now
-            else
-                PingLivestreamJob.perform_later
-            end
-        end
-        if @user_ip
-            # puts @user_ip
-            REDIS.sadd("listener_ips",@user_ip)
-            @total_listeners=REDIS.scard("listener_ips")
-            REDIS.expire("listener_ips",600)
-            @listener_ip_cache_key="listener:ping:#{@user_ip}"
-            REDIS.set(@listener_ip_cache_key,"1")
-            REDIS.expire(@listener_ip_cache_key,60)
-            @current_listener_count=0;
-            REDIS.smembers("listener_ips").each do |ip|
-                @current_listener_count=@current_listener_count+1 if REDIS.exists("listener:ping:#{ip}")
-            end
 
-        end
+    def show
         if Rails.env.development?
             require 'open-uri'
             render :plain=>open("http://tubatuba.net/live").read

@@ -7,13 +7,39 @@ class SecurityCamera < ApplicationRecord
     def last_camera_image_url
         return "/cameras/#{self.uuid}/#{last_camera_image}"
     end
+    def image_urls
+        urls=[]
+        self.image_timestamps[0..100].each do |timestamp|
+            urls.push("/cameras/#{self.uuid}/#{timestamp}.jpg")
+        end
+        return urls
+    end
+    def image_timestamps
+        last_timestamp=0
+        image_files= Dir.entries(self.camera_image_dir)
+        timestamps=[]
+        image_files.each do |file|
+            timestamp=file.split(".").first.to_i
+            if timestamp>0
+                timestamps.push(timestamp)
+            end            
+        end
+        timestamps.sort
+        while timestamps.count>500
+            old_file_path="#{self.camera_image_dir}/#{timestamps.shift}.jpg"
+            puts "[delete old image] #{old_file_path}"
+            FileUtils.rm(old_file_path)
+        end
+        timestamps.sort
+        return timestamps
+    end
     def last_camera_image
         last_timestamp=0
         first_timestamp=DateTime.now.to_i
         # puts self.camera_image_dir
         image_files= Dir.entries(self.camera_image_dir)
         image_files.each do |file|
-            # puts file.inspect
+            puts file.inspect
             timestamp=file.split(".").first.to_i
             if timestamp!=0 && timestamp>last_timestamp
                 last_timestamp=timestamp

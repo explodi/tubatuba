@@ -4,6 +4,7 @@ var camera_elements=[document.getElementById('cam_a'),document.getElementById('c
 var current_element=0;
 var seconds=0;
 var camera_elements_loading=[]
+var camera_image_urls=[]
 for(let i=0;i<camera_elements.length;i++) {
     camera_elements[i].onload = function (e) {
         img_loading=false;	
@@ -32,9 +33,12 @@ function refresh_jpeg() {
     seconds=seconds+1;
 
     if(live_video==false&&camera_elements_loading[current_element]==false) {
-        console.log("[loading]",current_element);    
-        camera_elements_loading[current_element]=true;
-        camera_elements[current_element].src="/security_cameras/feed?u="+Math.random()*10000;
+        if(camera_image_urls.length>0) {
+            console.log("[loading]",current_element);    
+            camera_elements_loading[current_element]=true;
+            camera_elements[current_element].src=camera_image_urls.pop();
+        }
+
         
 
     }
