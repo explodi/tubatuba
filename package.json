@@ -16,7 +16,7 @@
     "@rails/webpacker": "5.0.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "prop-types": "^15.7.2",
-    "puppeteer": "1.6.0",
+    "puppeteer": "1.13.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "xvfb": "^0.2.3"
